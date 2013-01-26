@@ -1,0 +1,5 @@
+- add blindess/nausia to sunburning
+- fix combat (both offensive and defensive)
+- add config
+- add bat flying
+- mob neutrality

@@ -40,7 +40,7 @@ public class FalseBlood extends JavaPlugin {
     public void registerListeners() {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new VLoginListener(this), this);
-        pm.registerEvents(new VFoodListener(this), this);
+        pm.registerEvents(new VRestrictionsListener(this), this);
         pm.registerEvents(new VSuckListener(this), this);
         pm.registerEvents(new VDamageListener(this), this);
         pm.registerEvents(new VStakeListener(this), this);

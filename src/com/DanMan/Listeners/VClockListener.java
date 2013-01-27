@@ -33,7 +33,8 @@ public class VClockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClockMove(InventoryClickEvent evt) {
         player = (Player) evt.getWhoClicked();
-        if (Vampire.isVampire(player.getName(), plugin) && evt.getCurrentItem().getType() == Material.WATCH) {
+        Material watch = evt.getCurrentItem().getType();
+        if (Vampire.isVampire(player.getName(), plugin) && watch == Material.WATCH) {
             evt.setCancelled(true);
         }
     }
@@ -56,6 +57,7 @@ public class VClockListener implements Listener {
         }
     }
     //giving another clock after death
+
     @EventHandler
     public void onVampRespawn(PlayerRespawnEvent evt) {
         player = evt.getPlayer();

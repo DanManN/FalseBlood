@@ -6,6 +6,7 @@ package com.DanMan.Listeners;
 
 import com.DanMan.main.FalseBlood;
 import com.DanMan.main.Vampire;
+import com.DanMan.utils.GeneralUtils;
 import com.DanMan.utils.SNLMetaData;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -54,14 +55,32 @@ public class VStakeListener implements Listener {
                 //combine stake booleans
                 boolean hasWW = wSword || wAxe || wHoe || wPick || wshovel || torch || rTorchoff || rTorchon || rTorchon || fence || stick;
                 //vamp wears armor booleans
-                ItemStack boots = patak.getInventory().getBoots();
-                ItemStack pants = patak.getInventory().getLeggings();
-                ItemStack chestplate = patak.getInventory().getChestplate();
-                ItemStack helmet = patak.getInventory().getHelmet();
-                boolean missingArmor = boots == null || pants == null || chestplate == null || helmet == null;
-                if (hasWW && missingArmor) {
-                    pdefend.setHealth(0);
-                    vamp.setVampire(false);
+                ItemStack boots = pdefend.getInventory().getBoots();
+                ItemStack pants = pdefend.getInventory().getLeggings();
+                ItemStack chestplate = pdefend.getInventory().getChestplate();
+                ItemStack helmet = pdefend.getInventory().getHelmet();
+                boolean missingBoots = boots == null;
+                boolean missingPants = pants == null;
+                boolean missingChestPlate = chestplate == null;
+                boolean missingHelmet = helmet == null;
+                double percent = 0.1;
+                if (hasWW) {
+                    if (missingBoots) {
+                        percent = percent + 0.17;
+                    }
+                    if (missingPants) {
+                        percent = percent + 0.2;
+                    }
+                    if (missingChestPlate) {
+                        percent = percent + 0.3;
+                    }
+                    if (missingHelmet) {
+                        percent = percent + 0.17;
+                    }
+                    if (GeneralUtils.random(percent)) {
+                        pdefend.setHealth(0);
+                        vamp.setVampire(false);
+                    }
                 }
             }
         }
@@ -78,29 +97,52 @@ public class VStakeListener implements Listener {
                 vamp = SNLMetaData.getMetadata(pdefend, plugin);
                 //silver booleans
                 ItemStack silver = patak.getItemInHand();
-                boolean wSword = silver.getType() == Material.GOLD_SWORD;
-                boolean wAxe = silver.getType() == Material.GOLD_AXE;
-                boolean wHoe = silver.getType() == Material.GOLD_HOE;
-                boolean wPick = silver.getType() == Material.GOLD_PICKAXE;
-                boolean wshovel = silver.getType() == Material.GOLD_SPADE;
-                //combine stake booleans
-                boolean hasGW = wSword || wAxe || wHoe || wPick || wshovel;
-                //vamp wears armor booleans
-                ItemStack boots = patak.getInventory().getBoots();
-                ItemStack pants = patak.getInventory().getLeggings();
-                ItemStack chestplate = patak.getInventory().getChestplate();
-                ItemStack helmet = patak.getInventory().getHelmet();
-                boolean hasboots = boots != null; 
-                boolean haspants = pants != null; 
-                boolean haschestplate = chestplate != null; 
-                boolean hashelmet = helmet != null;
+                boolean gSword = silver.getType() == Material.GOLD_SWORD;
+                boolean gAxe = silver.getType() == Material.GOLD_AXE;
+                boolean gHoe = silver.getType() == Material.GOLD_HOE;
+                boolean gPick = silver.getType() == Material.GOLD_PICKAXE;
+                boolean gshovel = silver.getType() == Material.GOLD_SPADE;
+                boolean gBlock = silver.getType() == Material.GOLD_BLOCK;
+                boolean gIngot = silver.getType() == Material.GOLD_INGOT;
+                boolean gApple = silver.getType() == Material.GOLDEN_APPLE;
+                boolean gNugget = silver.getType() == Material.GOLD_NUGGET;
+                boolean gCarrot = silver.getType() == Material.GOLDEN_CARROT;
+                boolean gBoots = silver.getType() == Material.GOLD_BOOTS;
+                boolean gPants = silver.getType() == Material.GOLD_LEGGINGS;
+                boolean gChestPlate = silver.getType() == Material.GOLD_CHESTPLATE;
+                boolean gHelmet = silver.getType() == Material.GOLD_HELMET;
+                //combine silver booleans
+                boolean hasGW = gSword || gAxe || gHoe || gPick || gshovel || gBlock || gIngot || gApple || gNugget || gCarrot || gBoots || gPants || gChestPlate || gHelmet;
                 if (hasGW) {
-                    evt.setDamage(evt.getDamage() + 4);
-                    pdefend.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 0));
-                    if(hasboots) boots.setDurability((short)(boots.getDurability() - 15));
-                    if(haspants) pants.setDurability((short)(pants.getDurability() - 15));
-                    if(haschestplate) chestplate.setDurability((short)(chestplate.getDurability() - 15));
-                    if(hashelmet) helmet.setDurability((short)(helmet.getDurability() - 15));
+                    evt.setDamage(evt.getDamage() + 2);
+                    pdefend.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, 0));
+                    pdefend.setFireTicks(20);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onVampAttackPlayer(EntityDamageByEntityEvent evt) {
+        Entity damager = evt.getDamager();
+        Entity damaged = evt.getEntity();
+        if (damager instanceof Player && damaged instanceof Player) {
+            Player patak = (Player) damager;
+            Player pdefend = (Player) damaged;
+            if (Vampire.isVampire(patak.getName(), plugin)) {
+                vamp = SNLMetaData.getMetadata(patak, plugin);
+                //silver armor booleans
+                ItemStack boots = pdefend.getInventory().getBoots();
+                ItemStack pants = pdefend.getInventory().getLeggings();
+                ItemStack chestplate = pdefend.getInventory().getChestplate();
+                ItemStack helmet = pdefend.getInventory().getHelmet();
+                boolean hasBoots = boots != null ? (boots.getType() == Material.GOLD_BOOTS) : false;
+                boolean hasPants = pants != null ?(pants.getType() == Material.GOLD_LEGGINGS) : false;
+                boolean hasChestPlate = chestplate != null ?(chestplate.getType() == Material.GOLD_CHESTPLATE) : false;
+                boolean hasHelmet = helmet != null ?(helmet.getType() == Material.GOLD_HELMET) : false;
+                boolean hasGA = hasBoots || hasPants || hasChestPlate || hasHelmet;
+                if (hasGA) {
+                    patak.damage(1);
                 }
             }
         }

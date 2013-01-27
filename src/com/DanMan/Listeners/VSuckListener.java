@@ -6,6 +6,7 @@ package com.DanMan.Listeners;
 
 import com.DanMan.main.FalseBlood;
 import com.DanMan.main.Vampire;
+import com.DanMan.utils.GeneralUtils;
 import com.DanMan.utils.SNLMetaData;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -63,24 +64,25 @@ public class VSuckListener implements Listener {
         if (damager instanceof Player) {
             Player patak = (Player) damager;
             if (Vampire.isVampire(patak.getName(), plugin)) {
+                System.out.println("BloodSucking: " + vamp.isBloodSucking());
                 if (vamp.isBloodSucking()) {
                     vamp = SNLMetaData.getMetadata(patak, plugin);
                     if (damaged instanceof Villager) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 3);
                         patak.setSaturation(patak.getSaturation() + 4.8F);
-                        if (random(0.2)) {
+                        if (GeneralUtils.random(0.2)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
                     } else if (damaged instanceof Zombie) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 1);
                         patak.setSaturation(patak.getSaturation() + 0.2F);
-                        if (random(0.7)) {
+                        if (GeneralUtils.random(0.7)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
                     } else if (damaged instanceof Enderman) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 5);
                         patak.setSaturation(patak.getSaturation() + 6);
-                        if (random(0.2)) {
+                        if (GeneralUtils.random(0.2)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
                     }
@@ -106,15 +108,6 @@ public class VSuckListener implements Listener {
                     }
                 }
             }
-        }
-    }
-
-    public boolean random(double percent) {
-        double r = Math.random();
-        if (r < percent) {
-            return true;
-        } else {
-            return false;
         }
     }
 }

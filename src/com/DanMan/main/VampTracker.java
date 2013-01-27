@@ -4,6 +4,7 @@
  */
 package com.DanMan.main;
 
+import com.DanMan.utils.VampTrackerTasks;
 import com.DanMan.utils.Stats;
 import com.DanMan.utils.SunTime;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public class VampTracker {
     public static void startVampTracker(final Vampire vamp) {
         FalseBlood plugin = vamp.plugin;
         final Player player = vamp.getPlayer();
+        vamp.setBloodSucking(true);
         vampTaskScheduler(vamp, player, plugin);
     }
 
@@ -58,6 +60,7 @@ public class VampTracker {
                 if (player != null) {
                     afkManager(vamp, player);
                     SunTime.vSunBurn(vamp.getPlayer());
+                    VampTrackerTasks.vampTouchGold(player);
                     VampTrackerTasks.vampHealthMngr(vamp, player);
                     VampTrackerTasks.vampFlyMngr(vamp, player);
                     VampTrackerTasks.vampSprintMngr(vamp, player);
@@ -71,6 +74,7 @@ public class VampTracker {
                     //add perks
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 240, 0), true);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0), true);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 240, 0), true);
                     //let vampire eat
 //                    if (vamp.isBloodSucking()) {
 //                        player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);

@@ -1,0 +1,24 @@
+name: FalseBlood
+version: 1.0.0
+main: com.DanMan.main.FalseBlood
+commands:
+  fb:
+    description: Main FalseBlood command.
+    usage: /fb <make|setage|getage> [player] [age]
+    permission-message: You don't have <permission>
+permissions:
+    falseblood.*:
+        description: Gives access to all falseblood commands
+        children:
+            falseblood.make: true
+            falseblood.setage: true
+            falseblood.getage: true
+    falseblood.make:
+        description: Allows you to toggle vampire status of a user.
+        default: op
+    falseblood.setage:
+        description: Allows you to set a vampire's age.
+        default: op
+    falseblood.getage:
+        description: Allows you to get a vampire's age.
+        default: true

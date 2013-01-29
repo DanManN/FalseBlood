@@ -17,7 +17,10 @@ import org.bukkit.potion.PotionEffectType;
  * @author DAY
  */
 public class VampTrackerTasks {
-    
+
+    private static int age;
+    private static int agebuff;
+
     public static void vampFlyMngr(Vampire vamp, Player player) {
         if (vamp.getAge() >= 50 && !player.getAllowFlight()) {
             player.setAllowFlight(true);
@@ -26,40 +29,25 @@ public class VampTrackerTasks {
             player.setFlying(false);
             return;
         }
-        int agebuff = vamp.getAge() / 5;
-        agebuff = agebuff == 0 ? 1 : agebuff;
+        agebuff = vamp.getAge() / 10;
         if (player.isFlying()) {
             player.setExhaustion(player.getExhaustion() + (float) (10 / agebuff));
         }
     }
-    
+
     public static void vampSprintMngr(Vampire vamp, Player player) {
-        int agebuff = 0;
+        age = vamp.getAge() / 10;
+        agebuff = age > 10 ? 10 : age;
         if (player.isSprinting()) {
-            if (vamp.getAge() >= 50) {
-                agebuff = 7;
-            } else if (vamp.getAge() >= 40) {
-                agebuff = 6;
-            } else if (vamp.getAge() >= 30) {
-                agebuff = 5;
-            } else if (vamp.getAge() >= 20) {
-                agebuff = 4;
-            } else if (vamp.getAge() >= 15) {
-                agebuff = 3;
-            } else if (vamp.getAge() >= 10) {
-                agebuff = 2;
-            } else if (vamp.getAge() >= 5) {
-                agebuff = 1;
-            }
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, agebuff), true);
             agebuff = agebuff == 0 ? 1 : agebuff;
             player.setExhaustion(player.getExhaustion() + 2 * (1 / agebuff));
         }
     }
-    
+
     public static void vampHealthMngr(Vampire vamp, Player player) {
-        int age = vamp.getAge() / 10;
-        int agebuff = age > 10 ? 10 : age;
+        age = vamp.getAge() / 10;
+        agebuff = age > 10 ? 10 : age;
         if (player.getHealth() != 20) {
             if (player.getFoodLevel() > 0) {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 160, agebuff), true);
@@ -70,23 +58,30 @@ public class VampTrackerTasks {
             player.removePotionEffect(PotionEffectType.REGENERATION);
         }
     }
-    
+
     public static void vampStrengthMngr(Vampire vamp, Player player) {
-        int age = vamp.getAge() / 20;
-        int agebuff = age > 5 ? 5 : age;
+        age = vamp.getAge() / 20;
+        agebuff = age > 5 ? 5 : age;
         if (player.getFoodLevel() > 0 && !vamp.isBloodSucking()) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, agebuff), true);
-            //player.setExhaustion(player.getExhaustion() + (1 / agebuff));
         }
     }
+
+    public static void vampHasteMngr(Vampire vamp, Player player) {
+        age = vamp.getAge() / 10;
+        agebuff = age > 10 ? 10 : age;
+        if (player.getFoodLevel() > 0) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 40, agebuff), true);
+        }
+    }
+
     public static void vampTouchGold(Player player) {
         Location ploc = player.getLocation();
         ploc.subtract(0, 1, 0);
         //get block at player location
         Block block = ploc.getBlock();
-        if (block.getType() == Material.GOLD_BLOCK && player.getInventory().getBoots() != null) {
-            player.setFireTicks(20);
+        if (block.getType() == Material.GOLD_BLOCK && player.getInventory().getBoots().getType() != Material.AIR) {
+            player.setFireTicks(25);
         }
     }
-    
 }

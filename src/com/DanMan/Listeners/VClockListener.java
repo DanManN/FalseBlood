@@ -33,9 +33,11 @@ public class VClockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClockMove(InventoryClickEvent evt) {
         player = (Player) evt.getWhoClicked();
-        Material watch = evt.getCurrentItem().getType();
-        if (Vampire.isVampire(player.getName(), plugin) && watch == Material.WATCH) {
-            evt.setCancelled(true);
+        if (evt.getCurrentItem() != null) {
+            Material watch = evt.getCurrentItem().getType();
+            if (Vampire.isVampire(player.getName(), plugin) && watch == Material.WATCH) {
+                evt.setCancelled(true);
+            }
         }
     }
     //making sure the clock doesn't dissapear

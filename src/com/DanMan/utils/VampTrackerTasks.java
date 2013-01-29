@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -22,16 +23,18 @@ public class VampTrackerTasks {
     private static int agebuff;
 
     public static void vampFlyMngr(Vampire vamp, Player player) {
-        if (vamp.getAge() >= 50 && !player.getAllowFlight()) {
-            player.setAllowFlight(true);
-        }
-        if (player.getFoodLevel() < 6) {
-            player.setFlying(false);
-            return;
-        }
-        agebuff = vamp.getAge() / 10;
-        if (player.isFlying()) {
-            player.setExhaustion(player.getExhaustion() + (float) (10 / agebuff));
+        if (vamp.getAge() >= 50) {
+            if (!player.getAllowFlight()) {
+                player.setAllowFlight(true);
+            }
+            if (player.getFoodLevel() < 6) {
+                player.setFlying(false);
+                return;
+            }
+            agebuff = vamp.getAge() / 10;
+            if (player.isFlying()) {
+                player.setExhaustion(player.getExhaustion() + (float) (10 / agebuff));
+            }
         }
     }
 
@@ -80,7 +83,9 @@ public class VampTrackerTasks {
         ploc.subtract(0, 1, 0);
         //get block at player location
         Block block = ploc.getBlock();
-        if (block.getType() == Material.GOLD_BLOCK && player.getInventory().getBoots().getType() != Material.AIR) {
+        ItemStack boot = player.getInventory().getBoots();
+        Material boots = boot == null ? Material.AIR : boot.getType();
+        if (block.getType() == Material.GOLD_BLOCK && boots == Material.AIR) {
             player.setFireTicks(25);
         }
     }

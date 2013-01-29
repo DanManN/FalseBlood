@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
 /**
  *
@@ -27,7 +27,8 @@ public class VMobNeutralityListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onVampSleep(EntityTargetEvent evt) {
+    public void onVampSleep(EntityTargetLivingEntityEvent evt) {
+        System.out.println("Is triggered.");
         if (evt.getTarget() instanceof Player && evt.getEntity() instanceof Monster) {
             player = (Player) evt.getTarget();
             Monster mon = (Monster) evt.getEntity();

@@ -64,9 +64,8 @@ public class VSuckListener implements Listener {
         if (damager instanceof Player) {
             Player patak = (Player) damager;
             if (Vampire.isVampire(patak.getName(), plugin)) {
-                System.out.println("BloodSucking: " + vamp.isBloodSucking());
+                vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
-                    vamp = SNLMetaData.getMetadata(patak, plugin);
                     if (damaged instanceof Villager) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 3);
                         patak.setSaturation(patak.getSaturation() + 4.8F);

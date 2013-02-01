@@ -46,16 +46,21 @@ public class Stats {
             try {
                 FileInputStream fis = new FileInputStream(sFile);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                vamp = (Vampire) ois.readObject();
+                try {
+                    vamp = (Vampire) ois.readObject();
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Error: Could not deserialize from file: " + e);
+                }
                 ois.close();
 //                System.out.println("Vampire instance: " + vamp);
                 Player player = Bukkit.getServer().getPlayer(pname);
                 SNLMetaData.setMetadata(player, vamp, plugin);
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 System.err.println("Error: Could not deserialize from file: " + e);
             }
         }
     }
+
     public static int getSavedAge(String pname, Plugin plugin) {
         Vampire vamp = null;
         pname = pname.toLowerCase();
@@ -64,9 +69,13 @@ public class Stats {
             try {
                 FileInputStream fis = new FileInputStream(sFile);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                vamp = (Vampire) ois.readObject();
+                try {
+                    vamp = (Vampire) ois.readObject();
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Error: Could not deserialize from file: " + e);
+                }
                 ois.close();
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 System.err.println("Error: Could not deserialize from file: " + e);
             }
             return vamp.getAge();

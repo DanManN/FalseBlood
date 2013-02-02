@@ -17,6 +17,7 @@ import org.bukkit.command.CommandSender;
 public class FB implements CommandExecutor {
 
     FalseBlood plugin;
+    boolean bool;
 
     public FB(FalseBlood plug) {
         plugin = plug;
@@ -27,16 +28,17 @@ public class FB implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("fb")) {
             if (args.length != 0) {
                 if (args[0].equalsIgnoreCase("make")) {
-                    new FBMake(sender, args, plugin).make();
+                    bool = new FBMake(sender, args, plugin).make();
                 } else if (args[0].equalsIgnoreCase("setage")) {
-                    new SetAge(sender, args, plugin).setage();
+                    bool = new SetAge(sender, args, plugin).setage();
                 } else if (args[0].equalsIgnoreCase("getage")) {
-                    new GetAge(sender, args, plugin).getage();
+                    bool = new GetAge(sender, args, plugin).getage();
                 } else {
                     sender.sendMessage(ChatColor.YELLOW + "No such command /fb " + args[0]);
                     return false;
                 }
             }
+            return bool;
         }
         return false;
     }

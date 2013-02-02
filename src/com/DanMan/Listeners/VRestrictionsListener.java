@@ -7,11 +7,9 @@ package com.DanMan.Listeners;
 import com.DanMan.main.FalseBlood;
 import com.DanMan.main.Vampire;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -92,9 +90,11 @@ public class VRestrictionsListener implements Listener {
 
     @EventHandler
     public void onVampClickGold(BlockDamageEvent evt) {
+        Material pick = player.getItemInHand().getType();
+        boolean pickaxe = pick == Material.WOOD_PICKAXE || pick == Material.STONE_PICKAXE || pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
         player = evt.getPlayer();
         if (evt.getBlock().getType() == Material.GOLD_BLOCK && Vampire.isVampire(player.getName(), plugin)) {
-            if (player.getItemInHand().getType() == Material.AIR) {
+            if (!pickaxe) {
                 player.damage(1);
             }
         }

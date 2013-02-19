@@ -37,8 +37,11 @@ public class FB implements CommandExecutor {
                     sender.sendMessage(ChatColor.YELLOW + "No such command /fb " + args[0]);
                     return false;
                 }
+                return bool;
+            } else {
+                return false;
             }
-            return bool;
+            
         }
         return false;
     }

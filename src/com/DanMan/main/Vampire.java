@@ -58,9 +58,9 @@ public class Vampire implements Serializable {
             SNLMetaData.setMetadata(getPlayer(), this, plugin);
 //            System.out.println("Vampire Instance: " + SNLMetaData.getMetadata(getPlayer(), plugin));
             Stats.logMDtoFile(pname, plugin);
-            getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
             VampTracker.startVampTracker(this);
             addClock(getPlayer());
+            getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
         } else {
             getPlayer().updateInventory();
             getPlayer().setAllowFlight(false);

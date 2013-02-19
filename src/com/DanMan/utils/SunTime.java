@@ -19,7 +19,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class SunTime {
 
     public static boolean getDay() {
-        long time = Bukkit.getWorld("world").getTime();
+        Bukkit.getWorlds().get(0);
+        long time = Bukkit.getWorlds().get(0).getTime();
         if (time < 22200 && time > 13800) {
             return false;
         } else {

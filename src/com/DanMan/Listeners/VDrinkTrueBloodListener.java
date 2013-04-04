@@ -78,15 +78,15 @@ public class VDrinkTrueBloodListener implements Listener {
     @EventHandler
     public void onUseFurnace(InventoryClickEvent evt) {
         Inventory i = evt.getInventory();
-        System.out.println("Invenotry Type: " + i.getType());
+//        System.out.println("Invenotry Type: " + i.getType());
         if (i.getType() == InventoryType.FURNACE) {
-            System.out.println("Slot #" + evt.getSlot());
+//            System.out.println("Slot #" + evt.getSlot());
             FurnaceInventory fi = (FurnaceInventory) i;
             ItemStack water = new ItemStack(Material.POTION, 1, (short) 0);
             ItemStack eeye = new ItemStack(Material.EYE_OF_ENDER);
             if (fi.getFuel() != null && fi.getSmelting() != null) {
-                System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
-                System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
+//                System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
+//                System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
                 if (fi.getFuel().getType() == eeye.getType() && fi.getSmelting().getType() == water.getType()) {
                     fi.remove(eeye);
                     fi.remove(water);

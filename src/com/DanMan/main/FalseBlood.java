@@ -48,6 +48,7 @@ public class FalseBlood extends JavaPlugin {
         pm.registerEvents(new VDeathListener(this), this);
         pm.registerEvents(new VDrinkTrueBloodListener(this), this);
         pm.registerEvents(new VMakeListener(this), this);
+        pm.registerEvents(new VMobNeutralityListener(this), this);
     }
 
     public void createDirs() {

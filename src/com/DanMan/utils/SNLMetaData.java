@@ -18,6 +18,7 @@ import org.bukkit.plugin.Plugin;
 public class SNLMetaData {
 
     static final String key = "VampPlayer";
+    
     public static void setMetadata(Player player, Vampire value, Plugin plug) {
         player.setMetadata(key, new FixedMetadataValue(plug, value));
     }

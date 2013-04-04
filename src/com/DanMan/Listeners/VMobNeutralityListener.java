@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 
 /**
  *
@@ -27,13 +27,14 @@ public class VMobNeutralityListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onVampSleep(EntityTargetLivingEntityEvent evt) {
-        System.out.println("Is triggered.");
+    public void onVampSleep(EntityTargetEvent evt) {
+        //System.out.println("Target Event triggered.");
         if (evt.getTarget() instanceof Player && evt.getEntity() instanceof Monster) {
             player = (Player) evt.getTarget();
             Monster mon = (Monster) evt.getEntity();
             if (Vampire.isVampire(player.getName(), plugin)) {
-                if (!(mon instanceof Blaze || mon instanceof PigZombie || mon instanceof Silverfish || mon instanceof Witch || mon instanceof Wither)) {
+                if (mon instanceof Blaze || mon instanceof PigZombie || mon instanceof Silverfish || mon instanceof Witch || mon instanceof Wither || mon instanceof EnderDragon) {
+                    //System.out.println("Target Event NotCanceled: Acceptable Mob.");
                     return;
                 }
                 if (mon.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
@@ -41,10 +42,12 @@ public class VMobNeutralityListener implements Listener {
                     if (evt2.getDamager() instanceof Player) {
                         Player player2 = (Player) evt2.getDamager();
                         if (player2 == player) {
+                            //System.out.println("Target Event NotCanceled: Aggravated by player.");
                             return;
                         }
                     }
                 }
+                //System.out.println("Target Event Canceled.");
                 evt.setCancelled(true);
             }
         }

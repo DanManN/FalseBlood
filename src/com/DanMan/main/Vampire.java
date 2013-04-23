@@ -22,16 +22,16 @@ import org.bukkit.plugin.Plugin;
  *
  * @author DAY
  */
-public class Vampire implements Serializable {
+public final class Vampire implements Serializable {
 
-    transient FalseBlood plugin;
+    private transient FalseBlood plugin;
     //vampire variables
-    String pname;
-    boolean isBloodSucking;
-    boolean afk;
-    int sId = -1;
-    int tick = 0;
-    int age;
+    private String pname;
+    private boolean isBloodSucking;
+    private boolean afk;
+    private int sId = -1;
+    private int tick = 0;
+    private int age;
 
     public Vampire(Player player, FalseBlood plug) {
         pname = player.getName();
@@ -126,6 +126,10 @@ public class Vampire implements Serializable {
         plugin = plug;
     }
 
+    public FalseBlood getPlugin() {
+        return plugin;
+    }
+
     public String getName() {
         return pname;
     }
@@ -145,5 +149,21 @@ public class Vampire implements Serializable {
     public Player getPlayer() {
         Player player = Bukkit.getServer().getPlayer(pname);
         return player;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
+    }
+
+    public int getTick() {
+        return tick;
+    }
+
+    public void setTick(int tick) {
+        this.tick = tick;
     }
 }

@@ -39,10 +39,10 @@ public class VampTrackerTasks {
     }
 
     public static void vampSprintMngr(Vampire vamp, Player player) {
-        age = vamp.getAge() / 10;
-        agebuff = age > 10 ? 10 : age;
+        age = (vamp.getAge() / 5) + 10;
+        agebuff = age > 30 ? 30 : age;
         if (player.isSprinting()) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, agebuff), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10, agebuff), true);
             agebuff = agebuff == 0 ? 1 : agebuff;
             player.setExhaustion(player.getExhaustion() + 2 * (1 / agebuff));
         }
@@ -66,7 +66,7 @@ public class VampTrackerTasks {
         age = vamp.getAge() / 20;
         agebuff = age > 5 ? 5 : age;
         if (player.getFoodLevel() > 0 && !vamp.isBloodSucking()) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, agebuff), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, agebuff), true);
         }
     }
 
@@ -74,7 +74,7 @@ public class VampTrackerTasks {
         age = vamp.getAge() / 10;
         agebuff = age > 10 ? 10 : age;
         if (player.getFoodLevel() > 0) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 40, agebuff), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, agebuff), true);
         }
     }
 

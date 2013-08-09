@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.utils;
+package com.DanMan.main;
 
 import com.DanMan.main.Vampire;
 import org.bukkit.Location;
@@ -44,7 +44,7 @@ public class VampTrackerTasks {
         if (player.isSprinting()) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10, agebuff), true);
             agebuff = agebuff == 0 ? 1 : agebuff;
-            player.setExhaustion(player.getExhaustion() + 2 * (1 / agebuff));
+            player.setExhaustion(player.getExhaustion() + (2 * (1 / agebuff)));
         }
     }
 
@@ -55,7 +55,7 @@ public class VampTrackerTasks {
             if (player.getFoodLevel() > 0) {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 160, agebuff), true);
                 agebuff = agebuff == 0 ? 1 : agebuff;
-                player.setExhaustion(player.getExhaustion() + 5 * (1 / agebuff));
+                player.setExhaustion(player.getExhaustion() + (5 * (1 / agebuff)));
             }
         } else {
             player.removePotionEffect(PotionEffectType.REGENERATION);

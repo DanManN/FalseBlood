@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.utils;
+package com.DanMan.main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;

@@ -26,23 +26,20 @@ public class FB implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fb")) {
-            if (args.length != 0) {
-                if (args[0].equalsIgnoreCase("make")) {
-                    bool = new FBMake(sender, args, plugin).make();
-                } else if (args[0].equalsIgnoreCase("setage")) {
-                    bool = new SetAge(sender, args, plugin).setage();
-                } else if (args[0].equalsIgnoreCase("getage")) {
-                    bool = new GetAge(sender, args, plugin).getage();
-                } else {
-                    sender.sendMessage(ChatColor.YELLOW + "No such command /fb " + args[0]);
-                    return false;
-                }
-                return bool;
-            } else {
+            if (args.length == 0) {
                 return false;
             }
-            
+            if (args[0].equalsIgnoreCase("make")) {
+                bool = new FBMake(sender, args, plugin).make();
+            } else if (args[0].equalsIgnoreCase("setage")) {
+                bool = new SetAge(sender, args, plugin).setage();
+            } else if (args[0].equalsIgnoreCase("getage")) {
+                bool = new GetAge(sender, args, plugin).getage();
+            } else {
+                sender.sendMessage(ChatColor.YELLOW + "No such command /fb " + args[0]);
+                return false;
+            }
         }
-        return false;
+        return bool;
     }
 }

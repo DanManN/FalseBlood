@@ -5,8 +5,6 @@
 package com.DanMan.main;
 
 import com.DanMan.utils.Stats;
-import com.DanMan.utils.SunTime;
-import com.DanMan.utils.VampTrackerTasks;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;

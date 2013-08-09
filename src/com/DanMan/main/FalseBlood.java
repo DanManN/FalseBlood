@@ -27,7 +27,6 @@ public class FalseBlood extends JavaPlugin {
         getCommand("fb").setExecutor(myEx);
         registerListeners();
         getLogger().info("FalseBlood: Enabled");
-
     }
 
     @Override

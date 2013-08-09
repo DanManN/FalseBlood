@@ -1,3 +1,0 @@
-- add config
-- add bat flying
-- mob neutrality

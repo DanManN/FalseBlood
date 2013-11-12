@@ -50,8 +50,19 @@ public class VRestrictionsListener implements Listener {
             boolean eatGApple = Food.getType() == Material.GOLDEN_APPLE;
             boolean drinkMilk = Food.getType() == Material.MILK_BUCKET;
             boolean eatFlesh = Food.getType() == Material.ROTTEN_FLESH;
+            boolean eatPotato = Food.getType() == Material.POTATO;
+            boolean eatBPotato = Food.getType() == Material.BAKED_POTATO;
+            boolean eatPPotato = Food.getType() == Material.POISONOUS_POTATO;
+            boolean eatCarrot = Food.getType() == Material.CARROT;
+            boolean eatGCarrot = Food.getType() == Material.GOLDEN_CARROT;
+            boolean eatPPie = Food.getType() == Material.PUMPKIN_PIE;
+            
             //boolean combining these booleans
-            boolean eatFood = eatBread || eatCookie || eatMelon || eatStew || eatRChicken || eatCChicken || eatBeef || eatSteak || eatPork || eatGPork || eatRFish || eatCFish || eatApple || eatGApple || drinkMilk || eatFlesh;
+            boolean eatFood = eatBread || eatCookie || eatMelon || eatStew || eatRChicken 
+                    || eatCChicken || eatBeef || eatSteak || eatPork || eatGPork 
+                    || eatRFish || eatCFish || eatApple || eatGApple || drinkMilk 
+                    || eatFlesh || eatPotato || eatBPotato || eatPPotato || eatCarrot 
+                    || eatGCarrot || eatPPie;
             if (eatFood) {
                 evt.setCancelled(true);
                 //player.getInventory().remove(Food);
@@ -80,8 +91,12 @@ public class VRestrictionsListener implements Listener {
             boolean gPants = gold.getType() == Material.GOLD_LEGGINGS;
             boolean gChestPlate = gold.getType() == Material.GOLD_CHESTPLATE;
             boolean gHelmet = gold.getType() == Material.GOLD_HELMET;
+            boolean gHorseArmor = gold.getType() == Material.GOLD_BARDING;
+            boolean gPlate = gold.getType() == Material.GOLD_PLATE;
             //boolean combining these booleans
-            boolean pickUpGold = gSword || gAxe || gHoe || gPick || gshovel || gBlock || gIngot || gApple || gNugget || gCarrot || gBoots || gPants || gChestPlate || gHelmet;
+            boolean pickUpGold = gSword || gAxe || gHoe || gPick || gshovel || gBlock 
+                    || gIngot || gApple || gNugget || gCarrot || gBoots || gPants 
+                    || gChestPlate || gHelmet || gHorseArmor || gPlate;
             if (pickUpGold) {
                 evt.setCancelled(true);
             }
@@ -93,7 +108,8 @@ public class VRestrictionsListener implements Listener {
         Material pick = player.getItemInHand().getType();
         boolean pickaxe = pick == Material.WOOD_PICKAXE || pick == Material.STONE_PICKAXE || pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
         player = evt.getPlayer();
-        if (evt.getBlock().getType() == Material.GOLD_BLOCK && Vampire.isVampire(player.getName(), plugin)) {
+        boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) || (evt.getBlock().getType() == Material.GOLD_PLATE);
+        if (goldstuff && Vampire.isVampire(player.getName(), plugin)) {
             if (!pickaxe) {
                 player.damage(1);
             }

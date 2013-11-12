@@ -7,19 +7,23 @@ package com.DanMan.Listeners;
 import com.DanMan.main.FalseBlood;
 import com.DanMan.main.Vampire;
 import com.DanMan.utils.SNLMetaData;
-import org.bukkit.Bukkit;
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Hopper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Cauldron;
 
 /**
  *
@@ -42,8 +46,9 @@ public class VDrinkTrueBloodListener implements Listener {
         if (Vampire.isVampire(player.getName(), null)) {
             if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 vamp = SNLMetaData.getMetadata(player, plugin);
-                if (player.getItemInHand().getType() == Material.POTION) {
-                    if (player.getItemInHand().getDurability() == 59) {
+                ItemStack tb = player.getItemInHand();
+                if (tb.getType() == Material.POTION) {
+                    if (tb.getDurability() == 59) {
                         final int slot = player.getInventory().getHeldItemSlot();
                         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -62,86 +67,84 @@ public class VDrinkTrueBloodListener implements Listener {
             }
         }
     }
-    ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 59);
-    World world = Bukkit.getWorld("world");
-
-    //temporary method
-    @EventHandler
-    public void onUseFurnace(InventoryClickEvent evt) {
-        Inventory i = evt.getInventory();
-//        System.out.println("Invenotry Type: " + i.getType());
-        if (i.getType() == InventoryType.FURNACE) {
-//            System.out.println("Slot #" + evt.getSlot());
-            FurnaceInventory fi = (FurnaceInventory) i;
-            ItemStack water = new ItemStack(Material.POTION, 1, (short) 0);
-            ItemStack eeye = new ItemStack(Material.EYE_OF_ENDER);
-            if (fi.getFuel() != null && fi.getSmelting() != null) {
-//                System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
-//                System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
-                if (fi.getFuel().getType() == eeye.getType() && fi.getSmelting().getType() == water.getType()) {
-                    fi.remove(eeye);
-                    fi.remove(water);
-                    fi.setResult(trueblood);
-                }
-            }
-        }
-    }
-
+//    //temporary method
 //    @EventHandler
-//    public void onBrewPotion(PlayerInteractEvent evt) {
-//        if (evt.hasBlock()) {
-//            player = evt.getPlayer();
-//            ItemStack inHand = player.getItemInHand();
-//            Block caul = evt.getClickedBlock();
-//            Location cl = caul.getLocation();
-//            if (caul.getType() == Material.CAULDRON) {
-//                Cauldron cauldron = new Cauldron(caul.getData());
-//                //System.out.println("Cauldron Data: " + cauldron.getData());
-//                if (cauldron.getData() > 0 && inHand.getType() == Material.GLASS_BOTTLE) {
-//                    Item iEye = null;
-//                    for (Iterator<Item> it = world.getEntitiesByClass(Item.class).iterator(); it.hasNext();) {
-//                        Item item = it.next();
-//                        //System.out.println("Item: " + item.getItemStack().toString());
-//                        Location iLoc = item.getLocation();
-//                        //System.out.println("Item: " + item + "\nLocation: " + iLoc);
-//                        Location altILoc = new Location(world, iLoc.getBlockX(), iLoc.getBlockY(), iLoc.getBlockZ());
-//                        //System.out.println("Altered Location: " + altILoc + "\nis Equal to Cauldron location: " + (altILoc == cl));
-//                        //System.out.println("is iEye: " + (item.getItemStack().getType() == Material.EYE_OF_ENDER));
-//                        if (item.getItemStack().getType() == Material.EYE_OF_ENDER && altILoc.equals(cl)) {
-//                            //System.out.println("iEye is true");
-//                            iEye = item;
-//                            break;
-//                        }
-//                    }
-//                    if (iEye != null) {
-//                        //System.out.println("Item exists in proper location");
-//                        iEye.remove();
-//                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                ItemStack inHand = player.getItemInHand();
-//                                removeOneItem(player, new ItemStack(Material.POTION, 1, (short) 0));
-//                                if (inHand.getAmount() > 1) {
-//                                    ItemStack less = new ItemStack(inHand.getType(), inHand.getAmount() - 1);
-//                                    player.setItemInHand(less);
-//                                }
-//                                player.getInventory().addItem(trueblood);
-//                            }
-//                        }, 1);
-//                        //world.dropItem(new Location(world, cl.getX(), cl.getY(), cl.getZ() + 1), trueblood);
-//                    }
+//    public void onUseFurnace(InventoryClickEvent evt) {
+//        Inventory i = evt.getInventory();
+////        System.out.println("Invenotry Type: " + i.getType());
+//        if (i.getType() == InventoryType.FURNACE) {
+////            System.out.println("Slot #" + evt.getSlot());
+//            FurnaceInventory fi = (FurnaceInventory) i;
+//            ItemStack water = new ItemStack(Material.POTION, 1, (short) 0);
+//            ItemStack eeye = new ItemStack(Material.EYE_OF_ENDER);
+//            if (fi.getFuel() != null && fi.getSmelting() != null) {
+////                System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
+////                System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
+//                if (fi.getFuel().getType() == eeye.getType() && fi.getSmelting().getType() == water.getType()) {
+//                    fi.remove(eeye);
+//                    fi.remove(water);
+//                    fi.setResult(trueblood);
 //                }
 //            }
 //        }
 //    }
-    public void removeOneItem(Player play, ItemStack item) {
-        int itemslot;
-        if (play.getInventory().contains(item)) {
-            itemslot = play.getInventory().first(item);
-        } else {
-            return;
+
+    @EventHandler
+    public void onBrewPotion(PlayerInteractEvent evt) {
+        if (evt.hasBlock()) {
+
+            //System.out.println("Triggered");
+
+            player = evt.getPlayer();
+            ItemStack inHand = player.getItemInHand();
+            Block caul = evt.getClickedBlock();
+            if (caul.getType() == Material.CAULDRON && inHand.getType() == Material.GLASS_BOTTLE) {
+                Cauldron c = (Cauldron) caul.getState().getData();
+                Block hop = caul.getRelative(BlockFace.UP);
+
+                //System.out.println("Hopper: " + hop);
+
+                if (!c.isEmpty() && (hop.getType() == Material.HOPPER)) {
+
+                    //System.out.println("Hopper exists");
+
+                    Hopper h = (Hopper) hop.getState();
+                    Inventory hopi = h.getInventory();
+                    ItemStack iEye = hopi.getItem(hopi.first(Material.EYE_OF_ENDER));
+                    if (iEye != null) {
+                        if (iEye.getAmount() > 1) {
+                            iEye.setAmount(iEye.getAmount() - 1);
+                        } else {
+                            hopi.clear(hopi.first(iEye));
+                        }
+                        //System.out.println("Item exists in proper location");
+                        //evt.setCancelled(true);
+                        ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 59);
+                        ItemMeta meta = trueblood.getItemMeta();
+                        meta.setDisplayName(ChatColor.DARK_RED + "TrueBlood");
+                        List<String> lore = new ArrayList<String>();
+                        lore.clear();
+                        lore.add("Replenishes 2 vampire blood bars.");
+                        meta.setLore(lore);
+                        trueblood.setItemMeta(meta);
+//                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+                                if (inHand.getAmount() > 1) {
+                                    ItemStack less = new ItemStack(inHand.getType(), (inHand.getAmount() - 1));
+                                    player.setItemInHand(less);
+                                } else {
+                                    player.setItemInHand(trueblood);
+                                }
+//                            }
+//                        }, 1);
+                        c.setData((byte) (c.getData() - 1));
+                        evt.setCancelled(true);
+                        player.updateInventory();
+                    }
+                }
+            }
         }
-        play.getInventory().clear(itemslot);
     }
 }

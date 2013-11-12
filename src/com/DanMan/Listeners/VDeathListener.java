@@ -8,6 +8,7 @@ import com.DanMan.main.FalseBlood;
 import com.DanMan.main.Vampire;
 import com.DanMan.utils.SNLMetaData;
 import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,6 +40,7 @@ public class VDeathListener implements Listener {
             if (vage > 0) {
                 vamp.setAge(vage - 1);
             }
+            player.getInventory().remove(Material.WATCH);
         }
     }
 }

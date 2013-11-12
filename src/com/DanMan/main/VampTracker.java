@@ -73,7 +73,7 @@ public class VampTracker {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0), true);
                 }
             }
-        }, 5, 5);
+        }, 1, 1);
         vamp.setsId(sId);
     }
 

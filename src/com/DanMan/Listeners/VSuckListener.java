@@ -42,9 +42,9 @@ public class VSuckListener implements Listener {
             if (Vampire.isVampire(patak.getName(), plugin)) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (!Vampire.isVampire(pdefend.getName(), plugin) && vamp.isBloodSucking()) {
-                    pdefend.setFoodLevel(pdefend.getFoodLevel() - 1);
-                    vamp.setBloodLevel(vamp.getBloodLevel() + 2);
-                    patak.setSaturation(patak.getSaturation() + 2.4F);
+                    pdefend.setFoodLevel(pdefend.getFoodLevel() - 2);
+                    vamp.setBloodLevel(vamp.getBloodLevel() + 4);
+                    patak.setSaturation(patak.getSaturation() + 6);
                     if (pdefend.getFoodLevel() == 2) {
                         patak.sendMessage(ChatColor.RED + "As you drain your victim their heart-beat slows.");
                         patak.sendMessage(ChatColor.RED + "You know they have just enough blood to stay alive.");
@@ -63,24 +63,24 @@ public class VSuckListener implements Listener {
         Entity damaged = evt.getEntity();
         if (damager instanceof Player) {
             Player patak = (Player) damager;
-            if (Vampire.isVampire(patak.getName(), plugin)) {
+            if ((patak.getItemInHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getName(), plugin))) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 3);
-                        patak.setSaturation(patak.getSaturation() + 4.8F);
-                        if (GeneralUtils.random(0.2)) {
+                        patak.setSaturation(patak.getSaturation() + 5);
+                        if (GeneralUtils.random(0.1)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
                     } else if (damaged instanceof Zombie) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 1);
-                        patak.setSaturation(patak.getSaturation() + 0.2F);
+                        patak.setSaturation(patak.getSaturation() + 0.5F);
                         if (GeneralUtils.random(0.7)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
                     } else if (damaged instanceof Enderman) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 5);
-                        patak.setSaturation(patak.getSaturation() + 6);
+                        patak.setSaturation(patak.getSaturation() + 7);
                         if (GeneralUtils.random(0.2)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
@@ -100,10 +100,10 @@ public class VSuckListener implements Listener {
                     vamp = SNLMetaData.getMetadata(player, plugin);
                     if (!vamp.isBloodSucking()) {
                         vamp.setBloodSucking(true);
-                        player.sendMessage(ChatColor.RED + "You are ready to feast on blood.");
+                        player.sendMessage(ChatColor.RED + "You release your fangs in lust for blood.");
                     } else {
                         vamp.setBloodSucking(false);
-                        player.sendMessage(ChatColor.RED + "You are ready to kick natures ass.");
+                        player.sendMessage(ChatColor.RED + "You are ready to kick ass.");
                     }
                 }
             }

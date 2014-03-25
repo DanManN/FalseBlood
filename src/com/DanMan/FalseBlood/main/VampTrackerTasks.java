@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.main;
+package com.DanMan.FalseBlood.main;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -81,12 +81,12 @@ public class VampTrackerTasks {
 
     public static void vampTouchGold(Player player) {
         Location ploc = player.getLocation();
-        ploc.subtract(0, 1, 0);
         //get block at player location
-        Block block = ploc.getBlock();
+        Block block1 = ploc.getBlock();
+        Block block2 = ploc.subtract(0, 1, 0).getBlock();
         ItemStack boot = player.getInventory().getBoots();
         Material boots = boot == null ? Material.AIR : boot.getType();
-        boolean goldstuff = (block.getType() == Material.GOLD_BLOCK) || (block.getType() == Material.GOLD_PLATE);
+        boolean goldstuff = (block2.getType() == Material.GOLD_BLOCK) || (block1.getType() == Material.GOLD_PLATE);
         if (goldstuff && boots == Material.AIR) {
             player.setFireTicks(40);
         }

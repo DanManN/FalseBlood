@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
-import com.DanMan.utils.SNLMetaData;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
+import com.DanMan.FalseBlood.utils.SNLMetaData;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
@@ -21,7 +21,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Cauldron;
 

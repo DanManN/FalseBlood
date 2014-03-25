@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
-import com.DanMan.utils.SNLMetaData;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
+import com.DanMan.FalseBlood.utils.SNLMetaData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -92,10 +92,10 @@ public class VMakeListener implements Listener {
 
     }
     //potions
-    ItemStack night = new ItemStack(Material.POTION, 1, (short) 16310);
-    ItemStack invisability = new ItemStack(Material.POTION, 1, (short) 16318);
-    ItemStack nightLong = new ItemStack(Material.POTION, 1, (short) 16374);
-    ItemStack invisabilityLong = new ItemStack(Material.POTION, 1, (short) 16382);
+    ItemStack night = new ItemStack(Material.POTION, 1, (short) 8230);
+    ItemStack invisability = new ItemStack(Material.POTION, 1, (short) 8238);
+    ItemStack nightLong = new ItemStack(Material.POTION, 1, (short) 8262);
+    ItemStack invisabilityLong = new ItemStack(Material.POTION, 1, (short) 8270);
 
     public void makeVampire(Player player) {
         //has necessary potions
@@ -107,12 +107,12 @@ public class VMakeListener implements Listener {
                 player.getInventory().remove(nightLong);
                 player.getInventory().remove(invisabilityLong);
                 vampEffects(player);
-                delayVMake(400L, 5, player);
+                delayVMake(410L, 5, player);
             } else if (hasBasicPotions) {
                 player.getInventory().remove(night);
                 player.getInventory().remove(invisability);
                 vampEffects(player);
-                delayVMake(400L, 0, player);
+                delayVMake(410L, 0, player);
             }
             player.updateInventory();
         }
@@ -125,9 +125,11 @@ public class VMakeListener implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 400, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 380, 0));
-        delayMessage(100L, player, "You feel cursed and sick.");
-        delayMessage(200L, player, "Your heat beats slower every second until...");
-        delayMessage(300L, player, "You heart finally stops. You think your are dead, but you feel so ALIVE!");
+        delayMessage(100L, player, "I feel cursed and sick.");
+        delayMessage(200L, player, "My heart! It's beating slower and slower...");
+        delayMessage(300L, player, "It stopped!");
+        delayMessage(340L, player, "Am I dead?");
+        delayMessage(410L, player, "No, no I have never felt so ALIVE!!!");
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
             @Override
@@ -137,7 +139,7 @@ public class VMakeListener implements Listener {
                 player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.INSTANT_DAMAGE.getDamageValue());
                 player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.STRENGTH.getDamageValue());
             }
-        }, 400L);
+        }, 410L);
     }
 
     public boolean hasPotion(Player player, ItemStack potion) {

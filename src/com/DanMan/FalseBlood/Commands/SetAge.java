@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Commands;
+package com.DanMan.FalseBlood.Commands;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
-import com.DanMan.utils.SNLMetaData;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
+import com.DanMan.FalseBlood.utils.SNLMetaData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

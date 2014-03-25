@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.utils;
+package com.DanMan.FalseBlood.utils;
 
-import com.DanMan.main.Vampire;
+import com.DanMan.FalseBlood.main.Vampire;
 import java.io.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

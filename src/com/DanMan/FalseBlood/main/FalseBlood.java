@@ -2,10 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.main;
+package com.DanMan.FalseBlood.main;
 
-import com.DanMan.Commands.FB;
-import com.DanMan.Listeners.*;
+import com.DanMan.FalseBlood.Listeners.VMakeListener;
+import com.DanMan.FalseBlood.Listeners.VDeathListener;
+import com.DanMan.FalseBlood.Listeners.VDrinkTrueBloodListener;
+import com.DanMan.FalseBlood.Listeners.VSuckListener;
+import com.DanMan.FalseBlood.Listeners.VDamageListener;
+import com.DanMan.FalseBlood.Listeners.VRestrictionsListener;
+import com.DanMan.FalseBlood.Listeners.VLoginListener;
+import com.DanMan.FalseBlood.Listeners.VStakeListener;
+import com.DanMan.FalseBlood.Listeners.VClockListener;
+import com.DanMan.FalseBlood.Listeners.VMobNeutralityListener;
+import com.DanMan.FalseBlood.Commands.FB;
 import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;

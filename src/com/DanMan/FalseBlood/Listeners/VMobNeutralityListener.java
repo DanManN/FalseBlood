@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

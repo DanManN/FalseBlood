@@ -3,13 +3,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.main;
+package com.DanMan.FalseBlood.main;
 
-import com.DanMan.Events.VAgeEvent;
-import com.DanMan.utils.SNLMetaData;
-import com.DanMan.utils.Stats;
+import com.DanMan.FalseBlood.Events.VAgeEvent;
+import com.DanMan.FalseBlood.utils.SNLMetaData;
+import com.DanMan.FalseBlood.utils.Stats;
 import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -53,8 +54,15 @@ public final class Vampire implements Serializable {
     }
 
     public void setVampire(boolean bool) {
-        //stat.logStats(name, bool, 0);
         if (bool) {
+//            Method[] ms = SNLMetaData.class.getMethods();
+//            for (Method m:ms) {
+//                System.out.println("METHOD: "+m.getName() + ", args: "+m.getParameterTypes());
+//            }
+//            System.out.println("PLAYER: "+getPlayer());
+//            System.out.println("VAMPIRE: "+this);
+//            System.out.println("PLUGIN: "+plugin);
+            
             SNLMetaData.setMetadata(getPlayer(), this, plugin);
 //            System.out.println("Vampire Instance: " + SNLMetaData.getMetadata(getPlayer(), plugin));
             Stats.logMDtoFile(pname, plugin);

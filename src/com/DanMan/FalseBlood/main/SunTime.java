@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.main;
+package com.DanMan.FalseBlood.main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -11,6 +11,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  *
@@ -46,7 +48,10 @@ public class SunTime {
                 player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
                 player.damage(dmg);
                 Bukkit.getServer().getPluginManager().callEvent(burn);
-                if (ll == 15) player.setFireTicks(21);
+                if (ll == 15) {
+                    player.setFireTicks(21);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20, 0), true);
+                }
             }
         }
 //        System.out.println("Light Level: " + ll);

@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */ 
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +35,7 @@ public class VClockListener implements Listener {
         player = (Player) evt.getWhoClicked();
         if (evt.getCurrentItem() != null) {
             Material watch = evt.getCurrentItem().getType();
-            if (Vampire.isVampire(player.getName(), plugin) && watch == Material.WATCH) {
+            if (Vampire.isVampire(player.getName(), plugin) && (watch == Material.WATCH || watch.toString().startsWith("GOLD"))) {
                 evt.setCancelled(true);
             }
         }

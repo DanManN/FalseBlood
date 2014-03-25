@@ -1,6 +1,6 @@
 name: FalseBlood
-version: 1.3.0
-main: com.DanMan.main.FalseBlood
+version: 2.0.0
+main: com.DanMan.FalseBlood.main.FalseBlood
 commands:
   fb:
     description: Main FalseBlood command.

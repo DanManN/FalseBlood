@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
  
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -77,27 +77,27 @@ public class VRestrictionsListener implements Listener {
         if (Vampire.isVampire(player.getName(), plugin)) {
             //food booleans
             ItemStack gold = evt.getItem().getItemStack();
-            boolean gSword = gold.getType() == Material.GOLD_SWORD;
-            boolean gAxe = gold.getType() == Material.GOLD_AXE;
-            boolean gHoe = gold.getType() == Material.GOLD_HOE;
-            boolean gPick = gold.getType() == Material.GOLD_PICKAXE;
-            boolean gshovel = gold.getType() == Material.GOLD_SPADE;
-            boolean gBlock = gold.getType() == Material.GOLD_BLOCK;
-            boolean gIngot = gold.getType() == Material.GOLD_INGOT;
-            boolean gApple = gold.getType() == Material.GOLDEN_APPLE;
-            boolean gNugget = gold.getType() == Material.GOLD_NUGGET;
-            boolean gCarrot = gold.getType() == Material.GOLDEN_CARROT;
-            boolean gBoots = gold.getType() == Material.GOLD_BOOTS;
-            boolean gPants = gold.getType() == Material.GOLD_LEGGINGS;
-            boolean gChestPlate = gold.getType() == Material.GOLD_CHESTPLATE;
-            boolean gHelmet = gold.getType() == Material.GOLD_HELMET;
-            boolean gHorseArmor = gold.getType() == Material.GOLD_BARDING;
-            boolean gPlate = gold.getType() == Material.GOLD_PLATE;
-            //boolean combining these booleans
-            boolean pickUpGold = gSword || gAxe || gHoe || gPick || gshovel || gBlock 
-                    || gIngot || gApple || gNugget || gCarrot || gBoots || gPants 
-                    || gChestPlate || gHelmet || gHorseArmor || gPlate;
-            if (pickUpGold) {
+//            boolean gSword = gold.getType() == Material.GOLD_SWORD;
+//            boolean gAxe = gold.getType() == Material.GOLD_AXE;
+//            boolean gHoe = gold.getType() == Material.GOLD_HOE;
+//            boolean gPick = gold.getType() == Material.GOLD_PICKAXE;
+//            boolean gshovel = gold.getType() == Material.GOLD_SPADE;
+//            boolean gBlock = gold.getType() == Material.GOLD_BLOCK;
+//            boolean gIngot = gold.getType() == Material.GOLD_INGOT;
+//            boolean gApple = gold.getType() == Material.GOLDEN_APPLE;
+//            boolean gNugget = gold.getType() == Material.GOLD_NUGGET;
+//            boolean gCarrot = gold.getType() == Material.GOLDEN_CARROT;
+//            boolean gBoots = gold.getType() == Material.GOLD_BOOTS;
+//            boolean gPants = gold.getType() == Material.GOLD_LEGGINGS;
+//            boolean gChestPlate = gold.getType() == Material.GOLD_CHESTPLATE;
+//            boolean gHelmet = gold.getType() == Material.GOLD_HELMET;
+//            boolean gHorseArmor = gold.getType() == Material.GOLD_BARDING;
+//            boolean gPlate = gold.getType() == Material.GOLD_PLATE;
+//            //boolean combining these booleans
+//            boolean pickUpGold = gSword || gAxe || gHoe || gPick || gshovel || gBlock 
+//                    || gIngot || gApple || gNugget || gCarrot || gBoots || gPants 
+//                    || gChestPlate || gHelmet || gHorseArmor || gPlate;
+            if (gold.getType().toString().startsWith("GOLD")) {
                 evt.setCancelled(true);
             }
         }

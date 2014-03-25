@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.DanMan.Listeners;
+package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.main.FalseBlood;
-import com.DanMan.main.Vampire;
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +35,9 @@ public class VDamageListener implements Listener {
                 //vampires don't need to breath
                 if (evt.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION) {
                     evt.setCancelled(true);
+                } else if(evt.getDamage() > player.getHealth()) {
+                    //get rid of watch before they die so it doesn't drop
+                    player.getInventory().remove(Material.WATCH);
                 }
             }
         }

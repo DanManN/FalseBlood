@@ -32,7 +32,7 @@ public class VMobNeutralityListener implements Listener {
         if (evt.getTarget() instanceof Player && evt.getEntity() instanceof Monster) {
             player = (Player) evt.getTarget();
             Monster mon = (Monster) evt.getEntity();
-            if (Vampire.isVampire(player.getName(), plugin)) {
+            if (Vampire.isVampire(player.getUniqueId(), plugin)) {
                 if (mon instanceof Blaze || mon instanceof PigZombie || mon instanceof Silverfish || mon instanceof Witch || mon instanceof Wither || mon instanceof EnderDragon) {
                     //System.out.println("Target Event NotCanceled: Acceptable Mob.");
                     return;

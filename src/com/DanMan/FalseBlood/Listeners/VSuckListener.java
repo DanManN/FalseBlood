@@ -39,9 +39,9 @@ public class VSuckListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(patak.getName(), plugin)) {
+            if (Vampire.isVampire(patak.getUniqueId(), plugin)) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
-                if (!Vampire.isVampire(pdefend.getName(), plugin) && vamp.isBloodSucking()) {
+                if (!Vampire.isVampire(pdefend.getUniqueId(), plugin) && vamp.isBloodSucking()) {
                     pdefend.setFoodLevel(pdefend.getFoodLevel() - 2);
                     vamp.setBloodLevel(vamp.getBloodLevel() + 4);
                     patak.setSaturation(patak.getSaturation() + 6);
@@ -63,7 +63,7 @@ public class VSuckListener implements Listener {
         Entity damaged = evt.getEntity();
         if (damager instanceof Player) {
             Player patak = (Player) damager;
-            if ((patak.getItemInHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getName(), plugin))) {
+            if ((patak.getItemInHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId(), plugin))) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {
@@ -96,7 +96,7 @@ public class VSuckListener implements Listener {
         if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             Player player = evt.getPlayer();
             if (player.getItemInHand().getType() == Material.WATCH) {
-                if (Vampire.isVampire(player.getName(), plugin)) {
+                if (Vampire.isVampire(player.getUniqueId(), plugin)) {
                     vamp = SNLMetaData.getMetadata(player, plugin);
                     if (!vamp.isBloodSucking()) {
                         vamp.setBloodSucking(true);

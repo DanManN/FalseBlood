@@ -5,6 +5,7 @@
 package com.DanMan.FalseBlood.Events;
 
 import com.DanMan.FalseBlood.main.Vampire;
+import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -18,14 +19,14 @@ public class VAgeEvent extends Event {
     Vampire vamp;
     //age is the new age set by setage();
     private int age;
-    private String name;
+    private UUID pId;
     private Player player;
     private static final HandlerList handlers = new HandlerList();
 
     public VAgeEvent(Vampire v) {
         vamp = v;
         age = vamp.getAge();
-        name = vamp.getName();
+        pId = vamp.getPId();
         player = vamp.getPlayer();
     }
 
@@ -41,8 +42,8 @@ public class VAgeEvent extends Event {
         return vamp;
     }
 
-    public String getName() {
-        return name;
+    public UUID getName() {
+        return pId;
     }
     
     @Override

@@ -40,10 +40,10 @@ public class VMakeListener implements Listener {
     public void onVampGiveBlood(PlayerInteractEntityEvent evt) {
         player = evt.getPlayer();
         Entity clicked = evt.getRightClicked();
-        if (clicked instanceof Player && Vampire.isVampire(player.getName(), plugin)) {
+        if (clicked instanceof Player && Vampire.isVampire(player.getUniqueId(), plugin)) {
             Player victim = (Player) clicked;
             vamp = SNLMetaData.getMetadata(player, plugin);
-            if (!Vampire.isVampire(victim.getName(), plugin)) {
+            if (!Vampire.isVampire(victim.getUniqueId(), plugin)) {
                 if (victim.getFoodLevel() > 0 && vamp.getBloodLevel() > 0) {
                     vamp.setBloodLevel(vamp.getBloodLevel() - 1);
                     if (victim.getHealth() < 20) {
@@ -102,7 +102,7 @@ public class VMakeListener implements Listener {
         Boolean hasBasicPotions = hasPotion(player, night) && hasPotion(player, invisability);
         Boolean hasLongPotions = hasPotion(player, nightLong) && hasPotion(player, invisabilityLong);
         //give age boost depending on tier of potions
-        if (!Vampire.isVampire(player.getName(), plugin)) {
+        if (!Vampire.isVampire(player.getUniqueId(), plugin)) {
             if (hasLongPotions) {
                 player.getInventory().remove(nightLong);
                 player.getInventory().remove(invisabilityLong);

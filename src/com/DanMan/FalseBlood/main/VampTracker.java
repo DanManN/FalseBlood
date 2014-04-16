@@ -5,6 +5,7 @@
 package com.DanMan.FalseBlood.main;
 
 import com.DanMan.FalseBlood.utils.Stats;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -40,9 +41,9 @@ public class VampTracker {
     public static void vampUnload(Plugin plug) {
         plug.getServer().getScheduler().cancelTasks(plug);
         for (Player player : Bukkit.getOnlinePlayers()) {
-            String pname = player.getName();
-            if (Vampire.isVampire(pname, plug)) {
-                Stats.logMDtoFile(pname, plug);
+            UUID pId = player.getUniqueId();
+            if (Vampire.isVampire(pId, plug)) {
+                Stats.logMDtoFile(pId, plug);
             }
         }
     }

@@ -31,7 +31,7 @@ public class VRestrictionsListener implements Listener {
     @EventHandler
     public void onEatFood(PlayerInteractEvent evt) {
         player = evt.getPlayer();
-        if (Vampire.isVampire(player.getName(), plugin)) {
+        if (Vampire.isVampire(player.getUniqueId(), plugin)) {
             ItemStack Food = player.getItemInHand();
             //food booleans
             boolean eatBread = Food.getType() == Material.BREAD;
@@ -74,7 +74,7 @@ public class VRestrictionsListener implements Listener {
     @EventHandler
     public void onVampPickupGold(PlayerPickupItemEvent evt) {
         player = evt.getPlayer();
-        if (Vampire.isVampire(player.getName(), plugin)) {
+        if (Vampire.isVampire(player.getUniqueId(), plugin)) {
             //food booleans
             ItemStack gold = evt.getItem().getItemStack();
 //            boolean gSword = gold.getType() == Material.GOLD_SWORD;
@@ -109,7 +109,7 @@ public class VRestrictionsListener implements Listener {
         boolean pickaxe = pick == Material.WOOD_PICKAXE || pick == Material.STONE_PICKAXE || pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
         player = evt.getPlayer();
         boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) || (evt.getBlock().getType() == Material.GOLD_PLATE);
-        if (goldstuff && Vampire.isVampire(player.getName(), plugin)) {
+        if (goldstuff && Vampire.isVampire(player.getUniqueId(), plugin)) {
             if (!pickaxe) {
                 player.damage(1);
             }

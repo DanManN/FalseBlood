@@ -31,7 +31,7 @@ public class VDamageListener implements Listener {
     public void onVampIsDamaged(EntityDamageEvent evt) {
         if (evt.getEntity() instanceof Player) {
             player = (Player) evt.getEntity();
-            if (Vampire.isVampire(player.getName(), plugin)) {
+            if (Vampire.isVampire(player.getUniqueId(), plugin)) {
                 //vampires don't need to breath
                 if (evt.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION) {
                     evt.setCancelled(true);

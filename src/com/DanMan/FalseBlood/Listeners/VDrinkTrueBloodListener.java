@@ -42,7 +42,7 @@ public class VDrinkTrueBloodListener implements Listener {
     public void onDrinkPotion(PlayerInteractEvent evt) {
         player = evt.getPlayer();
         //player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().getDurability());
-        if (Vampire.isVampire(player.getName(), null)) {
+        if (Vampire.isVampire(player.getUniqueId(), null)) {
             if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 vamp = SNLMetaData.getMetadata(player, plugin);
                 ItemStack tb = player.getItemInHand();

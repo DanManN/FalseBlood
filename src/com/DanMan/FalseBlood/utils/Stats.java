@@ -6,6 +6,7 @@ package com.DanMan.FalseBlood.utils;
 
 import com.DanMan.FalseBlood.main.Vampire;
 import java.io.*;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -16,9 +17,9 @@ import org.bukkit.plugin.Plugin;
  */
 public class Stats {
 
-    public static void logMDtoFile(String pname, Plugin plugin) {
+    public static void logMDtoFile(UUID pname, Plugin plugin) {
         Vampire vamp;
-        pname = pname.toLowerCase();
+//        pname = pname.toLowerCase();
         File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
         try {
             sFile.createNewFile();
@@ -38,9 +39,9 @@ public class Stats {
         }
     }
 
-    public static void loadMDfromFile(String pname, Plugin plugin) {
+    public static void loadMDfromFile(UUID pname, Plugin plugin) {
         Vampire vamp = null;
-        pname = pname.toLowerCase();
+//        pname = pname.toLowerCase();
         File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
         if (sFile.exists()) {
             try {
@@ -61,9 +62,9 @@ public class Stats {
         }
     }
 
-    public static int getSavedAge(String pname, Plugin plugin) {
+    public static int getSavedAge(UUID pname, Plugin plugin) {
         Vampire vamp = null;
-        pname = pname.toLowerCase();
+//        pname = pname.toLowerCase();
         File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
         if (sFile.exists()) {
             try {

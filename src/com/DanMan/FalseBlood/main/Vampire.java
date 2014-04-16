@@ -11,6 +11,8 @@ import com.DanMan.FalseBlood.utils.Stats;
 import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.UUID;
+import static org.bukkit.BanList.Type.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,7 +29,7 @@ public final class Vampire implements Serializable {
 
     private transient FalseBlood plugin;
     //vampire variables
-    private String pname;
+    private UUID pId;
     private boolean isBloodSucking;
     private boolean afk;
     private int sId = -1;
@@ -35,12 +37,12 @@ public final class Vampire implements Serializable {
     private int age;
 
     public Vampire(Player player, FalseBlood plug) {
-        pname = player.getName();
+        pId = player.getUniqueId();
         plugin = plug;
         setVampire(true);
     }
 
-    public static boolean isVampire(String name, Plugin plug) {
+    public static boolean isVampire(UUID name, Plugin plug) {
 //        Stats stats = new Stats();
 //        if (stats.getStats(player.getName(), 0).contains("true")) {
 //            return true;
@@ -65,7 +67,7 @@ public final class Vampire implements Serializable {
             
             SNLMetaData.setMetadata(getPlayer(), this, plugin);
 //            System.out.println("Vampire Instance: " + SNLMetaData.getMetadata(getPlayer(), plugin));
-            Stats.logMDtoFile(pname, plugin);
+            Stats.logMDtoFile(pId, plugin);
             VampTracker.startVampTracker(this);
             addClock(getPlayer());
             getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
@@ -74,7 +76,7 @@ public final class Vampire implements Serializable {
             getPlayer().setAllowFlight(false);
             VampTracker.stopVampTracker(this);
             SNLMetaData.delMetaData(getPlayer(), plugin);
-            File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
+            File sFile = new File("plugins/FalseBlood/users/" + pId + ".dat");
             sFile.delete();
             getPlayer().sendMessage(ChatColor.RED + "You have fallen a victim to True-Death!");
         }
@@ -138,8 +140,8 @@ public final class Vampire implements Serializable {
         return plugin;
     }
 
-    public String getName() {
-        return pname;
+    public UUID getPId() {
+        return pId;
     }
 
     public void addAge(int i) {
@@ -155,7 +157,7 @@ public final class Vampire implements Serializable {
     }
 
     public Player getPlayer() {
-        Player player = Bukkit.getServer().getPlayer(pname);
+        Player player = Bukkit.getServer().getPlayer(pId);
         return player;
     }
 

@@ -38,7 +38,7 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(pdefend.getName(), plugin)) {
+            if (Vampire.isVampire(pdefend.getUniqueId(), plugin)) {
                 vamp = SNLMetaData.getMetadata(pdefend, plugin);
                 //stake booleans
                 ItemStack stake = patak.getItemInHand();
@@ -93,7 +93,7 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(pdefend.getName(), plugin)) {
+            if (Vampire.isVampire(pdefend.getUniqueId(), plugin)) {
                 vamp = SNLMetaData.getMetadata(pdefend, plugin);
                 //silver booleans
                 ItemStack silver = patak.getItemInHand();
@@ -129,7 +129,7 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(patak.getName(), plugin)) {
+            if (Vampire.isVampire(patak.getUniqueId(), plugin)) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
                 //silver armor booleans
                 ItemStack boots = pdefend.getInventory().getBoots();

@@ -9,7 +9,6 @@ import com.DanMan.FalseBlood.main.Vampire;
 import com.DanMan.FalseBlood.utils.SNLMetaData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,13 +30,12 @@ public class SetAge {
 
     public boolean setage() {
         Player player;
-        String pname;
         Vampire vamp;
         if (sender.hasPermission("falseblood.setage")) {
             int age = 0;
             if (args.length == 2) {
                 if ((sender instanceof Player)) {
-                    pname = sender.getName();
+                    player = (Player) sender;
                     try {
                         age = Integer.parseInt(args[1]);
                     } catch (Exception ex) {
@@ -49,7 +47,7 @@ public class SetAge {
                     return true;
                 }
             } else if (args.length == 3) {
-                pname = args[1];
+                player = Bukkit.getServer().getPlayer(args[1]);
                 try {
                     age = Integer.parseInt(args[2]);
                 } catch (Exception ex) {
@@ -60,18 +58,18 @@ public class SetAge {
                 sender.sendMessage(ChatColor.YELLOW + "Incorrect number of arguments!");
                 return false;
             }
-            player = Bukkit.getServer().getPlayer(pname);
-            if (Vampire.isVampire(pname, plugin)) {
-                if (player != null) {
+            if (player != null) {
+                if (Vampire.isVampire(player.getUniqueId(), plugin)) {
                     vamp = SNLMetaData.getMetadata(player, plugin);
                     vamp.setAge(age);
-                    sender.sendMessage(ChatColor.RED + vamp.getName() + " is now " + age + " years old!");
+                    sender.sendMessage(ChatColor.RED + player.getName() + " is now " + age + " years old!");
                 } else {
-                    sender.sendMessage(ChatColor.RED + "Sorry, that player is not online.");
+                    sender.sendMessage(ChatColor.YELLOW + "You can only change a vampire's age!");
                 }
             } else {
-                sender.sendMessage(ChatColor.YELLOW + "You can only change a vampire's age!");
+                sender.sendMessage(ChatColor.RED + "Sorry, that player is not online.");
             }
+
         } else {
             sender.sendMessage(ChatColor.YELLOW + "You don't have the falseblood.setage permission");
         }

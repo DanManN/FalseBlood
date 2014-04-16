@@ -31,7 +31,7 @@ public class VDeathListener implements Listener {
     @EventHandler
     public void onVDeath(PlayerDeathEvent evt) {
         Player player = evt.getEntity();
-        if (Vampire.isVampire(player.getName(), plugin)) {
+        if (Vampire.isVampire(player.getUniqueId(), plugin)) {
             player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.INSTANT_HEAL.getDamageValue());
             player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.INSTANT_DAMAGE.getDamageValue());
             player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.STRENGTH.getDamageValue());

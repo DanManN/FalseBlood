@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.DanMan.FalseBlood.main;
 
 import com.DanMan.FalseBlood.Listeners.VMakeListener;
@@ -21,13 +17,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- *
- * @author DAY
- */
 public class FalseBlood extends JavaPlugin {
 
     private FB myEx;
+    private PluginManager evtBus;
 
     @Override
     public void onEnable() {
@@ -46,17 +39,17 @@ public class FalseBlood extends JavaPlugin {
     }
 
     public void registerListeners() {
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new VLoginListener(this), this);
-        pm.registerEvents(new VRestrictionsListener(this), this);
-        pm.registerEvents(new VSuckListener(this), this);
-        pm.registerEvents(new VDamageListener(this), this);
-        pm.registerEvents(new VStakeListener(this), this);
-        pm.registerEvents(new VClockListener(this), this);
-        pm.registerEvents(new VDeathListener(this), this);
-        pm.registerEvents(new VDrinkTrueBloodListener(this), this);
-        pm.registerEvents(new VMakeListener(this), this);
-        pm.registerEvents(new VMobNeutralityListener(this), this);
+    	evtBus = getServer().getPluginManager();
+    	evtBus.registerEvents(new VLoginListener(this), this);
+    	evtBus.registerEvents(new VRestrictionsListener(this), this);
+    	evtBus.registerEvents(new VSuckListener(this), this);
+        evtBus.registerEvents(new VDamageListener(this), this);
+        evtBus.registerEvents(new VStakeListener(this), this);
+        evtBus.registerEvents(new VClockListener(this), this);
+        evtBus.registerEvents(new VDeathListener(this), this);
+        evtBus.registerEvents(new VDrinkTrueBloodListener(this), this);
+ 	evtBus.registerEvents(new VMakeListener(this), this);
+	evtBus.registerEvents(new VMobNeutralityListener(this), this);
     }
 
     public void createDirs() {

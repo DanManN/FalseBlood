@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Hopper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +23,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.material.Cauldron;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 /**
  *
@@ -34,6 +39,8 @@ public class VDrinkTrueBloodListener implements Listener {
     Vampire vamp;
     Player player;
 
+    static final ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 373);
+
     public VDrinkTrueBloodListener(FalseBlood plug) {
         plugin = plug;
     }
@@ -41,27 +48,28 @@ public class VDrinkTrueBloodListener implements Listener {
     @EventHandler
     public void onDrinkPotion(PlayerInteractEvent evt) {
         player = evt.getPlayer();
-        //player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().getDurability());
-        if (Vampire.isVampire(player.getUniqueId(), null)) {
-            if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        //player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().isSimilar(trueblood));
+        if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 vamp = SNLMetaData.getMetadata(player, plugin);
-                ItemStack tb = player.getItemInHand();
-                if (tb.getType() == Material.POTION) {
-                    if (tb.getDurability() == 59) {
-                        final int slot = player.getInventory().getHeldItemSlot();
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                ItemStack tb = player.getInventory().getItemInMainHand();
+            if (tb.getType() == Material.POTION) {
+		PotionMeta pm = (PotionMeta) tb.getItemMeta();
+                if (pm.getBasePotionData().getType() == PotionType.UNCRAFTABLE) {
+                     final int slot = player.getInventory().getHeldItemSlot();
+                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
-                            @Override
-                            public void run() {
-                                if (player.getInventory().getItem(slot).getType() != Material.POTION) {
-                                    vamp.setBloodLevel(vamp.getBloodLevel() + 4);
-                                    player.setSaturation(player.getSaturation() + 4);
-                                }
-                            }
-                        }, 33L);
-                    } else {
-                        evt.setCancelled(true);
-                    }
+                     	@Override
+                        public void run() {
+                        	if (player.getInventory().getItem(slot).getType() == Material.GLASS_BOTTLE) {
+        	    			if (Vampire.isVampire(player.getUniqueId(), null)) {
+                                   		vamp.setBloodLevel(vamp.getBloodLevel() + 4);
+                                    		player.setSaturation(player.getSaturation() + 4);
+                               		 } else {
+                            			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
+					 }
+                            	}
+			}  
+		    }, 33L);
                 }
             }
         }
@@ -88,62 +96,59 @@ public class VDrinkTrueBloodListener implements Listener {
 //        }
 //    }
 
-    @EventHandler
-    public void onBrewPotion(PlayerInteractEvent evt) {
-        if (evt.hasBlock()) {
+	@EventHandler
+	public void onBrewPotion(PlayerInteractEvent evt) {
+		if (evt.hasBlock()) {
+			if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
+				//System.out.println("Triggered");
 
-            //System.out.println("Triggered");
+				player = evt.getPlayer();
+				ItemStack inHand = player.getInventory().getItemInMainHand();
+				Block caul = evt.getClickedBlock();
+				if (caul.getType() == Material.CAULDRON && inHand.getType() == Material.GLASS_BOTTLE) {
+					Cauldron c = (Cauldron) caul.getState().getData();
+					BlockState cs = caul.getState();
+					Block hop = caul.getRelative(BlockFace.UP);
 
-            player = evt.getPlayer();
-            ItemStack inHand = player.getItemInHand();
-            Block caul = evt.getClickedBlock();
-            if (caul.getType() == Material.CAULDRON && inHand.getType() == Material.GLASS_BOTTLE) {
-                Cauldron c = (Cauldron) caul.getState().getData();
-                Block hop = caul.getRelative(BlockFace.UP);
+					//System.out.println("Hopper: " + hop);
 
-                //System.out.println("Hopper: " + hop);
+					if (!c.isEmpty() && (hop.getType() == Material.HOPPER)) {
 
-                if (!c.isEmpty() && (hop.getType() == Material.HOPPER)) {
+						//System.out.println("Hopper exists");
 
-                    //System.out.println("Hopper exists");
-
-                    Hopper h = (Hopper) hop.getState();
-                    Inventory hopi = h.getInventory();
-                    ItemStack iEye = hopi.getItem(hopi.first(Material.EYE_OF_ENDER));
-                    if (iEye != null) {
-                        if (iEye.getAmount() > 1) {
-                            iEye.setAmount(iEye.getAmount() - 1);
-                        } else {
-                            hopi.clear(hopi.first(iEye));
-                        }
-                        //System.out.println("Item exists in proper location");
-                        //evt.setCancelled(true);
-                        ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 59);
-                        ItemMeta meta = trueblood.getItemMeta();
-                        meta.setDisplayName(ChatColor.DARK_RED + "TrueBlood");
-                        List<String> lore = new ArrayList<String>();
-                        lore.clear();
-                        lore.add("Replenishes 2 vampire blood bars.");
-                        meta.setLore(lore);
-                        trueblood.setItemMeta(meta);
-//                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-                                if (inHand.getAmount() > 1) {
-                                    ItemStack less = new ItemStack(inHand.getType(), (inHand.getAmount() - 1));
-                                    player.setItemInHand(less);
-                                } else {
-                                    player.setItemInHand(trueblood);
-                                }
-//                            }
-//                        }, 1);
-                        c.setData((byte) (c.getData() - 1));
-                        evt.setCancelled(true);
-                        player.updateInventory();
-                    }
-                }
-            }
-        }
-    }
+						Hopper h = (Hopper) hop.getState();
+						Inventory hopi = h.getInventory();
+						if (hopi.contains(Material.BEETROOT)) {
+							ItemStack iEye = hopi.getItem(hopi.first(Material.BEETROOT));
+							if (iEye.getAmount() > 1) {
+								iEye.setAmount(iEye.getAmount() - 1);
+							} else {
+								hopi.clear(hopi.first(iEye));
+							}
+							//System.out.println("Item exists in proper location");
+							ItemMeta meta = trueblood.getItemMeta();
+							meta.setDisplayName(ChatColor.DARK_RED + "TrueBlood");
+							List<String> lore = new ArrayList<String>();
+							lore.clear();
+							lore.add("Replenishes 2 vampire blood bars.");
+							meta.setLore(lore);
+							trueblood.setItemMeta(meta);
+							if (inHand.getAmount() > 1) {
+								ItemStack less = new ItemStack(inHand.getType(), (inHand.getAmount() - 1));
+								player.setItemInHand(less);
+								player.getInventory().addItem(trueblood);
+							} else {
+								player.setItemInHand(trueblood);
+							}
+							evt.setCancelled(true);
+							cs.getData().setData((byte) (c.getData() - 1));
+							cs.update();
+							player.updateInventory();
+						}
+					}
+				}
+			}
+		}
+	}
 }
+

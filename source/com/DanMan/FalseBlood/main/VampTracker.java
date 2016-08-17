@@ -55,9 +55,11 @@ public class VampTracker {
             @Override
             public void run() {
                 //every vamp tick is one fourth a second
-                vamp.setTick(vamp.getTick() + 1);
                 if (player != null) {
                     afkManager(vamp, player);
+		    if(!vamp.isAfk()) {
+                 	vamp.setTick(vamp.getTick() + 1);
+		    }	    
                     SunTime.vSunBurn(player);
                     VampTrackerTasks.vampTouchGold(player);
                     VampTrackerTasks.vampHealthMngr(vamp, player);
@@ -65,7 +67,7 @@ public class VampTracker {
                     VampTrackerTasks.vampSprintMngr(vamp, player);
                     VampTrackerTasks.vampStrengthMngr(vamp, player);
                     //level up age every hour
-                    if (vamp.getTick() >= 14400 && !vamp.isAfk()) {
+                    if (vamp.getTick() >= 14400) {
                         vamp.addAge(1);
                         vamp.setTick(0);
                     }

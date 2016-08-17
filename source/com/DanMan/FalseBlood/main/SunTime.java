@@ -20,14 +20,11 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class SunTime {
 
-    public static boolean getDay() {
-        Bukkit.getWorlds().get(0);
-        long time = Bukkit.getWorlds().get(0).getTime();
-        if (time < 22200 && time > 13800) {
-            return false;
-        } else {
-            return true;
-        }
+    public static boolean getDay(Player player) {
+        long time = player.getWorld().getTime();
+        return time < 13000 || time > 23000;
+	//return time < 12300 || time > 23850;
+
     }
 
     public static int lightLevel(Player player) {
@@ -40,7 +37,7 @@ public class SunTime {
     }
 
     public static void vSunBurn(Player player) {
-        if (SunTime.getDay() && player.getWorld().getEnvironment() == World.Environment.NORMAL) {
+        if (SunTime.getDay(player) && player.getWorld().getEnvironment() == World.Environment.NORMAL) {
             int ll = lightLevel(player);
             int dmg = ll / 5;
             EntityDamageEvent burn = new EntityDamageEvent(player, EntityDamageEvent.DamageCause.FIRE_TICK, dmg);

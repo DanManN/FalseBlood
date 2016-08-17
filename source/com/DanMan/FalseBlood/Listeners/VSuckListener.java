@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -63,7 +64,7 @@ public class VSuckListener implements Listener {
         Entity damaged = evt.getEntity();
         if (damager instanceof Player) {
             Player patak = (Player) damager;
-            if ((patak.getItemInHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId(), plugin))) {
+            if ((patak.getInventory().getItemInMainHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId(), plugin))) {
                 vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {
@@ -84,7 +85,20 @@ public class VSuckListener implements Listener {
                         if (GeneralUtils.random(0.2)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
-                    }
+                    } else if (damaged instanceof PigZombie) {
+                        vamp.setBloodLevel(vamp.getBloodLevel() + 1);
+                        patak.setSaturation(patak.getSaturation() + 0.5F);
+                        if (GeneralUtils.random(0.5)) {
+                            patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+                        }
+		    } else if (damaged instanceof Witch) {
+                        vamp.setBloodLevel(vamp.getBloodLevel() + 3);
+                        patak.setSaturation(patak.getSaturation() + 5);
+                        if (GeneralUtils.random(0.1)) {
+                            patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+                        }
+		    }
+
                 }
             }
         }
@@ -95,7 +109,18 @@ public class VSuckListener implements Listener {
     public void onVampRightClick(PlayerInteractEvent evt) {
         if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             Player player = evt.getPlayer();
-            if (player.getItemInHand().getType() == Material.WATCH) {
+	    ItemStack itemS = null;
+	    switch (evt.getHand()) {
+		case HAND:
+		       	itemS = player.getInventory().getItemInMainHand();
+			break;
+		case OFF_HAND:
+			itemS = player.getInventory().getItemInOffHand();	
+			break;
+		default:
+			return;
+	    }
+            if (itemS.getType() == Material.WATCH) {
                 if (Vampire.isVampire(player.getUniqueId(), plugin)) {
                     vamp = SNLMetaData.getMetadata(player, plugin);
                     if (!vamp.isBloodSucking()) {
@@ -105,6 +130,7 @@ public class VSuckListener implements Listener {
                         vamp.setBloodSucking(false);
                         player.sendMessage(ChatColor.RED + "You are ready to kick ass.");
                     }
+		    evt.setCancelled(true);
                 }
             }
         }

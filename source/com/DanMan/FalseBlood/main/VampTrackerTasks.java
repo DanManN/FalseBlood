@@ -4,6 +4,7 @@
  */
 package com.DanMan.FalseBlood.main;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -34,11 +35,15 @@ public class VampTrackerTasks {
             if (player.isFlying()) {
                 player.setExhaustion(player.getExhaustion() + (float) (10 / agebuff));
             }
-        }
+        } else {
+	    if (player.getGameMode() != GameMode.CREATIVE) {
+		player.setAllowFlight(false);
+	    }
+	}
     }
 
     public static void vampSprintMngr(Vampire vamp, Player player) {
-        age = (vamp.getAge() / 2) + 10;
+        age = (vamp.getAge() / 2) ;//+ 10;
         agebuff = age > 35 ? 35 : age;
         if (player.isSprinting()) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10, agebuff), true);

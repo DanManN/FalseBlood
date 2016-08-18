@@ -75,19 +75,19 @@ Super Strength:
 
 Right click with your clock to switch to "kick ass" mode and you will be stronger in combat.
 
-Blood Sucking
+Blood Sucking:
 
 Right click with your clock to switch to "release your fangs" and then attack your pray .
 
-Brewing False Blood
+Brewing False Blood:
 
 Fill a cauldron with water. Place a hopper directly on top of the cauldron and put some beet-root in the hopper. Right click the cauldron with a glass bottle to fill it up with False Blood.
 
-Give Blood
+Give Blood:
 
 Right Click a player with you fists to give them your blood which will either heal them or give them strength potion if they are at full health.
 
-Flying
+Flying:
 
 If you are over age 50 then simply toggle flight the same way you would in creative mode.
 

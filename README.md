@@ -13,25 +13,25 @@ There are three methods to become a vampire.
 1. Have your blood (food bar) drained by a vampire and refilled with vampire blood.
 
 2. Go to "The End" with a clock and right-click with the clock in main hand. Also, add 10 years each for having at least one of the following items...
-* Nether Star
-* Dragon Egg
-* Elytra Wings
-* Note: These items will be removed if you have them in your inventory during the vampire transformation.
+ * Nether Star
+ * Dragon Egg
+ * Elytra Wings
+ * Note: These items will be removed if you have them in your inventory during the vampire transformation.
 
 3. Use the '/fb make' command to toggle vampire status.
 
 Un-becoming a Vampire:
 
 1. Dying instantly from wooden-stake which includes:
-* wooden sword/shovel/hoe/pickaxe/axe
-* torch/redstone-torch
-* any fence/fence-gate
-* stick
-* fishing rod
-* carrot on a stick
-* sign
-* armor stand
-* banners
+ * wooden sword/shovel/hoe/pickaxe/axe
+ * torch/redstone-torch
+ * any fence/fence-gate
+ * stick
+ * fishing rod
+ * carrot on a stick
+ * sign
+ * armor stand
+ * banners
  
 2. Use the /fb make command to toggle vampire status.
 

@@ -22,11 +22,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class VLoginListener implements Listener {
 
-    FalseBlood plugin;
-    Vampire vamp;
-    Player player;
-    UUID pId;
-    static final String key = "VampPlayer";
+    private static FalseBlood plugin;
+    //private static final String key = "VampPlayer";
 
     public VLoginListener(FalseBlood plug) {
         plugin = plug;
@@ -34,12 +31,12 @@ public class VLoginListener implements Listener {
 
     @EventHandler
     public void onVampLogon(PlayerJoinEvent evt) {
-        player = evt.getPlayer();
-        pId = player.getUniqueId();
+        Player player = evt.getPlayer();
+        UUID pId = player.getUniqueId();
 //        SNLMetaData.showMetadata(player, plugin);
-        if (Vampire.isVampire(pId, plugin)) {
+        if (Vampire.isVampire(pId)) {
             Stats.loadMDfromFile(pId, plugin);
-            vamp = SNLMetaData.getMetadata(player, plugin);
+            Vampire vamp = SNLMetaData.getMetadata(player, plugin);
             vamp.setPlugin(plugin);
             VampTracker.startVampTracker(vamp);
             //allow flight:
@@ -50,11 +47,11 @@ public class VLoginListener implements Listener {
     }
         @EventHandler
     public void onVampLogoff(PlayerQuitEvent evt) {
-        player = evt.getPlayer();
-        pId = player.getUniqueId();
+        Player player = evt.getPlayer();
+        UUID pId = player.getUniqueId();
 //        SNLMetaData.showMetadata(player, plugin);
-        if (Vampire.isVampire(pId, plugin)) {
-            vamp = SNLMetaData.getMetadata(player, plugin);
+        if (Vampire.isVampire(pId)) {
+            Vampire vamp = SNLMetaData.getMetadata(player, plugin);
             VampTracker.stopVampTracker(vamp);
             Stats.logMDtoFile(pId, plugin);
         }

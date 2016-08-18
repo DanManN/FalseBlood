@@ -35,9 +35,7 @@ import org.bukkit.potion.PotionType;
  */
 public class VDrinkTrueBloodListener implements Listener {
 
-    FalseBlood plugin;
-    Vampire vamp;
-    Player player;
+    private static FalseBlood plugin;
 
     static final ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 373);
 
@@ -47,25 +45,29 @@ public class VDrinkTrueBloodListener implements Listener {
 
     @EventHandler
     public void onDrinkPotion(PlayerInteractEvent evt) {
-        player = evt.getPlayer();
+        Player player = evt.getPlayer();
         //player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().isSimilar(trueblood));
         if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                vamp = SNLMetaData.getMetadata(player, plugin);
                 ItemStack tb = player.getInventory().getItemInMainHand();
             if (tb.getType() == Material.POTION) {
 		PotionMeta pm = (PotionMeta) tb.getItemMeta();
                 if (pm.getBasePotionData().getType() == PotionType.UNCRAFTABLE) {
+		     if(Vampire.isVampire(player.getUniqueId()) && player.getFoodLevel() >= 20) {
+			     return;
+		     }
+
                      final int slot = player.getInventory().getHeldItemSlot();
                      plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
                      	@Override
                         public void run() {
                         	if (player.getInventory().getItem(slot).getType() == Material.GLASS_BOTTLE) {
-        	    			if (Vampire.isVampire(player.getUniqueId(), null)) {
+        	    			if (Vampire.isVampire(player.getUniqueId())) {
+                				Vampire vamp = SNLMetaData.getMetadata(player, plugin);
                                    		vamp.setBloodLevel(vamp.getBloodLevel() + 4);
                                     		player.setSaturation(player.getSaturation() + 4);
                                		 } else {
-                            			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
+                            			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 0));
 					 }
                             	}
 			}  
@@ -102,7 +104,7 @@ public class VDrinkTrueBloodListener implements Listener {
 			if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				//System.out.println("Triggered");
 
-				player = evt.getPlayer();
+				Player player = evt.getPlayer();
 				ItemStack inHand = player.getInventory().getItemInMainHand();
 				Block caul = evt.getClickedBlock();
 				if (caul.getType() == Material.CAULDRON && inHand.getType() == Material.GLASS_BOTTLE) {
@@ -127,7 +129,7 @@ public class VDrinkTrueBloodListener implements Listener {
 							}
 							//System.out.println("Item exists in proper location");
 							ItemMeta meta = trueblood.getItemMeta();
-							meta.setDisplayName(ChatColor.DARK_RED + "TrueBlood");
+							meta.setDisplayName(ChatColor.DARK_RED + "False Blood");
 							List<String> lore = new ArrayList<String>();
 							lore.clear();
 							lore.add("Replenishes 2 vampire blood bars.");

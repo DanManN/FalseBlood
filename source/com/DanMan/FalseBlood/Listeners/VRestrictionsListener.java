@@ -23,18 +23,17 @@ import org.bukkit.inventory.ItemStack;
  */
 public class VRestrictionsListener implements Listener {
 
-    FalseBlood plugin;
-    Player player;
+    //private static FalseBlood plugin;
 
     public VRestrictionsListener(FalseBlood plug) {
-        plugin = plug;
+    //    plugin = plug;
     }
 
 	@EventHandler
 	public void onEatFood(PlayerInteractEvent evt) {
-		player = evt.getPlayer();
+		Player player = evt.getPlayer();
 		if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) && evt.getHand() == EquipmentSlot.HAND) {
-			if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+			if (Vampire.isVampire(player.getUniqueId())) {
             			ItemStack Food = player.getInventory().getItemInMainHand();
 				//food booleans
 				boolean eatBread = Food.getType() == Material.BREAD;
@@ -86,8 +85,8 @@ public class VRestrictionsListener implements Listener {
 
     @EventHandler
     public void onVampPickupGold(PlayerPickupItemEvent evt) {
-        player = evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+        Player player = evt.getPlayer();
+        if (Vampire.isVampire(player.getUniqueId())) {
 
             ItemStack gold = evt.getItem().getItemStack();
 //            boolean gSword = gold.getType() == Material.GOLD_SWORD;
@@ -118,11 +117,11 @@ public class VRestrictionsListener implements Listener {
 
     @EventHandler
     public void onVampClickGold(BlockDamageEvent evt) {
+        Player player = evt.getPlayer();
         Material pick = player.getInventory().getItemInMainHand().getType();
         boolean pickaxe = pick == Material.WOOD_PICKAXE || pick == Material.STONE_PICKAXE || pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
-        player = evt.getPlayer();
         boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) || (evt.getBlock().getType() == Material.GOLD_PLATE);
-        if (goldstuff && Vampire.isVampire(player.getUniqueId(), plugin)) {
+        if (goldstuff && Vampire.isVampire(player.getUniqueId())) {
             if (!pickaxe) {
                 player.damage(2);
             }

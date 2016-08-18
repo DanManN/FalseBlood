@@ -19,20 +19,19 @@ import org.bukkit.event.entity.EntityTargetEvent;
  */
 public class VMobNeutralityListener implements Listener {
 
-    FalseBlood plugin;
-    Player player;
+    //private static FalseBlood plugin;
 
     public VMobNeutralityListener(FalseBlood plug) {
-        plugin = plug;
+    //    plugin = plug;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onVampSleep(EntityTargetEvent evt) {
         //System.out.println("Target Event triggered.");
         if (evt.getTarget() instanceof Player && evt.getEntity() instanceof Monster) {
-            player = (Player) evt.getTarget();
+            Player player = (Player) evt.getTarget();
             Monster mon = (Monster) evt.getEntity();
-            if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+            if (Vampire.isVampire(player.getUniqueId())) {
                 if (mon instanceof Blaze || mon instanceof PigZombie || mon instanceof Silverfish || mon instanceof Witch || mon instanceof Wither || mon instanceof EnderDragon) {
                     //System.out.println("Target Event NotCanceled: Acceptable Mob.");
                     return;

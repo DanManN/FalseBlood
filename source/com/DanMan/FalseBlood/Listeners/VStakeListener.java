@@ -24,8 +24,7 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class VStakeListener implements Listener {
 
-    FalseBlood plugin;
-    Vampire vamp;
+    private static FalseBlood plugin;
 
     public VStakeListener(FalseBlood plug) {
         plugin = plug;
@@ -38,8 +37,8 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(pdefend.getUniqueId(), plugin)) {
-                vamp = SNLMetaData.getMetadata(pdefend, plugin);
+            if (Vampire.isVampire(pdefend.getUniqueId())) {
+                Vampire vamp = SNLMetaData.getMetadata(pdefend, plugin);
                 //stake booleans
                 ItemStack stake = patak.getInventory().getItemInMainHand();
                 boolean wSword = stake.getType() == Material.WOOD_SWORD;
@@ -102,8 +101,8 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(pdefend.getUniqueId(), plugin)) {
-                vamp = SNLMetaData.getMetadata(pdefend, plugin);
+            if (Vampire.isVampire(pdefend.getUniqueId())) {
+                //Vampire vamp = SNLMetaData.getMetadata(pdefend, plugin);
                 //silver booleans
                 ItemStack silver = patak.getInventory().getItemInMainHand();
                 //boolean gSword = silver.getType() == Material.GOLD_SWORD;
@@ -138,8 +137,8 @@ public class VStakeListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(patak.getUniqueId(), plugin)) {
-                vamp = SNLMetaData.getMetadata(patak, plugin);
+            if (Vampire.isVampire(patak.getUniqueId())) {
+                //Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
                 //silver armor booleans
                 ItemStack boots = pdefend.getInventory().getBoots();
                 ItemStack pants = pdefend.getInventory().getLeggings();

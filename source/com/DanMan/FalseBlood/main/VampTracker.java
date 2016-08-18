@@ -42,7 +42,7 @@ public class VampTracker {
         plug.getServer().getScheduler().cancelTasks(plug);
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID pId = player.getUniqueId();
-            if (Vampire.isVampire(pId, plug)) {
+            if (Vampire.isVampire(pId)) {
                 Stats.logMDtoFile(pId, plug);
             }
         }

@@ -43,11 +43,11 @@ public class SunTime {
             EntityDamageEvent burn = new EntityDamageEvent(player, EntityDamageEvent.DamageCause.FIRE_TICK, dmg);
             if (ll > 4) {
                 player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
-                player.damage(dmg);
                 Bukkit.getServer().getPluginManager().callEvent(burn);
+                player.damage(dmg);
                 if (ll == 15) {
                     player.setFireTicks(21);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20, 0), true);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 0), false);
                 }
             }
         }

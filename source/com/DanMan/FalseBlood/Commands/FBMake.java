@@ -55,7 +55,7 @@ public class FBMake {
                 return false;
             }
             if (player != null) {
-                if (!Vampire.isVampire(player.getUniqueId(), plugin)) {
+                if (!Vampire.isVampire(player.getUniqueId())) {
                     vamp = new Vampire(player, plugin);
                     sender.sendMessage(ChatColor.RED + player.getName() + " is now a Vampire.");
                 } else {

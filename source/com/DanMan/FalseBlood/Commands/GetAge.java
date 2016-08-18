@@ -62,7 +62,7 @@ public class GetAge {
             }
             if (player != null) {
                 pId = player.getUniqueId();
-                if (Vampire.isVampire(pId, plugin)) {
+                if (Vampire.isVampire(pId)) {
                     if (online) {
                         vamp = SNLMetaData.getMetadata((Player) player, plugin);
                         age = vamp.getAge();

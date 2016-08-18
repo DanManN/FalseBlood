@@ -18,20 +18,18 @@ import org.bukkit.event.entity.EntityDamageEvent;
  */
 public class VDamageListener implements Listener {
 
-    Vampire vamp;
-    FalseBlood plugin;
-    Player player;
+    //private static FalseBlood plugin;
 
     public VDamageListener(FalseBlood plug) {
-        plugin = plug;
+    //    plugin = plug;
     }
 
     @EventHandler
     //listener for suffacation
     public void onVampIsDamaged(EntityDamageEvent evt) {
         if (evt.getEntity() instanceof Player) {
-            player = (Player) evt.getEntity();
-            if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+            Player player = (Player) evt.getEntity();
+            if (Vampire.isVampire(player.getUniqueId())) {
                 //vampires don't need to breath
                 if (evt.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION) {
                     evt.setCancelled(true);

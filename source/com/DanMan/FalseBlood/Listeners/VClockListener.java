@@ -22,20 +22,19 @@ import org.bukkit.event.player.PlayerRespawnEvent;
  */
 public class VClockListener implements Listener {
 
-    FalseBlood plugin;
-    Player player;
+    //private static FalseBlood plugin;
     //making sure the clock doesn't dissapear
 
     public VClockListener(FalseBlood plug) {
-        plugin = plug;
+    //    plugin = plug;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onClockMove(InventoryClickEvent evt) {
-        player = (Player) evt.getWhoClicked();
+        Player player = (Player) evt.getWhoClicked();
         if (evt.getCurrentItem() != null) {
             Material watch = evt.getCurrentItem().getType();
-            if (Vampire.isVampire(player.getUniqueId(), plugin) && (watch == Material.WATCH || watch.toString().startsWith("GOLD"))) {
+            if (Vampire.isVampire(player.getUniqueId()) && (watch == Material.WATCH || watch.toString().startsWith("GOLD"))) {
                 evt.setCancelled(true);
             }
         }
@@ -44,8 +43,8 @@ public class VClockListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onVampDropClock(PlayerDropItemEvent evt) {
-        player = (Player) evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId(), plugin) && evt.getItemDrop().getItemStack().getType() == Material.WATCH) {
+        Player player = (Player) evt.getPlayer();
+        if (Vampire.isVampire(player.getUniqueId()) && evt.getItemDrop().getItemStack().getType() == Material.WATCH) {
             evt.setCancelled(true);
         }
     }
@@ -53,8 +52,8 @@ public class VClockListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onVampPickUpClock(PlayerPickupItemEvent evt) {
-        player = evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId(), plugin) && evt.getItem().getItemStack().getType() == Material.WATCH) {
+        Player player = evt.getPlayer();
+        if (Vampire.isVampire(player.getUniqueId()) && evt.getItem().getItemStack().getType() == Material.WATCH) {
             evt.setCancelled(true);
         }
     }
@@ -62,8 +61,8 @@ public class VClockListener implements Listener {
 
     @EventHandler
     public void onVampRespawn(PlayerRespawnEvent evt) {
-        player = evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+        Player player = evt.getPlayer();
+        if (Vampire.isVampire(player.getUniqueId())) {
             Vampire.addClock(player);
         }
     }

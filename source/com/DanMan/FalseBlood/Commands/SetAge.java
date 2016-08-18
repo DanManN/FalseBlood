@@ -59,7 +59,7 @@ public class SetAge {
                 return false;
             }
             if (player != null) {
-                if (Vampire.isVampire(player.getUniqueId(), plugin)) {
+                if (Vampire.isVampire(player.getUniqueId())) {
                     vamp = SNLMetaData.getMetadata(player, plugin);
                     vamp.setAge(age);
                     sender.sendMessage(ChatColor.RED + player.getName() + " is now " + age + " years old!");

@@ -40,7 +40,7 @@ public final class Vampire implements Serializable {
         setVampire(true);
     }
 
-    public static boolean isVampire(UUID name, Plugin plug) {
+    public static boolean isVampire(UUID name) {
 //        Stats stats = new Stats();
 //        if (stats.getStats(player.getName(), 0).contains("true")) {
 //            return true;
@@ -151,6 +151,7 @@ public final class Vampire implements Serializable {
     }
 
     public void setBloodLevel(int inBloodLevel) {
+	inBloodLevel = inBloodLevel > 20 ? 20 : inBloodLevel;
         getPlayer().setFoodLevel(inBloodLevel);
     }
 

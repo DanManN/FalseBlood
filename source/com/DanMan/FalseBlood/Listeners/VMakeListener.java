@@ -26,9 +26,7 @@ import org.bukkit.potion.PotionType;
  */
 public class VMakeListener implements Listener {
 
-	FalseBlood plugin;
-	Vampire vamp;
-	Player player;
+	private static FalseBlood plugin;
 
 	public VMakeListener(FalseBlood plug) {
 		plugin = plug;
@@ -36,12 +34,12 @@ public class VMakeListener implements Listener {
 
 	@EventHandler
 	public void onVampGiveBlood(PlayerInteractEntityEvent evt) {
-		player = evt.getPlayer();
+		Player player = evt.getPlayer();
 		Entity clicked = evt.getRightClicked();
-		if (clicked instanceof Player && Vampire.isVampire(player.getUniqueId(), plugin)) {
+		if (clicked instanceof Player && Vampire.isVampire(player.getUniqueId())) {
        			Player victim = (Player) clicked;
-			vamp = SNLMetaData.getMetadata(player, plugin);
-			if (!Vampire.isVampire(victim.getUniqueId(), plugin)) {
+			Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+			if (!Vampire.isVampire(victim.getUniqueId())) {
 				if (victim.getFoodLevel() > 0 && vamp.getBloodLevel() > 0) {
 					vamp.setBloodLevel(vamp.getBloodLevel() - 1);
 					if (victim.getHealth() < 20) {
@@ -54,7 +52,7 @@ public class VMakeListener implements Listener {
 						victim.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1200, 0));
 					}
 				} else if (victim.getFoodLevel() == 0 && vamp.getBloodLevel() > 10) {
-					player.setFoodLevel(player.getFoodLevel() - 10);
+					vamp.setBloodLevel(vamp.getBloodLevel() - 10);
 					victim.setFoodLevel(20);
 					delayMessage(100L, victim, "You feel a stranger to your body.");
 					delayMessage(200L, victim, "Your blood has been sucked out of your veins and refilled with...");
@@ -73,7 +71,7 @@ public class VMakeListener implements Listener {
 
 	@EventHandler
 	public void onClockInEndInteract(PlayerInteractEvent evt) {
-		player = evt.getPlayer();
+		Player player = evt.getPlayer();
 		if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) && evt.getHand() == EquipmentSlot.HAND) {
 
 			//click watch boolean
@@ -99,7 +97,7 @@ public class VMakeListener implements Listener {
 	        Boolean hasElytra = player.getInventory().contains(elytra);
 	        //give age boost depending on how many items
 		int age = 0;
-	        if (!Vampire.isVampire(player.getUniqueId(), plugin)) {
+	        if (!Vampire.isVampire(player.getUniqueId())) {
 			if (hasElytra) {
 				player.getInventory().remove(elytra);
 				age += 10;
@@ -145,7 +143,7 @@ public class VMakeListener implements Listener {
 
 			@Override
 			public void run() {
-		                vamp = new Vampire(player, plugin);
+		                Vampire vamp = new Vampire(player, plugin);
 		                if (age > 0) {
 					vamp.setAge(age);
 				}

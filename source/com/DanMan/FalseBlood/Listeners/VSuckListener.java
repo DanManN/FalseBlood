@@ -26,8 +26,7 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class VSuckListener implements Listener {
 
-    FalseBlood plugin;
-    Vampire vamp;
+    private static FalseBlood plugin;
 
     public VSuckListener(FalseBlood plug) {
         plugin = plug;
@@ -40,9 +39,9 @@ public class VSuckListener implements Listener {
         if (damager instanceof Player && damaged instanceof Player) {
             Player patak = (Player) damager;
             Player pdefend = (Player) damaged;
-            if (Vampire.isVampire(patak.getUniqueId(), plugin)) {
-                vamp = SNLMetaData.getMetadata(patak, plugin);
-                if (!Vampire.isVampire(pdefend.getUniqueId(), plugin) && vamp.isBloodSucking()) {
+            if (Vampire.isVampire(patak.getUniqueId())) {
+                Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
+                if (!Vampire.isVampire(pdefend.getUniqueId()) && vamp.isBloodSucking()) {
                     pdefend.setFoodLevel(pdefend.getFoodLevel() - 2);
                     vamp.setBloodLevel(vamp.getBloodLevel() + 4);
                     patak.setSaturation(patak.getSaturation() + 6);
@@ -64,8 +63,8 @@ public class VSuckListener implements Listener {
         Entity damaged = evt.getEntity();
         if (damager instanceof Player) {
             Player patak = (Player) damager;
-            if ((patak.getInventory().getItemInMainHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId(), plugin))) {
-                vamp = SNLMetaData.getMetadata(patak, plugin);
+            if ((patak.getInventory().getItemInMainHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId()))) {
+                Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 3);
@@ -88,7 +87,7 @@ public class VSuckListener implements Listener {
                     } else if (damaged instanceof PigZombie) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 1);
                         patak.setSaturation(patak.getSaturation() + 0.5F);
-                        if (GeneralUtils.random(0.5)) {
+                        if (GeneralUtils.random(0.7)) {
                             patak.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                         }
 		    } else if (damaged instanceof Witch) {
@@ -121,8 +120,8 @@ public class VSuckListener implements Listener {
 			return;
 	    }
             if (itemS.getType() == Material.WATCH) {
-                if (Vampire.isVampire(player.getUniqueId(), plugin)) {
-                    vamp = SNLMetaData.getMetadata(player, plugin);
+                if (Vampire.isVampire(player.getUniqueId())) {
+                    Vampire vamp = SNLMetaData.getMetadata(player, plugin);
                     if (!vamp.isBloodSucking()) {
                         vamp.setBloodSucking(true);
                         player.sendMessage(ChatColor.RED + "You release your fangs in lust for blood.");

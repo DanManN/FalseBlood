@@ -92,9 +92,11 @@ Flying:
 If you are over age 50 then simply toggle flight the same way you would in creative mode.
 
 Commands:
+
 /fb make [player] - toggles the player's vampire status or yours if player is left out. Requires the falseblood.make permission.
 /fb setage [player] [age] - sets a vampires age or yours if player is left out. Requires the falseblood.setage permission.
 /fb getage [player] - gets a vampires age or yours if player is left out. Requires the falseblood.getage permission.
 
 Known Issues:
+
 clearing inventory of a vampire using a different plugin will remove their clock, preventing the vampire from switching between combat and feeding mode (can be fixed by killing vampire or giving him a new clock)

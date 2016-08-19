@@ -44,7 +44,7 @@ Advantages:
 * are ignored by all aggressive mobs except silver fish, witches, Nether mobs, and Bosses
 * automatically heal (at cost of blood) (improves with age)
 * can run faster (at cost of blood) (improves with age)
-* are stronger in combat (at cost of blood) (improves with age)
+* are stronger in combat (improves with age)
 * suck blood using fist from...
   1. players (2 bars per hit) (6 saturation)
   2. villagers/witches (1.5 bars per hit) (5 saturation) (10% food poison chance)
@@ -62,14 +62,14 @@ Disadvantages:
 * burn when touching gold either by hitting it with their first or standing on it
 * take damage when attacking a person in gold armor
 * take extra damaged when attacked by gold items. also gives them a weakness effect
-* have an 84% chance to die instantly from a wooden stake. Wearing armor decreases the chance depending on how full your set of armor is and the durability of the armor. Only a full set of undamaged armor will guarantee that you won't die instantly.
+* have an 85% chance to die instantly from a wooden stake. Wearing armor decreases the chance depending on how full your set of armor is and the durability of the armor. Only a full set of undamaged armor will guarantee that you won't die instantly.
 * can't eat normal food or drink normal potions.
 
 How to use abilities
 
 Super Speed:
 
-While sprinting, you will automatically be faster. Every five years a vampire's age increases, sprint speed is boosted by another level.
+Right click with your clock to switch to "release your fangs" and you will sprint much faster.
 
 Super Strength:
 

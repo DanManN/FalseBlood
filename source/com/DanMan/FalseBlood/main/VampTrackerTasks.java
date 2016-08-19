@@ -19,11 +19,11 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class VampTrackerTasks {
 
-    private static double age;
-    private static double agebuff;
-
     public static void vampFlyMngr(Vampire vamp, Player player) {
-        if (vamp.getAge() >= 50) {
+        if (player.getGameMode() == GameMode.CREATIVE) {
+		return;
+	}
+	if (vamp.getAge() >= 50) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
             }
@@ -31,37 +31,33 @@ public class VampTrackerTasks {
                 player.setFlying(false);
                 return;
             }
-            agebuff = vamp.getAge() / 10.0;
+            float agebuff = (float) (vamp.getAge() / 10.0);
             if (player.isFlying()) {
                 player.setExhaustion(player.getExhaustion() + (float) (10 / agebuff));
             }
         } else {
-	    if (player.getGameMode() != GameMode.CREATIVE) {
-		player.setAllowFlight(false);
-	    }
-	}
+	    player.setAllowFlight(false);
+	}	
     }
 
     public static void vampSprintMngr(Vampire vamp, Player player) {
-        age = (vamp.getAge() / 2.0);
-        agebuff = age > 25 ? 25 : age;
-        if (player.isSprinting()) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10, (int) agebuff + 10), true);
+        float agebuff = vamp.getAge() > 50 ? 10 : (float) (vamp.getAge() / 5.0);
+        if (player.isSprinting() && vamp.isBloodSucking()) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10, (int) agebuff + 5), true);
             agebuff = agebuff == 0 ? 1 : agebuff;
-            player.setExhaustion(player.getExhaustion() + (int) (2.5F / agebuff));
+            player.setExhaustion(player.getExhaustion() + (2.5F / agebuff));
         }
     }
 
     public static void vampHealthMngr(Vampire vamp, Player player) {
-        age = vamp.getAge() / 5.0;
-        agebuff = age > 10 ? 10 : age;
-        int damageTaken = (int) (20 - player.getHealth());
-        int duration = (int) ((50.0 * damageTaken) / (agebuff + 1.0));
+        float agebuff = vamp.getAge() > 50 ? 10 : (float) (vamp.getAge() / 5.0);
+        double damageTaken = 20 - player.getHealth();
+        int duration = (int) ((50.0 * damageTaken) / ((int) agebuff + 1));
         if (player.getHealth() <= 19) {
             if (player.getFoodLevel() > 0 && !player.hasPotionEffect(PotionEffectType.REGENERATION)) {               
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, duration, (int) agebuff), true);
                 agebuff = agebuff == 0 ? 1 : agebuff;
-                player.setExhaustion(player.getExhaustion() + (int) ((damageTaken * 4)/ agebuff));
+                player.setExhaustion(player.getExhaustion() + (float) ((damageTaken * 4.0)/ agebuff));
             }
         } else {
             player.removePotionEffect(PotionEffectType.REGENERATION);
@@ -69,18 +65,16 @@ public class VampTrackerTasks {
     }
 
     public static void vampStrengthMngr(Vampire vamp, Player player) {
-        age = vamp.getAge() / 10;
-        agebuff = age > 5 ? 5 : age;
+        int agebuff = vamp.getAge() > 50 ? 5 : vamp.getAge() / 10;
         if (player.getFoodLevel() > 0 && !vamp.isBloodSucking()) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, (int) agebuff), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, agebuff), true);
         }
     }
 
     public static void vampHasteMngr(Vampire vamp, Player player) {
-        age = vamp.getAge() / 5;
-        agebuff = age > 10 ? 10 : age;
+        int agebuff = vamp.getAge() > 50 ? 10 : vamp.getAge() / 5;
         if (player.getFoodLevel() > 0) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, (int) agebuff), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, agebuff), true);
         }
     }
 

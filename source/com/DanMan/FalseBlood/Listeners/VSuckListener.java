@@ -63,7 +63,7 @@ public class VSuckListener implements Listener {
         Entity damaged = evt.getEntity();
         if (damager instanceof Player) {
             Player patak = (Player) damager;
-            if ((patak.getInventory().getItemInMainHand().getType() == Material.AIR) && (Vampire.isVampire(patak.getUniqueId()))) {
+            if (Vampire.isVampire(patak.getUniqueId())) {
                 Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {

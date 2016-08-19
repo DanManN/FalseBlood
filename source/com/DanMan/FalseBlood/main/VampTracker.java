@@ -54,7 +54,6 @@ public class VampTracker {
 
             @Override
             public void run() {
-                //every vamp tick is one fourth a second
                 if (player != null) {
                     afkManager(vamp, player);
 		    if(!vamp.isAfk()) {

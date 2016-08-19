@@ -41,14 +41,13 @@ public class VMakeListener implements Listener {
 			Vampire vamp = SNLMetaData.getMetadata(player, plugin);
 			if (!Vampire.isVampire(victim.getUniqueId())) {
 				if (victim.getFoodLevel() > 0 && vamp.getBloodLevel() > 0) {
-					vamp.setBloodLevel(vamp.getBloodLevel() - 1);
 					if (victim.getHealth() < 20) {
-						if (victim.getHealth() == 19) {
-							victim.setHealth(victim.getHealth() + 1);
-						} else {
-							victim.setHealth(victim.getHealth() + 2);
-						}
-					} else {
+						vamp.setBloodLevel(vamp.getBloodLevel() - 1);
+						int health = (int) victim.getHealth() + 2;
+						health = health > 20 ? 20 : health;
+						victim.setHealth(health);
+					} else if (!victim.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
+						vamp.setBloodLevel(vamp.getBloodLevel() - 1);
 						victim.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1200, 0));
 					}
 				} else if (victim.getFoodLevel() == 0 && vamp.getBloodLevel() > 10) {

@@ -4,10 +4,6 @@
  */
 package com.DanMan.FalseBlood.Listeners;
 
-import com.DanMan.FalseBlood.main.FalseBlood;
-import com.DanMan.FalseBlood.main.Vampire;
-import com.DanMan.FalseBlood.utils.GeneralUtils;
-import com.DanMan.FalseBlood.utils.SNLMetaData;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,6 +13,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import com.DanMan.FalseBlood.main.FalseBlood;
+import com.DanMan.FalseBlood.main.Vampire;
+import com.DanMan.FalseBlood.utils.GeneralUtils;
+import com.DanMan.FalseBlood.utils.SNLMetaData;
 
 /**
  *
@@ -67,7 +68,7 @@ public class VStakeListener implements Listener {
                 ItemStack chestplate = pdefend.getInventory().getChestplate();
                 ItemStack helmet = pdefend.getInventory().getHelmet();
                 if (hasWW) {
-                    double percent = 84;
+                    double percent = 0.85;
                     //if (missingBoots) {
                     //    percent = percent + 0.17;
                     //}
@@ -84,9 +85,11 @@ public class VStakeListener implements Listener {
 		    percent -= pants != null ? 0.2 * (1 - (pants.getDurability()/pants.getType().getMaxDurability())) : 0;
 		    percent -= chestplate != null ? 0.3 * (1 - (chestplate.getDurability()/chestplate.getType().getMaxDurability())) : 0;
 		    percent -= helmet != null ? 0.17 * (1 - (helmet.getDurability()/helmet.getType().getMaxDurability())) : 0;
-		    System.out.println("Percent: " + percent);
+		    //System.out.println("b,p,c,h: " + boots +","+ pants + "," + chestplate + "," + helmet);
+		    //System.out.println("Percent: " + percent);
                     if (GeneralUtils.random(percent)) {
-                        vamp.setVampire(false);
+                        vamp.setVampire(false);                    
+			pdefend.getInventory().remove(Material.WATCH);
                         pdefend.setHealth(0);
                     }
                 }
@@ -122,6 +125,7 @@ public class VStakeListener implements Listener {
                 //combine silver booleans
                 boolean hasGW = silver.getType().toString().startsWith("GOLD");//gSword || gAxe || gHoe || gPick || gshovel || gBlock || gIngot || gApple || gNugget || gCarrot || gBoots || gPants || gChestPlate || gHelmet;
                 if (hasGW) {
+
                     evt.setDamage(evt.getDamage() + 2);
                     pdefend.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, 0));
                     pdefend.setFireTicks(20);
@@ -145,12 +149,12 @@ public class VStakeListener implements Listener {
                 ItemStack chestplate = pdefend.getInventory().getChestplate();
                 ItemStack helmet = pdefend.getInventory().getHelmet();
                 boolean hasBoots = boots != null ? (boots.getType() == Material.GOLD_BOOTS) : false;
-                boolean hasPants = pants != null ?(pants.getType() == Material.GOLD_LEGGINGS) : false;
-                boolean hasChestPlate = chestplate != null ?(chestplate.getType() == Material.GOLD_CHESTPLATE) : false;
-                boolean hasHelmet = helmet != null ?(helmet.getType() == Material.GOLD_HELMET) : false;
+                boolean hasPants = pants != null ? (pants.getType() == Material.GOLD_LEGGINGS) : false;
+                boolean hasChestPlate = chestplate != null ? (chestplate.getType() == Material.GOLD_CHESTPLATE) : false;
+                boolean hasHelmet = helmet != null ? (helmet.getType() == Material.GOLD_HELMET) : false;
                 boolean hasGA = hasBoots || hasPants || hasChestPlate || hasHelmet;
                 if (hasGA) {
-                    patak.damage(1);
+		    patak.damage(2);
                 }
             }
         }

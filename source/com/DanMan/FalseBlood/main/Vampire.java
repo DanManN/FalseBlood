@@ -67,6 +67,7 @@ public final class Vampire implements Serializable {
 //            System.out.println("Vampire Instance: " + SNLMetaData.getMetadata(getPlayer(), plugin));
             Stats.logMDtoFile(pId, plugin);
             VampTracker.startVampTracker(this);
+	    removeGold(getPlayer());
             addClock(getPlayer());
             getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
         } else {
@@ -83,8 +84,8 @@ public final class Vampire implements Serializable {
 
     public static void addClock(Player player) {
         Inventory inv = player.getInventory();
-        System.out.println(inv);
-        if (inv.contains(Material.WATCH)) {
+        //System.out.println(inv);
+       	if (inv.contains(Material.WATCH)) {
             inv.remove(Material.WATCH);
         }
         ItemStack firstSlot = inv.getItem(0);
@@ -95,6 +96,30 @@ public final class Vampire implements Serializable {
         } else {
             inv.addItem(new ItemStack(Material.WATCH, 1));
         }
+
+    }
+
+    //remove gold from vampire
+    
+    public static void removeGold(Player player) {
+       	for (ItemStack item : player.getInventory().getContents()) {
+	    if (item != null && item.getType().toString().startsWith("GOLD")) {       
+		player.getInventory().remove(item);
+		player.getWorld().dropItem(player.getLocation(),item);
+            }
+	}
+	//System.out.println(player.getInventory().getBoots().toString());
+	if (player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
+		player.getInventory().setBoots(null);
+	if (player.getInventory().getChestplate().getType().toString().startsWith("GOLD"))
+		player.getInventory().setChestplate(null);
+	if (player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
+		player.getInventory().setLeggings(null);
+	if (player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
+		player.getInventory().setHelmet(null);
+	if (player.getInventory().getItemInOffHand().getType().toString().startsWith("GOLD"))
+		player.getInventory().setItemInOffHand(null);
+
     }
 
     public int getAge() {

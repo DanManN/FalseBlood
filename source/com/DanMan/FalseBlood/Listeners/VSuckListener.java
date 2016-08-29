@@ -41,6 +41,8 @@ public class VSuckListener implements Listener {
             Player pdefend = (Player) damaged;
             if (Vampire.isVampire(patak.getUniqueId())) {
                 Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
+		if (vamp == null)
+		    return;
                 if (!Vampire.isVampire(pdefend.getUniqueId()) && vamp.isBloodSucking()) {
                     pdefend.setFoodLevel(pdefend.getFoodLevel() - 2);
                     vamp.setBloodLevel(vamp.getBloodLevel() + 4);
@@ -65,6 +67,8 @@ public class VSuckListener implements Listener {
             Player patak = (Player) damager;
             if (Vampire.isVampire(patak.getUniqueId())) {
                 Vampire vamp = SNLMetaData.getMetadata(patak, plugin);
+		if (vamp == null)
+		    return;
                 if (vamp.isBloodSucking()) {
                     if (damaged instanceof Villager) {
                         vamp.setBloodLevel(vamp.getBloodLevel() + 3);
@@ -122,6 +126,8 @@ public class VSuckListener implements Listener {
             if (itemS.getType() == Material.WATCH) {
                 if (Vampire.isVampire(player.getUniqueId())) {
                     Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+		    if (vamp == null)
+			return;
                     if (!vamp.isBloodSucking()) {
                         vamp.setBloodSucking(true);
                         player.sendMessage(ChatColor.RED + "You release your fangs in lust for blood.");

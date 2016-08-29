@@ -109,15 +109,15 @@ public final class Vampire implements Serializable {
             }
 	}
 	//System.out.println(player.getInventory().getBoots().toString());
-	if (player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
+	if (player.getInventory().getBoots() != null && player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
 		player.getInventory().setBoots(null);
-	if (player.getInventory().getChestplate().getType().toString().startsWith("GOLD"))
+	if (player.getInventory().getChestplate() != null && player.getInventory().getChestplate().getType().toString().startsWith("GOLD"))
 		player.getInventory().setChestplate(null);
-	if (player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
+	if (player.getInventory().getLeggings() != null && player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
 		player.getInventory().setLeggings(null);
-	if (player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
+	if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
 		player.getInventory().setHelmet(null);
-	if (player.getInventory().getItemInOffHand().getType().toString().startsWith("GOLD"))
+	if (player.getInventory().getItemInOffHand() != null && player.getInventory().getItemInOffHand().getType().toString().startsWith("GOLD"))
 		player.getInventory().setItemInOffHand(null);
 
     }

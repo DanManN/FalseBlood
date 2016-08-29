@@ -34,6 +34,8 @@ public class VDeathListener implements Listener {
             player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.INSTANT_DAMAGE.getDamageValue());
             player.playEffect(player.getLocation(), Effect.POTION_BREAK, PotionType.STRENGTH.getDamageValue());
             Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+	    if (vamp == null)
+		return;
             int vage = vamp.getAge();
             if (vage > 0) {
                 vamp.setAge(vage - 1);

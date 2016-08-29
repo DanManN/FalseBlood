@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
+import java.io.*;
 
 /**
  *
@@ -80,6 +81,12 @@ public class VMakeListener implements Listener {
 
 			if (inWorldEnd && clicksWatch) {
 				makeVampire(player);		
+				File sFile = new File("plugins/FalseBlood/users/" + player.getUniqueId() + ".dat");
+      				try {
+        			   sFile.createNewFile();
+        			} catch (IOException e) {
+         			   System.err.println("Error: Could not create file due to illegal characters." + e);
+       				}
 			}
 		}
 	}
@@ -109,6 +116,7 @@ public class VMakeListener implements Listener {
 			}
 			vampEffects(player);
 			delayVMake(410L, age, player);
+			//player.getInventory().remove(Material.WATCH);
 			player.updateInventory();
 		}
 	}

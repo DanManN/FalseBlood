@@ -40,6 +40,8 @@ public class VStakeListener implements Listener {
             Player pdefend = (Player) damaged;
             if (Vampire.isVampire(pdefend.getUniqueId())) {
                 Vampire vamp = SNLMetaData.getMetadata(pdefend, plugin);
+		if (vamp == null)
+			return;
                 //stake booleans
                 ItemStack stake = patak.getInventory().getItemInMainHand();
                 boolean wSword = stake.getType() == Material.WOOD_SWORD;

@@ -1,12 +1,8 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-_____________________________________________FalseBlood_____________________________________________
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# FalseBlood
 
 The purpose of this plugin is to simulate the feel of the TV series "TrueBlood" in minecraft. As of know this plugin adds vampires and the trueblood potion to minecraft. Eventually, all the creatures - vampire, werewolf, werepanther, shifter, and fairy - will be implemented one at a time. Also, if you have any ideas of how to make this plugin better or how what abilities each creature should have then please post your suggestions below.
 
-Becoming A Vampire:
+### Becoming A Vampire:
 
 There are three methods to become a vampire.
 
@@ -20,7 +16,7 @@ There are three methods to become a vampire.
 
 3. Use the '/fb make' command to toggle vampire status.
 
-Un-becoming a Vampire:
+### Un-becoming a Vampire:
 
 1. Dying instantly from wooden-stake which includes:
  * wooden sword/shovel/hoe/pickaxe/axe
@@ -35,7 +31,7 @@ Un-becoming a Vampire:
  
 2. Use the /fb make command to toggle vampire status.
 
-Advantage/DisAdvantages to Vampires:
+### Advantage/DisAdvantages to Vampires:
 
 Advantages:
 
@@ -65,7 +61,7 @@ Disadvantages:
 * have an 85% chance to die instantly from a wooden stake. Wearing armor decreases the chance depending on how full your set of armor is and the durability of the armor. Only a full set of undamaged armor will guarantee that you won't die instantly.
 * can't eat normal food or drink normal potions.
 
-How to use abilities
+### How to use abilities
 
 Super Speed:
 
@@ -91,12 +87,14 @@ Flying:
 
 If you are over age 50 then simply toggle flight the same way you would in creative mode.
 
-Commands:
+### Commands:
 
 /fb make [player] - toggles the player's vampire status or yours if player is left out. Requires the falseblood.make permission.
+
 /fb setage [player] [age] - sets a vampires age or yours if player is left out. Requires the falseblood.setage permission.
+
 /fb getage [player] - gets a vampires age or yours if player is left out. Requires the falseblood.getage permission.
 
-Known Issues:
+### Known Issues:
 
 clearing inventory of a vampire using a different plugin will remove their clock, preventing the vampire from switching between combat and feeding mode (can be fixed by killing vampire or giving him a new clock)

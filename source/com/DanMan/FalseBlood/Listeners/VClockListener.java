@@ -34,7 +34,7 @@ public class VClockListener implements Listener {
         Player player = (Player) evt.getWhoClicked();
         if (evt.getCurrentItem() != null) {
             Material watch = evt.getCurrentItem().getType();
-            if (Vampire.isVampire(player.getUniqueId()) && (watch == Material.WATCH || watch.toString().startsWith("GOLD"))) {
+            if (Vampire.isVampire(player.getUniqueId()) && (watch == Material.CLOCK || watch.toString().startsWith("GOLD"))) {
                 evt.setCancelled(true);
             }
         }
@@ -44,7 +44,7 @@ public class VClockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onVampDropClock(PlayerDropItemEvent evt) {
         Player player = (Player) evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId()) && evt.getItemDrop().getItemStack().getType() == Material.WATCH) {
+        if (Vampire.isVampire(player.getUniqueId()) && evt.getItemDrop().getItemStack().getType() == Material.CLOCK) {
             evt.setCancelled(true);
         }
     }
@@ -53,7 +53,7 @@ public class VClockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onVampPickUpClock(PlayerPickupItemEvent evt) {
         Player player = evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId()) && evt.getItem().getItemStack().getType() == Material.WATCH) {
+        if (Vampire.isVampire(player.getUniqueId()) && evt.getItem().getItemStack().getType() == Material.CLOCK) {
             evt.setCancelled(true);
         }
     }

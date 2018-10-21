@@ -35,68 +35,68 @@ import org.bukkit.potion.PotionType;
  */
 public class VDrinkTrueBloodListener implements Listener {
 
-    private static FalseBlood plugin;
+	private static FalseBlood plugin;
 
-    static final ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 373);
+	static final ItemStack trueblood = new ItemStack(Material.POTION, 1, (short) 373);
 
-    public VDrinkTrueBloodListener(FalseBlood plug) {
-        plugin = plug;
-    }
+	public VDrinkTrueBloodListener(FalseBlood plug) {
+		plugin = plug;
+	}
 
-    @EventHandler
-    public void onDrinkPotion(PlayerInteractEvent evt) {
-        Player player = evt.getPlayer();
-        //player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().isSimilar(trueblood));
-        if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                ItemStack tb = player.getInventory().getItemInMainHand();
-            if (tb.getType() == Material.POTION) {
+	@EventHandler
+	public void onDrinkPotion(PlayerInteractEvent evt) {
+		Player player = evt.getPlayer();
+		//player.sendMessage("You are currently holding: " + evt.getPlayer().getItemInHand() + "/" + evt.getPlayer().getItemInHand().isSimilar(trueblood));
+		if (evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) {
+				ItemStack tb = player.getInventory().getItemInMainHand();
+			if (tb.getType() == Material.POTION) {
 		PotionMeta pm = (PotionMeta) tb.getItemMeta();
-                if (pm.getBasePotionData().getType() == PotionType.UNCRAFTABLE) {
-		     if(Vampire.isVampire(player.getUniqueId()) && player.getFoodLevel() >= 20) {
-			     return;
-		     }
+				if (pm.getBasePotionData().getType() == PotionType.UNCRAFTABLE) {
+			 if(Vampire.isVampire(player.getUniqueId()) && player.getFoodLevel() >= 20) {
+				 return;
+			 }
 
-                     final int slot = player.getInventory().getHeldItemSlot();
-                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+					 final int slot = player.getInventory().getHeldItemSlot();
+					 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
-                     	@Override
-                        public void run() {
-                        	if (player.getInventory().getItem(slot).getType() == Material.GLASS_BOTTLE) {
-        	    			if (Vampire.isVampire(player.getUniqueId())) {
-                				Vampire vamp = SNLMetaData.getMetadata(player, plugin);
-                                   		vamp.setBloodLevel(vamp.getBloodLevel() + 4);
-                                    		player.setSaturation(player.getSaturation() + 4);
-                               		 } else {
-                            			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 0));
+						@Override
+						public void run() {
+							if (player.getInventory().getItem(slot).getType() == Material.GLASS_BOTTLE) {
+							if (Vampire.isVampire(player.getUniqueId())) {
+								Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+										vamp.setBloodLevel(vamp.getBloodLevel() + 4);
+											player.setSaturation(player.getSaturation() + 4);
+									 } else {
+										player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 0));
 					 }
-                            	}
+								}
 			}  
-		    }, 33L);
-                }
-            }
-        }
-    }
-//    //temporary method
-//    @EventHandler
-//    public void onUseFurnace(InventoryClickEvent evt) {
-//        Inventory i = evt.getInventory();
-////        System.out.println("Invenotry Type: " + i.getType());
-//        if (i.getType() == InventoryType.FURNACE) {
-////            System.out.println("Slot #" + evt.getSlot());
-//            FurnaceInventory fi = (FurnaceInventory) i;
-//            ItemStack water = new ItemStack(Material.POTION, 1, (short) 0);
-//            ItemStack eeye = new ItemStack(Material.EYE_OF_ENDER);
-//            if (fi.getFuel() != null && fi.getSmelting() != null) {
-////                System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
-////                System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
-//                if (fi.getFuel().getType() == eeye.getType() && fi.getSmelting().getType() == water.getType()) {
-//                    fi.remove(eeye);
-//                    fi.remove(water);
-//                    fi.setResult(trueblood);
-//                }
-//            }
-//        }
-//    }
+			}, 33L);
+				}
+			}
+		}
+	}
+//	  //temporary method
+//	  @EventHandler
+//	  public void onUseFurnace(InventoryClickEvent evt) {
+//		  Inventory i = evt.getInventory();
+////		System.out.println("Invenotry Type: " + i.getType());
+//		  if (i.getType() == InventoryType.FURNACE) {
+////			System.out.println("Slot #" + evt.getSlot());
+//			  FurnaceInventory fi = (FurnaceInventory) i;
+//			  ItemStack water = new ItemStack(Material.POTION, 1, (short) 0);
+//			  ItemStack eeye = new ItemStack(Material.EYE_OF_ENDER);
+//			  if (fi.getFuel() != null && fi.getSmelting() != null) {
+////				System.out.println("Has EnderEye: " + (fi.getFuel().getType() == eeye.getType()));
+////				System.out.println("Has Water: " + (fi.getSmelting().getType() == water.getType()));
+//				  if (fi.getFuel().getType() == eeye.getType() && fi.getSmelting().getType() == water.getType()) {
+//					  fi.remove(eeye);
+//					  fi.remove(water);
+//					  fi.setResult(trueblood);
+//				  }
+//			  }
+//		  }
+//	  }
 
 	@EventHandler
 	public void onBrewPotion(PlayerInteractEvent evt) {

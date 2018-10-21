@@ -85,7 +85,7 @@ public class VampTrackerTasks {
         Block block2 = ploc.subtract(0, 1, 0).getBlock();
         ItemStack boot = player.getInventory().getBoots();
         Material boots = boot == null ? Material.AIR : boot.getType();
-        boolean goldstuff = (block2.getType() == Material.GOLD_BLOCK) || (block1.getType() == Material.GOLD_PLATE);
+        boolean goldstuff = (block2.getType() == Material.GOLD_BLOCK) || (block1.getType() == Material.LEGACY_GOLD_PLATE);
         if (goldstuff && boots == Material.AIR) {
             player.setFireTicks(40);
         }

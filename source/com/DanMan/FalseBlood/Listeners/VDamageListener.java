@@ -35,7 +35,7 @@ public class VDamageListener implements Listener {
                     evt.setCancelled(true);
                 } else if(evt.getDamage() > player.getHealth()) {
                     //get rid of watch before they die so it doesn't drop
-                    player.getInventory().remove(Material.WATCH);
+                    player.getInventory().remove(Material.CLOCK);
                 }
             }
         }

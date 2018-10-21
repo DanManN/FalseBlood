@@ -85,16 +85,16 @@ public final class Vampire implements Serializable {
     public static void addClock(Player player) {
         Inventory inv = player.getInventory();
         //System.out.println(inv);
-       	if (inv.contains(Material.WATCH)) {
-            inv.remove(Material.WATCH);
+       	if (inv.contains(Material.CLOCK)) {
+            inv.remove(Material.CLOCK);
         }
         ItemStack firstSlot = inv.getItem(0);
         if (firstSlot != null) {
             inv.remove(firstSlot);
-            inv.addItem(new ItemStack(Material.WATCH, 1));
+            inv.addItem(new ItemStack(Material.CLOCK, 1));
             inv.addItem(firstSlot);
         } else {
-            inv.addItem(new ItemStack(Material.WATCH, 1));
+            inv.addItem(new ItemStack(Material.CLOCK, 1));
         }
 
     }

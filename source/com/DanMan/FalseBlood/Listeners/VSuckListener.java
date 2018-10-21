@@ -123,7 +123,7 @@ public class VSuckListener implements Listener {
 		default:
 			return;
 	    }
-            if (itemS.getType() == Material.WATCH) {
+            if (itemS.getType() == Material.CLOCK) {
                 if (Vampire.isVampire(player.getUniqueId())) {
                     Vampire vamp = SNLMetaData.getMetadata(player, plugin);
 		    if (vamp == null)

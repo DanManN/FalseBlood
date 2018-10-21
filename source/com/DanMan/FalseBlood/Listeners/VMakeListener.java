@@ -75,7 +75,7 @@ public class VMakeListener implements Listener {
 		if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) && evt.getHand() == EquipmentSlot.HAND) {
 
 			//click watch boolean
-			Boolean clicksWatch = player.getInventory().getItemInMainHand().getType() == Material.WATCH;
+			Boolean clicksWatch = player.getInventory().getItemInMainHand().getType() == Material.CLOCK;
 			//in End Realm boolean
 			Boolean inWorldEnd = player.getWorld() == Bukkit.getServer().getWorld("world_the_end");
 

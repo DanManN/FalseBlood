@@ -17,29 +17,30 @@ import org.bukkit.plugin.Plugin;
  */
 public class SNLMetaData {
 
-    private static final String key = "VampPlayer";
-    
-    public static void setMetadata(Player player, Vampire value, Plugin plug) {
-        player.setMetadata(key, new FixedMetadataValue(plug, value));
-    }
+	private static final String key = "VampPlayer";
 
-    public static Vampire getMetadata(Player player, Plugin plug) {
-        List<MetadataValue> values = player.getMetadata(key);
-        for (MetadataValue value : values) {
-            if (value.getOwningPlugin().getDescription().getName().equals(plug.getDescription().getName())) {
-                return (Vampire) value.value();
-            }
-        }
-        return null;
-    }
-    public static void showMetadata(Player player, Plugin plug) {
-        List<MetadataValue> values = player.getMetadata(key);
-        System.out.println("Values: " + values);
-        for (MetadataValue value : values) {
-           System.out.println("MetaData: " + value.value());
-        }
-    }
-    public static void delMetaData(Player player, Plugin plug) {
-        player.removeMetadata(key, plug);
-    }
+	public static void setMetadata(Player player, Vampire value, Plugin plug) {
+		player.setMetadata(key, new FixedMetadataValue(plug, value));
+	}
+
+	public static Vampire getMetadata(Player player, Plugin plug) {
+		List<MetadataValue> values = player.getMetadata(key);
+		for (MetadataValue value : values) {
+			if (value.getOwningPlugin().getDescription().getName().equals(
+					plug.getDescription().getName())) {
+				return (Vampire)value.value();
+			}
+		}
+		return null;
+	}
+	public static void showMetadata(Player player, Plugin plug) {
+		List<MetadataValue> values = player.getMetadata(key);
+		System.out.println("Values: " + values);
+		for (MetadataValue value : values) {
+			System.out.println("MetaData: " + value.value());
+		}
+	}
+	public static void delMetaData(Player player, Plugin plug) {
+		player.removeMetadata(key, plug);
+	}
 }

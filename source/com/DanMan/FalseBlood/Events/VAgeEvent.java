@@ -16,42 +16,32 @@ import org.bukkit.event.HandlerList;
  */
 public class VAgeEvent extends Event {
 
-    Vampire vamp;
-    //age is the new age set by setage();
-    private int age;
-    private UUID pId;
-    private Player player;
-    private static final HandlerList handlers = new HandlerList();
+	Vampire vamp;
+	// age is the new age set by setage();
+	private int age;
+	private UUID pId;
+	private Player player;
+	private static final HandlerList handlers = new HandlerList();
 
-    public VAgeEvent(Vampire v) {
-        vamp = v;
-        age = vamp.getAge();
-        pId = vamp.getPId();
-        player = vamp.getPlayer();
-    }
+	public VAgeEvent(Vampire v) {
+		vamp = v;
+		age = vamp.getAge();
+		pId = vamp.getPId();
+		player = vamp.getPlayer();
+	}
 
-    public int getAge() {
-        return age;
-    }
+	public int getAge() { return age; }
 
-    public Player getPlayer() {
-        return player;
-    }
+	public Player getPlayer() { return player; }
 
-    public Vampire getVamp() {
-        return vamp;
-    }
+	public Vampire getVamp() { return vamp; }
 
-    public UUID getName() {
-        return pId;
-    }
-    
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+	public UUID getName() { return pId; }
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+
+	public static HandlerList getHandlerList() { return handlers; }
 }

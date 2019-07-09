@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package com.DanMan.FalseBlood.Listeners;
- 
+
 import com.DanMan.FalseBlood.main.FalseBlood;
 import com.DanMan.FalseBlood.main.Vampire;
 import org.bukkit.Material;
@@ -23,19 +23,21 @@ import org.bukkit.inventory.ItemStack;
  */
 public class VRestrictionsListener implements Listener {
 
-    //private static FalseBlood plugin;
+	// private static FalseBlood plugin;
 
-    public VRestrictionsListener(FalseBlood plug) {
-    //    plugin = plug;
-    }
+	public VRestrictionsListener(FalseBlood plug) {
+		//    plugin = plug;
+	}
 
 	@EventHandler
 	public void onEatFood(PlayerInteractEvent evt) {
 		Player player = evt.getPlayer();
-		if ((evt.getAction() == Action.RIGHT_CLICK_AIR || evt.getAction() == Action.RIGHT_CLICK_BLOCK) && evt.getHand() == EquipmentSlot.HAND) {
+		if ((evt.getAction() == Action.RIGHT_CLICK_AIR ||
+			 evt.getAction() == Action.RIGHT_CLICK_BLOCK) &&
+			evt.getHand() == EquipmentSlot.HAND) {
 			if (Vampire.isVampire(player.getUniqueId())) {
-            			ItemStack Food = player.getInventory().getItemInMainHand();
-				//food booleans
+				ItemStack Food = player.getInventory().getItemInMainHand();
+				// food booleans
 				boolean eatBread = Food.getType() == Material.BREAD;
 				boolean eatCookie = Food.getType() == Material.COOKIE;
 				boolean eatMelon = Food.getType() == Material.MELON;
@@ -54,7 +56,8 @@ public class VRestrictionsListener implements Listener {
 				boolean eatGApple = Food.getType() == Material.GOLDEN_APPLE;
 				boolean drinkMilk = Food.getType() == Material.MILK_BUCKET;
 				boolean eatFlesh = Food.getType() == Material.ROTTEN_FLESH;
-				boolean eatPotato = Food.getType() == Material.POTATO || Food.getType() == Material.POTATOES;
+				boolean eatPotato = Food.getType() == Material.POTATO ||
+									Food.getType() == Material.POTATOES;
 				boolean eatBPotato = Food.getType() == Material.BAKED_POTATO;
 				boolean eatPPotato = Food.getType() == Material.POISONOUS_POTATO;
 				boolean eatCarrot = Food.getType() == Material.CARROT;
@@ -68,65 +71,73 @@ public class VRestrictionsListener implements Listener {
 				boolean eatBeat = Food.getType() == Material.BEETROOT;
 				boolean eatBeatSoup = Food.getType() == Material.BEETROOT_SOUP;
 
-				//boolean combining these booleans
-				boolean eatFood = eatBread || eatCookie || eatMelon || eatStew || eatRChicken 
-						|| eatCChicken || eatBeef || eatSteak || eatPork || eatGPork 
-						|| eatCod || eatCCod || eatSalmon || eatCSalmon || eatApple || eatGApple || drinkMilk 
-						|| eatFlesh || eatPotato || eatBPotato || eatRabbitStew || eatCRabbit
-						|| eatMutton || eatCMutton || eatBeat || eatBeatSoup || eatPPotato || eatCarrot 
-						|| eatGCarrot || eatPPie || eatRabbit;  
+				// boolean combining these booleans
+				boolean eatFood = eatBread || eatCookie || eatMelon || eatStew ||
+								  eatRChicken || eatCChicken || eatBeef || eatSteak ||
+								  eatPork || eatGPork || eatCod || eatCCod ||
+								  eatSalmon || eatCSalmon || eatApple || eatGApple ||
+								  drinkMilk || eatFlesh || eatPotato || eatBPotato ||
+								  eatRabbitStew || eatCRabbit || eatMutton ||
+								  eatCMutton || eatBeat || eatBeatSoup || eatPPotato ||
+								  eatCarrot || eatGCarrot || eatPPie || eatRabbit;
 
 				if (eatFood) {
 					evt.setCancelled(true);
-					//player.getInventory().remove(Food);
-					//player.updateInventory();
+					// player.getInventory().remove(Food);
+					// player.updateInventory();
 				}
 			}
 		}
 	}
 
-    @EventHandler
-    public void onVampPickupGold(PlayerPickupItemEvent evt) {
-        Player player = evt.getPlayer();
-        if (Vampire.isVampire(player.getUniqueId())) {
+	@EventHandler
+	public void onVampPickupGold(PlayerPickupItemEvent evt) {
+		Player player = evt.getPlayer();
+		if (Vampire.isVampire(player.getUniqueId())) {
 
-            ItemStack gold = evt.getItem().getItemStack();
-//            boolean gSword = gold.getType() == Material.GOLD_SWORD;
-//            boolean gAxe = gold.getType() == Material.GOLD_AXE;
-//            boolean gHoe = gold.getType() == Material.GOLD_HOE;
-//            boolean gPick = gold.getType() == Material.GOLD_PICKAXE;
-//            boolean gshovel = gold.getType() == Material.GOLD_SPADE;
-//            boolean gBlock = gold.getType() == Material.GOLD_BLOCK;
-//            boolean gIngot = gold.getType() == Material.GOLD_INGOT;
-//            boolean gApple = gold.getType() == Material.GOLDEN_APPLE;
-//            boolean gNugget = gold.getType() == Material.GOLD_NUGGET;
-//            boolean gCarrot = gold.getType() == Material.GOLDEN_CARROT;
-//            boolean gBoots = gold.getType() == Material.GOLD_BOOTS;
-//            boolean gPants = gold.getType() == Material.GOLD_LEGGINGS;
-//            boolean gChestPlate = gold.getType() == Material.GOLD_CHESTPLATE;
-//            boolean gHelmet = gold.getType() == Material.GOLD_HELMET;
-//            boolean gHorseArmor = gold.getType() == Material.GOLD_BARDING;
-//            boolean gPlate = gold.getType() == Material.GOLD_PLATE;
-//            //boolean combining these booleans
-//            boolean pickUpGold = gSword || gAxe || gHoe || gPick || gshovel || gBlock 
-//                    || gIngot || gApple || gNugget || gCarrot || gBoots || gPants 
-//                    || gChestPlate || gHelmet || gHorseArmor || gPlate;
-            if (gold.getType().toString().startsWith("GOLD")) {
-                evt.setCancelled(true);
-            }
-        }
-    }
+			ItemStack gold = evt.getItem().getItemStack();
+			//            boolean gSword = gold.getType() == Material.GOLD_SWORD;
+			//            boolean gAxe = gold.getType() == Material.GOLD_AXE;
+			//            boolean gHoe = gold.getType() == Material.GOLD_HOE;
+			//            boolean gPick = gold.getType() == Material.GOLD_PICKAXE;
+			//            boolean gshovel = gold.getType() == Material.GOLD_SPADE;
+			//            boolean gBlock = gold.getType() == Material.GOLD_BLOCK;
+			//            boolean gIngot = gold.getType() == Material.GOLD_INGOT;
+			//            boolean gApple = gold.getType() == Material.GOLDEN_APPLE;
+			//            boolean gNugget = gold.getType() == Material.GOLD_NUGGET;
+			//            boolean gCarrot = gold.getType() == Material.GOLDEN_CARROT;
+			//            boolean gBoots = gold.getType() == Material.GOLD_BOOTS;
+			//            boolean gPants = gold.getType() == Material.GOLD_LEGGINGS;
+			//            boolean gChestPlate = gold.getType() ==
+			//            Material.GOLD_CHESTPLATE; boolean gHelmet = gold.getType() ==
+			//            Material.GOLD_HELMET; boolean gHorseArmor = gold.getType() ==
+			//            Material.GOLD_BARDING; boolean gPlate = gold.getType() ==
+			//            Material.GOLD_PLATE;
+			//            //boolean combining these booleans
+			//            boolean pickUpGold = gSword || gAxe || gHoe || gPick ||
+			//            gshovel || gBlock
+			//                    || gIngot || gApple || gNugget || gCarrot || gBoots ||
+			//                    gPants
+			//                    || gChestPlate || gHelmet || gHorseArmor || gPlate;
+			if (gold.getType().toString().startsWith("GOLD")) {
+				evt.setCancelled(true);
+			}
+		}
+	}
 
-    @EventHandler
-    public void onVampClickGold(BlockDamageEvent evt) {
-        Player player = evt.getPlayer();
-        Material pick = player.getInventory().getItemInMainHand().getType();
-        boolean pickaxe = pick == Material.WOODEN_PICKAXE || pick == Material.STONE_PICKAXE || pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
-        boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) || (evt.getBlock().getType() == Material.LEGACY_GOLD_PLATE);
-        if (goldstuff && Vampire.isVampire(player.getUniqueId())) {
-            if (!pickaxe) {
-                player.damage(2);
-            }
-        }
-    }
+	@EventHandler
+	public void onVampClickGold(BlockDamageEvent evt) {
+		Player player = evt.getPlayer();
+		Material pick = player.getInventory().getItemInMainHand().getType();
+		boolean pickaxe =
+			pick == Material.WOODEN_PICKAXE || pick == Material.STONE_PICKAXE ||
+			pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
+		boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) ||
+							(evt.getBlock().getType() == Material.LEGACY_GOLD_PLATE);
+		if (goldstuff && Vampire.isVampire(player.getUniqueId())) {
+			if (!pickaxe) {
+				player.damage(2);
+			}
+		}
+	}
 }

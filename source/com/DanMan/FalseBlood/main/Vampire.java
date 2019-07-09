@@ -25,179 +25,162 @@ import org.bukkit.plugin.Plugin;
  */
 public final class Vampire implements Serializable {
 
-    private transient FalseBlood plugin;
-    //vampire variables
-    private UUID pId;
-    private boolean isBloodSucking;
-    private boolean afk;
-    private int sId = -1;
-    private int tick = 0;
-    private int age;
+	private transient FalseBlood plugin;
+	// vampire variables
+	private UUID pId;
+	private boolean isBloodSucking;
+	private boolean afk;
+	private int sId = -1;
+	private int tick = 0;
+	private int age;
 
-    public Vampire(Player player, FalseBlood plug) {
-        pId = player.getUniqueId();
-        plugin = plug;
-        setVampire(true);
-    }
-
-    public static boolean isVampire(UUID name) {
-//        Stats stats = new Stats();
-//        if (stats.getStats(player.getName(), 0).contains("true")) {
-//            return true;
-//        }
-        File sFile = new File("plugins/FalseBlood/users/" + name + ".dat");
-        if (sFile.exists()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void setVampire(boolean bool) {
-        if (bool) {
-//            Method[] ms = SNLMetaData.class.getMethods();
-//            for (Method m:ms) {
-//                System.out.println("METHOD: "+m.getName() + ", args: "+m.getParameterTypes());
-//            }
-//            System.out.println("PLAYER: "+getPlayer());
-//            System.out.println("VAMPIRE: "+this);
-//            System.out.println("PLUGIN: "+plugin);
-            
-            SNLMetaData.setMetadata(getPlayer(), this, plugin);
-//            System.out.println("Vampire Instance: " + SNLMetaData.getMetadata(getPlayer(), plugin));
-            Stats.logMDtoFile(pId, plugin);
-            VampTracker.startVampTracker(this);
-	    removeGold(getPlayer());
-            addClock(getPlayer());
-            getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
-        } else {
-            getPlayer().updateInventory();
-            getPlayer().setAllowFlight(false);
-            VampTracker.stopVampTracker(this);
-            SNLMetaData.delMetaData(getPlayer(), plugin);
-            File sFile = new File("plugins/FalseBlood/users/" + pId + ".dat");
-            sFile.delete();
-            getPlayer().sendMessage(ChatColor.RED + "You have fallen a victim to True-Death!");
-        }
-    }
-    //add essential clock to vampire
-
-    public static void addClock(Player player) {
-        Inventory inv = player.getInventory();
-        //System.out.println(inv);
-       	if (inv.contains(Material.CLOCK)) {
-            inv.remove(Material.CLOCK);
-        }
-        ItemStack firstSlot = inv.getItem(0);
-        if (firstSlot != null) {
-            inv.remove(firstSlot);
-            inv.addItem(new ItemStack(Material.CLOCK, 1));
-            inv.addItem(firstSlot);
-        } else {
-            inv.addItem(new ItemStack(Material.CLOCK, 1));
-        }
-
-    }
-
-    //remove gold from vampire
-    
-    public static void removeGold(Player player) {
-       	for (ItemStack item : player.getInventory().getContents()) {
-	    if (item != null && item.getType().toString().startsWith("GOLD")) {       
-		player.getInventory().remove(item);
-		player.getWorld().dropItem(player.getLocation(),item);
-            }
+	public Vampire(Player player, FalseBlood plug) {
+		pId = player.getUniqueId();
+		plugin = plug;
+		setVampire(true);
 	}
-	//System.out.println(player.getInventory().getBoots().toString());
-	if (player.getInventory().getBoots() != null && player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
-		player.getInventory().setBoots(null);
-	if (player.getInventory().getChestplate() != null && player.getInventory().getChestplate().getType().toString().startsWith("GOLD"))
-		player.getInventory().setChestplate(null);
-	if (player.getInventory().getLeggings() != null && player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
-		player.getInventory().setLeggings(null);
-	if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
-		player.getInventory().setHelmet(null);
-	if (player.getInventory().getItemInOffHand() != null && player.getInventory().getItemInOffHand().getType().toString().startsWith("GOLD"))
-		player.getInventory().setItemInOffHand(null);
 
-    }
+	public static boolean isVampire(UUID name) {
+		//        Stats stats = new Stats();
+		//        if (stats.getStats(player.getName(), 0).contains("true")) {
+		//            return true;
+		//        }
+		File sFile = new File("plugins/FalseBlood/users/" + name + ".dat");
+		if (sFile.exists()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public int getAge() {
-        return age;
-    }
+	public void setVampire(boolean bool) {
+		if (bool) {
+			//            Method[] ms = SNLMetaData.class.getMethods();
+			//            for (Method m:ms) {
+			//                System.out.println("METHOD: "+m.getName() + ", args:
+			//                "+m.getParameterTypes());
+			//            }
+			//            System.out.println("PLAYER: "+getPlayer());
+			//            System.out.println("VAMPIRE: "+this);
+			//            System.out.println("PLUGIN: "+plugin);
 
-    public void setAge(int inAge) {
-        //stat.logStats(name, true, inAge);
-        //chane age
-        age = inAge;
-        if (getPlayer() != null) {
-            //create and call agechange event
-            VAgeEvent evt = new VAgeEvent(this);
-            Bukkit.getServer().getPluginManager().callEvent(evt);
-            getPlayer().sendMessage(ChatColor.RED + "You are now " + inAge + " years old.");
-        }
-    }
+			SNLMetaData.setMetadata(getPlayer(), this, plugin);
+			//            System.out.println("Vampire Instance: " +
+			//            SNLMetaData.getMetadata(getPlayer(), plugin));
+			Stats.logMDtoFile(pId, plugin);
+			VampTracker.startVampTracker(this);
+			removeGold(getPlayer());
+			addClock(getPlayer());
+			getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
+		} else {
+			getPlayer().updateInventory();
+			getPlayer().setAllowFlight(false);
+			VampTracker.stopVampTracker(this);
+			SNLMetaData.delMetaData(getPlayer(), plugin);
+			File sFile = new File("plugins/FalseBlood/users/" + pId + ".dat");
+			sFile.delete();
+			getPlayer().sendMessage(ChatColor.RED +
+									"You have fallen a victim to True-Death!");
+		}
+	}
+	// add essential clock to vampire
 
-    public boolean isBloodSucking() {
-        return isBloodSucking;
-    }
+	public static void addClock(Player player) {
+		Inventory inv = player.getInventory();
+		// System.out.println(inv);
+		if (inv.contains(Material.CLOCK)) {
+			inv.remove(Material.CLOCK);
+		}
+		ItemStack firstSlot = inv.getItem(0);
+		if (firstSlot != null) {
+			inv.remove(firstSlot);
+			inv.addItem(new ItemStack(Material.CLOCK, 1));
+			inv.addItem(firstSlot);
+		} else {
+			inv.addItem(new ItemStack(Material.CLOCK, 1));
+		}
+	}
 
-    public void setBloodSucking(boolean isBloodSucking) {
-        this.isBloodSucking = isBloodSucking;
-    }
+	// remove gold from vampire
 
-    public boolean isAfk() {
-        return afk;
-    }
+	public static void removeGold(Player player) {
+		for (ItemStack item : player.getInventory().getContents()) {
+			if (item != null && item.getType().toString().startsWith("GOLD")) {
+				player.getInventory().remove(item);
+				player.getWorld().dropItem(player.getLocation(), item);
+			}
+		}
+		// System.out.println(player.getInventory().getBoots().toString());
+		if (player.getInventory().getBoots() != null &&
+			player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
+			player.getInventory().setBoots(null);
+		if (player.getInventory().getChestplate() != null &&
+			player.getInventory().getChestplate().getType().toString().startsWith(
+				"GOLD"))
+			player.getInventory().setChestplate(null);
+		if (player.getInventory().getLeggings() != null &&
+			player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
+			player.getInventory().setLeggings(null);
+		if (player.getInventory().getHelmet() != null &&
+			player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
+			player.getInventory().setHelmet(null);
+		if (player.getInventory().getItemInOffHand() != null &&
+			player.getInventory().getItemInOffHand().getType().toString().startsWith(
+				"GOLD"))
+			player.getInventory().setItemInOffHand(null);
+	}
 
-    public void setAfk(boolean afk) {
-        this.afk = afk;
-    }
+	public int getAge() { return age; }
 
-    //convenience methods
-    public void setPlugin(FalseBlood plug) {
-        plugin = plug;
-    }
+	public void setAge(int inAge) {
+		// stat.logStats(name, true, inAge);
+		// chane age
+		age = inAge;
+		if (getPlayer() != null) {
+			// create and call agechange event
+			VAgeEvent evt = new VAgeEvent(this);
+			Bukkit.getServer().getPluginManager().callEvent(evt);
+			getPlayer().sendMessage(ChatColor.RED + "You are now " + inAge +
+									" years old.");
+		}
+	}
 
-    public FalseBlood getPlugin() {
-        return plugin;
-    }
+	public boolean isBloodSucking() { return isBloodSucking; }
 
-    public UUID getPId() {
-        return pId;
-    }
+	public void setBloodSucking(boolean isBloodSucking) {
+		this.isBloodSucking = isBloodSucking;
+	}
 
-    public void addAge(int i) {
-        setAge(getAge() + i);
-    }
+	public boolean isAfk() { return afk; }
 
-    public int getBloodLevel() {
-        return getPlayer().getFoodLevel();
-    }
+	public void setAfk(boolean afk) { this.afk = afk; }
 
-    public void setBloodLevel(int inBloodLevel) {
-	inBloodLevel = inBloodLevel > 20 ? 20 : inBloodLevel;
-        getPlayer().setFoodLevel(inBloodLevel);
-    }
+	// convenience methods
+	public void setPlugin(FalseBlood plug) { plugin = plug; }
 
-    public Player getPlayer() {
-        Player player = Bukkit.getServer().getPlayer(pId);
-        return player;
-    }
+	public FalseBlood getPlugin() { return plugin; }
 
-    public int getsId() {
-        return sId;
-    }
+	public UUID getPId() { return pId; }
 
-    public void setsId(int sId) {
-        this.sId = sId;
-    }
+	public void addAge(int i) { setAge(getAge() + i); }
 
-    public int getTick() {
-        return tick;
-    }
+	public int getBloodLevel() { return getPlayer().getFoodLevel(); }
 
-    public void setTick(int tick) {
-        this.tick = tick;
-    }
+	public void setBloodLevel(int inBloodLevel) {
+		inBloodLevel = inBloodLevel > 20 ? 20 : inBloodLevel;
+		getPlayer().setFoodLevel(inBloodLevel);
+	}
+
+	public Player getPlayer() {
+		Player player = Bukkit.getServer().getPlayer(pId);
+		return player;
+	}
+
+	public int getsId() { return sId; }
+
+	public void setsId(int sId) { this.sId = sId; }
+
+	public int getTick() { return tick; }
+
+	public void setTick(int tick) { this.tick = tick; }
 }

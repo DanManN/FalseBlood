@@ -18,83 +18,89 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class VampTracker {
 
-    public static void startVampTracker(final Vampire vamp) {
-        FalseBlood plugin = vamp.getPlugin();
-        final Player player = vamp.getPlayer();
-        vamp.setBloodSucking(true);
-        vampTaskScheduler(vamp, player, plugin);
-    }
+	public static void startVampTracker(final Vampire vamp) {
+		FalseBlood plugin = vamp.getPlugin();
+		final Player player = vamp.getPlayer();
+		vamp.setBloodSucking(true);
+		vampTaskScheduler(vamp, player, plugin);
+	}
 
-    public static void stopVampTracker(Vampire vamp) {
-        int sId = vamp.getsId();
-        FalseBlood plugin = vamp.getPlugin();
-        Player player = vamp.getPlayer();
-        player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-        player.removePotionEffect(PotionEffectType.WATER_BREATHING);
-        if (sId != -1) {
-            plugin.getServer().getScheduler().cancelTask(sId);
-        } else {
-            System.err.println("Error: Could not stop age counter because it never started.");
-        }
-    }
+	public static void stopVampTracker(Vampire vamp) {
+		int sId = vamp.getsId();
+		FalseBlood plugin = vamp.getPlugin();
+		Player player = vamp.getPlayer();
+		player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+		player.removePotionEffect(PotionEffectType.WATER_BREATHING);
+		if (sId != -1) {
+			plugin.getServer().getScheduler().cancelTask(sId);
+		} else {
+			System.err.println(
+				"Error: Could not stop age counter because it never started.");
+		}
+	}
 
-    public static void vampUnload(Plugin plug) {
-        plug.getServer().getScheduler().cancelTasks(plug);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            UUID pId = player.getUniqueId();
-            if (Vampire.isVampire(pId)) {
-                Stats.logMDtoFile(pId, plug);
-            }
-        }
-    }
+	public static void vampUnload(Plugin plug) {
+		plug.getServer().getScheduler().cancelTasks(plug);
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			UUID pId = player.getUniqueId();
+			if (Vampire.isVampire(pId)) {
+				Stats.logMDtoFile(pId, plug);
+			}
+		}
+	}
 
-    public static void vampTaskScheduler(final Vampire vamp, final Player player, Plugin plugin) {
+	public static void vampTaskScheduler(final Vampire vamp, final Player player,
+										 Plugin plugin) {
 
-        int sId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		int sId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(
+			plugin, new Runnable() {
+				@Override
+				public void run() {
+					if (player != null) {
+						afkManager(vamp, player);
+						if (!vamp.isAfk()) {
+							vamp.setTick(vamp.getTick() + 1);
+						}
+						SunTime.vSunBurn(player);
+						VampTrackerTasks.vampTouchGold(player);
+						VampTrackerTasks.vampHealthMngr(vamp, player);
+						VampTrackerTasks.vampFlyMngr(vamp, player);
+						VampTrackerTasks.vampSprintMngr(vamp, player);
+						VampTrackerTasks.vampStrengthMngr(vamp, player);
+						// level up age every hour
+						if (vamp.getTick() >= 14400) {
+							vamp.addAge(1);
+							vamp.setTick(0);
+						}
+						// add perks
+						player.addPotionEffect(
+							new PotionEffect(PotionEffectType.NIGHT_VISION, 240, 0),
+							true);
+						player.addPotionEffect(
+							new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0),
+							true);
+					}
+				}
+			}, 1, 1);
+		vamp.setsId(sId);
+	}
 
-            @Override
-            public void run() {
-                if (player != null) {
-                    afkManager(vamp, player);
-		    if(!vamp.isAfk()) {
-                 	vamp.setTick(vamp.getTick() + 1);
-		    }	    
-                    SunTime.vSunBurn(player);
-                    VampTrackerTasks.vampTouchGold(player);
-                    VampTrackerTasks.vampHealthMngr(vamp, player);
-                    VampTrackerTasks.vampFlyMngr(vamp, player);
-                    VampTrackerTasks.vampSprintMngr(vamp, player);
-                    VampTrackerTasks.vampStrengthMngr(vamp, player);
-                    //level up age every hour
-                    if (vamp.getTick() >= 14400) {
-                        vamp.addAge(1);
-                        vamp.setTick(0);
-                    }
-                    //add perks
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 240, 0), true);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0), true);
-                }
-            }
-        }, 1, 1);
-        vamp.setsId(sId);
-    }
-
-    public static void afkManager(Vampire vamp, Player player) {
-        //check if player is idle
-        int idle = 0;
-        if (player.getWalkSpeed() > 0) {
-            idle = 0;
-            if (vamp.isAfk()) {
-                vamp.setAfk(false);
-            }
-        } else {
-            idle++;
-        }
-        if (idle >= 1200) {
-            if (!vamp.isAfk()) {
-                vamp.setAfk(true);
-            }
-            idle = 0;
-        }
-    }
+	public static void afkManager(Vampire vamp, Player player) {
+		// check if player is idle
+		int idle = 0;
+		if (player.getWalkSpeed() > 0) {
+			idle = 0;
+			if (vamp.isAfk()) {
+				vamp.setAfk(false);
+			}
+		} else {
+			idle++;
+		}
+		if (idle >= 1200) {
+			if (!vamp.isAfk()) {
+				vamp.setAfk(true);
+			}
+			idle = 0;
+		}
+	}
 }

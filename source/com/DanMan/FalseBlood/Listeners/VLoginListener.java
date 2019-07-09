@@ -22,38 +22,36 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class VLoginListener implements Listener {
 
-    private static FalseBlood plugin;
-    //private static final String key = "VampPlayer";
+	private static FalseBlood plugin;
+	// private static final String key = "VampPlayer";
 
-    public VLoginListener(FalseBlood plug) {
-        plugin = plug;
-    }
+	public VLoginListener(FalseBlood plug) { plugin = plug; }
 
-    @EventHandler
-    public void onVampLogon(PlayerJoinEvent evt) {
-        Player player = evt.getPlayer();
-        UUID pId = player.getUniqueId();
-//        SNLMetaData.showMetadata(player, plugin);
-        if (Vampire.isVampire(pId)) {
-            Stats.loadMDfromFile(pId, plugin);
-            Vampire vamp = SNLMetaData.getMetadata(player, plugin);
-            vamp.setPlugin(plugin);
-            VampTracker.startVampTracker(vamp);
-            //allow flight:
-            if (vamp.getAge() >= 50 && !player.getAllowFlight()) {
-                player.setAllowFlight(true);
-            }
-        }
-    }
-        @EventHandler
-    public void onVampLogoff(PlayerQuitEvent evt) {
-        Player player = evt.getPlayer();
-        UUID pId = player.getUniqueId();
-//        SNLMetaData.showMetadata(player, plugin);
-        if (Vampire.isVampire(pId)) {
-            Vampire vamp = SNLMetaData.getMetadata(player, plugin);
-            VampTracker.stopVampTracker(vamp);
-            Stats.logMDtoFile(pId, plugin);
-        }
-    }
+	@EventHandler
+	public void onVampLogon(PlayerJoinEvent evt) {
+		Player player = evt.getPlayer();
+		UUID pId = player.getUniqueId();
+		//        SNLMetaData.showMetadata(player, plugin);
+		if (Vampire.isVampire(pId)) {
+			Stats.loadMDfromFile(pId, plugin);
+			Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+			vamp.setPlugin(plugin);
+			VampTracker.startVampTracker(vamp);
+			// allow flight:
+			if (vamp.getAge() >= 50 && !player.getAllowFlight()) {
+				player.setAllowFlight(true);
+			}
+		}
+	}
+	@EventHandler
+	public void onVampLogoff(PlayerQuitEvent evt) {
+		Player player = evt.getPlayer();
+		UUID pId = player.getUniqueId();
+		//        SNLMetaData.showMetadata(player, plugin);
+		if (Vampire.isVampire(pId)) {
+			Vampire vamp = SNLMetaData.getMetadata(player, plugin);
+			VampTracker.stopVampTracker(vamp);
+			Stats.logMDtoFile(pId, plugin);
+		}
+	}
 }

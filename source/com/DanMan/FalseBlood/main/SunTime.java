@@ -20,38 +20,39 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class SunTime {
 
-    public static boolean getDay(Player player) {
-        long time = player.getWorld().getTime();
-        return time < 13000 || time > 23000;
-	//return time < 12300 || time > 23850;
+	public static boolean getDay(Player player) {
+		long time = player.getWorld().getTime();
+		return time < 13000 || time > 23000;
+		// return time < 12300 || time > 23850;
+	}
 
-    }
+	public static int lightLevel(Player player) {
+		Location ploc = player.getLocation();
+		// get block at player location
+		Block block = ploc.getBlock();
+		int lightlevel = block.getLightFromSky();
+		return lightlevel;
+	}
 
-    public static int lightLevel(Player player) {
-        Location ploc = player.getLocation();
-        //get block at player location
-        Block block = ploc.getBlock();
-        int lightlevel = block.getLightFromSky();
-        return lightlevel;
-
-    }
-
-    public static void vSunBurn(Player player) {
-        if (SunTime.getDay(player) && player.getWorld().getEnvironment() == World.Environment.NORMAL) {
-            int ll = lightLevel(player);
-            int dmg = ll / 5;
-            EntityDamageEvent burn = new EntityDamageEvent(player, EntityDamageEvent.DamageCause.FIRE_TICK, dmg);
-            if (ll > 4) {
-                player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
-                Bukkit.getServer().getPluginManager().callEvent(burn);
-                player.damage(dmg);
-                if (ll == 15) {
-                    player.setFireTicks(21);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 0), false);
-                }
-            }
-        }
-//        System.out.println("Light Level: " + ll);
-//        System.out.println("Damage : " + dmg);
-    }
+	public static void vSunBurn(Player player) {
+		if (SunTime.getDay(player) &&
+			player.getWorld().getEnvironment() == World.Environment.NORMAL) {
+			int ll = lightLevel(player);
+			int dmg = ll / 5;
+			EntityDamageEvent burn = new EntityDamageEvent(
+				player, EntityDamageEvent.DamageCause.FIRE_TICK, dmg);
+			if (ll > 4) {
+				player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 100);
+				Bukkit.getServer().getPluginManager().callEvent(burn);
+				player.damage(dmg);
+				if (ll == 15) {
+					player.setFireTicks(21);
+					player.addPotionEffect(
+						new PotionEffect(PotionEffectType.CONFUSION, 600, 0), false);
+				}
+			}
+		}
+		//        System.out.println("Light Level: " + ll);
+		//        System.out.println("Damage : " + dmg);
+	}
 }

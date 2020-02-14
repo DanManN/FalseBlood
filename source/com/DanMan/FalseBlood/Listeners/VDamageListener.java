@@ -17,21 +17,23 @@ import org.bukkit.event.entity.EntityDamageEvent;
  * @author DAY
  */
 public class VDamageListener implements Listener {
-
 	// private static FalseBlood plugin;
 
-	public VDamageListener(FalseBlood plug) {
+	public VDamageListener(FalseBlood plug)
+	{
 		//    plugin = plug;
 	}
 
 	@EventHandler
 	// listener for suffacation
-	public void onVampIsDamaged(EntityDamageEvent evt) {
+	public void onVampIsDamaged(EntityDamageEvent evt)
+	{
 		if (evt.getEntity() instanceof Player) {
 			Player player = (Player)evt.getEntity();
 			if (Vampire.isVampire(player.getUniqueId())) {
 				// vampires don't need to breath
-				if (evt.getCause() == EntityDamageEvent.DamageCause.SUFFOCATION) {
+				if (evt.getCause() ==
+				    EntityDamageEvent.DamageCause.SUFFOCATION) {
 					evt.setCancelled(true);
 				} else if (evt.getDamage() > player.getHealth()) {
 					// get rid of watch before they die so it doesn't drop

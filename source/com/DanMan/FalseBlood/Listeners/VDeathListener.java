@@ -19,21 +19,23 @@ import org.bukkit.potion.PotionType;
  * @author DAY
  */
 public class VDeathListener implements Listener {
-
 	private static FalseBlood plugin;
 
-	public VDeathListener(FalseBlood plug) { plugin = plug; }
+	public VDeathListener(FalseBlood plug)
+	{
+		plugin = plug;
+	}
 
-	@EventHandler
-	public void onVDeath(PlayerDeathEvent evt) {
+	@EventHandler public void onVDeath(PlayerDeathEvent evt)
+	{
 		Player player = evt.getEntity();
 		if (Vampire.isVampire(player.getUniqueId())) {
 			player.playEffect(player.getLocation(), Effect.POTION_BREAK,
-							  PotionType.INSTANT_HEAL.getDamageValue());
+			                  PotionType.INSTANT_HEAL);
 			player.playEffect(player.getLocation(), Effect.POTION_BREAK,
-							  PotionType.INSTANT_DAMAGE.getDamageValue());
+			                  PotionType.INSTANT_DAMAGE);
 			player.playEffect(player.getLocation(), Effect.POTION_BREAK,
-							  PotionType.STRENGTH.getDamageValue());
+			                  PotionType.STRENGTH);
 			Vampire vamp = SNLMetaData.getMetadata(player, plugin);
 			if (vamp == null)
 				return;

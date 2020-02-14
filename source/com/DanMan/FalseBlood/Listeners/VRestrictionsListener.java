@@ -22,19 +22,19 @@ import org.bukkit.inventory.ItemStack;
  * @author DAY
  */
 public class VRestrictionsListener implements Listener {
-
 	// private static FalseBlood plugin;
 
-	public VRestrictionsListener(FalseBlood plug) {
+	public VRestrictionsListener(FalseBlood plug)
+	{
 		//    plugin = plug;
 	}
 
-	@EventHandler
-	public void onEatFood(PlayerInteractEvent evt) {
+	@EventHandler public void onEatFood(PlayerInteractEvent evt)
+	{
 		Player player = evt.getPlayer();
 		if ((evt.getAction() == Action.RIGHT_CLICK_AIR ||
-			 evt.getAction() == Action.RIGHT_CLICK_BLOCK) &&
-			evt.getHand() == EquipmentSlot.HAND) {
+		     evt.getAction() == Action.RIGHT_CLICK_BLOCK) &&
+		    evt.getHand() == EquipmentSlot.HAND) {
 			if (Vampire.isVampire(player.getUniqueId())) {
 				ItemStack Food = player.getInventory().getItemInMainHand();
 				// food booleans
@@ -57,9 +57,10 @@ public class VRestrictionsListener implements Listener {
 				boolean drinkMilk = Food.getType() == Material.MILK_BUCKET;
 				boolean eatFlesh = Food.getType() == Material.ROTTEN_FLESH;
 				boolean eatPotato = Food.getType() == Material.POTATO ||
-									Food.getType() == Material.POTATOES;
+						    Food.getType() == Material.POTATOES;
 				boolean eatBPotato = Food.getType() == Material.BAKED_POTATO;
-				boolean eatPPotato = Food.getType() == Material.POISONOUS_POTATO;
+				boolean eatPPotato = Food.getType() ==
+						     Material.POISONOUS_POTATO;
 				boolean eatCarrot = Food.getType() == Material.CARROT;
 				boolean eatGCarrot = Food.getType() == Material.GOLDEN_CARROT;
 				boolean eatPPie = Food.getType() == Material.PUMPKIN_PIE;
@@ -72,14 +73,15 @@ public class VRestrictionsListener implements Listener {
 				boolean eatBeatSoup = Food.getType() == Material.BEETROOT_SOUP;
 
 				// boolean combining these booleans
-				boolean eatFood = eatBread || eatCookie || eatMelon || eatStew ||
-								  eatRChicken || eatCChicken || eatBeef || eatSteak ||
-								  eatPork || eatGPork || eatCod || eatCCod ||
-								  eatSalmon || eatCSalmon || eatApple || eatGApple ||
-								  drinkMilk || eatFlesh || eatPotato || eatBPotato ||
-								  eatRabbitStew || eatCRabbit || eatMutton ||
-								  eatCMutton || eatBeat || eatBeatSoup || eatPPotato ||
-								  eatCarrot || eatGCarrot || eatPPie || eatRabbit;
+				boolean eatFood =
+					eatBread || eatCookie || eatMelon || eatStew ||
+					eatRChicken || eatCChicken || eatBeef || eatSteak ||
+					eatPork || eatGPork || eatCod || eatCCod || eatSalmon ||
+					eatCSalmon || eatApple || eatGApple || drinkMilk ||
+					eatFlesh || eatPotato || eatBPotato || eatRabbitStew ||
+					eatCRabbit || eatMutton || eatCMutton || eatBeat ||
+					eatBeatSoup || eatPPotato || eatCarrot || eatGCarrot ||
+					eatPPie || eatRabbit;
 
 				if (eatFood) {
 					evt.setCancelled(true);
@@ -90,11 +92,10 @@ public class VRestrictionsListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onVampPickupGold(PlayerPickupItemEvent evt) {
+	@EventHandler public void onVampPickupGold(PlayerPickupItemEvent evt)
+	{
 		Player player = evt.getPlayer();
 		if (Vampire.isVampire(player.getUniqueId())) {
-
 			ItemStack gold = evt.getItem().getItemStack();
 			//            boolean gSword = gold.getType() == Material.GOLD_SWORD;
 			//            boolean gAxe = gold.getType() == Material.GOLD_AXE;
@@ -125,15 +126,15 @@ public class VRestrictionsListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onVampClickGold(BlockDamageEvent evt) {
+	@EventHandler public void onVampClickGold(BlockDamageEvent evt)
+	{
 		Player player = evt.getPlayer();
 		Material pick = player.getInventory().getItemInMainHand().getType();
 		boolean pickaxe =
 			pick == Material.WOODEN_PICKAXE || pick == Material.STONE_PICKAXE ||
 			pick == Material.IRON_PICKAXE || pick == Material.DIAMOND_PICKAXE;
 		boolean goldstuff = (evt.getBlock().getType() == Material.GOLD_BLOCK) ||
-							(evt.getBlock().getType() == Material.LEGACY_GOLD_PLATE);
+				    (evt.getBlock().getType() == Material.LEGACY_GOLD_PLATE);
 		if (goldstuff && Vampire.isVampire(player.getUniqueId())) {
 			if (!pickaxe) {
 				player.damage(2);

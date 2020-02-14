@@ -19,18 +19,19 @@ import org.bukkit.entity.Player;
  * @author DAY
  */
 public class FBMake {
-
 	CommandSender sender;
 	String[] args;
 	FalseBlood plugin;
 
-	public FBMake(CommandSender sender, String[] args, FalseBlood plugin) {
+	public FBMake(CommandSender sender, String[] args, FalseBlood plugin)
+	{
 		this.sender = sender;
 		this.args = args;
 		this.plugin = plugin;
 	}
 
-	public boolean make() {
+	public boolean make()
+	{
 		Player player;
 		Vampire vamp;
 		if (sender.hasPermission("falseblood.make")) {
@@ -38,8 +39,9 @@ public class FBMake {
 				if ((sender instanceof Player)) {
 					player = (Player)sender;
 				} else {
-					sender.sendMessage(ChatColor.YELLOW +
-									   "You can only make a player a Vampire!");
+					sender.sendMessage(
+						ChatColor.YELLOW +
+						"You can only make a player a Vampire!");
 					return false;
 				}
 			} else if (args.length == 2) {
@@ -54,27 +56,29 @@ public class FBMake {
 					return false;
 				}
 			} else {
-				sender.sendMessage(ChatColor.YELLOW + "Incorrect number of arguments!");
+				sender.sendMessage(ChatColor.YELLOW +
+						   "Incorrect number of arguments!");
 				return false;
 			}
 			if (player != null) {
 				if (!Vampire.isVampire(player.getUniqueId())) {
 					vamp = new Vampire(player, plugin);
 					sender.sendMessage(ChatColor.RED + player.getName() +
-									   " is now a Vampire.");
+							   " is now a Vampire.");
 				} else {
 					vamp = SNLMetaData.getMetadata(player, plugin);
 					vamp.setVampire(false);
 					sender.sendMessage(ChatColor.RED + player.getName() +
-									   " is no longer a Vampire.");
+							   " is no longer a Vampire.");
 				}
 			} else {
-				sender.sendMessage(ChatColor.RED + "Sorry, that player is not online.");
+				sender.sendMessage(ChatColor.RED +
+						   "Sorry, that player is not online.");
 			}
 			return true;
 		} else {
 			sender.sendMessage(ChatColor.YELLOW +
-							   "You don't have the falseblood.make permission");
+					   "You don't have the falseblood.make permission");
 			return true;
 		}
 	}

@@ -21,14 +21,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * @author DAY
  */
 public class VLoginListener implements Listener {
-
 	private static FalseBlood plugin;
 	// private static final String key = "VampPlayer";
 
-	public VLoginListener(FalseBlood plug) { plugin = plug; }
+	public VLoginListener(FalseBlood plug)
+	{
+		plugin = plug;
+	}
 
-	@EventHandler
-	public void onVampLogon(PlayerJoinEvent evt) {
+	@EventHandler public void onVampLogon(PlayerJoinEvent evt)
+	{
 		Player player = evt.getPlayer();
 		UUID pId = player.getUniqueId();
 		//        SNLMetaData.showMetadata(player, plugin);
@@ -43,8 +45,8 @@ public class VLoginListener implements Listener {
 			}
 		}
 	}
-	@EventHandler
-	public void onVampLogoff(PlayerQuitEvent evt) {
+	@EventHandler public void onVampLogoff(PlayerQuitEvent evt)
+	{
 		Player player = evt.getPlayer();
 		UUID pId = player.getUniqueId();
 		//        SNLMetaData.showMetadata(player, plugin);

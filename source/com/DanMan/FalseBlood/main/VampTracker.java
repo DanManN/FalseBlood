@@ -17,15 +17,16 @@ import org.bukkit.potion.PotionEffectType;
  * @author DAY
  */
 public class VampTracker {
-
-	public static void startVampTracker(final Vampire vamp) {
+	public static void startVampTracker(final Vampire vamp)
+	{
 		FalseBlood plugin = vamp.getPlugin();
 		final Player player = vamp.getPlayer();
 		vamp.setBloodSucking(true);
 		vampTaskScheduler(vamp, player, plugin);
 	}
 
-	public static void stopVampTracker(Vampire vamp) {
+	public static void stopVampTracker(Vampire vamp)
+	{
 		int sId = vamp.getsId();
 		FalseBlood plugin = vamp.getPlugin();
 		Player player = vamp.getPlayer();
@@ -39,7 +40,8 @@ public class VampTracker {
 		}
 	}
 
-	public static void vampUnload(Plugin plug) {
+	public static void vampUnload(Plugin plug)
+	{
 		plug.getServer().getScheduler().cancelTasks(plug);
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			UUID pId = player.getUniqueId();
@@ -50,12 +52,12 @@ public class VampTracker {
 	}
 
 	public static void vampTaskScheduler(final Vampire vamp, final Player player,
-										 Plugin plugin) {
-
+					     Plugin plugin)
+	{
 		int sId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(
 			plugin, new Runnable() {
-				@Override
-				public void run() {
+				@Override public void run()
+				{
 					if (player != null) {
 						afkManager(vamp, player);
 						if (!vamp.isAfk()) {
@@ -74,10 +76,14 @@ public class VampTracker {
 						}
 						// add perks
 						player.addPotionEffect(
-							new PotionEffect(PotionEffectType.NIGHT_VISION, 240, 0),
+							new PotionEffect(
+								PotionEffectType.NIGHT_VISION,
+								240, 0),
 							true);
 						player.addPotionEffect(
-							new PotionEffect(PotionEffectType.WATER_BREATHING, 240, 0),
+							new PotionEffect(
+								PotionEffectType.WATER_BREATHING,
+								240, 0),
 							true);
 					}
 				}
@@ -85,7 +91,8 @@ public class VampTracker {
 		vamp.setsId(sId);
 	}
 
-	public static void afkManager(Vampire vamp, Player player) {
+	public static void afkManager(Vampire vamp, Player player)
+	{
 		// check if player is idle
 		int idle = 0;
 		if (player.getWalkSpeed() > 0) {

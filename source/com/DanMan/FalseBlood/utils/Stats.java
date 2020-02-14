@@ -16,8 +16,8 @@ import org.bukkit.plugin.Plugin;
  * @author DAY
  */
 public class Stats {
-
-	public static void logMDtoFile(UUID pname, Plugin plugin) {
+	public static void logMDtoFile(UUID pname, Plugin plugin)
+	{
 		Vampire vamp;
 		//        pname = pname.toLowerCase();
 		File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
@@ -40,7 +40,8 @@ public class Stats {
 		}
 	}
 
-	public static void loadMDfromFile(UUID pname, Plugin plugin) {
+	public static void loadMDfromFile(UUID pname, Plugin plugin)
+	{
 		Vampire vamp = null;
 		//        pname = pname.toLowerCase();
 		File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
@@ -51,19 +52,22 @@ public class Stats {
 				try {
 					vamp = (Vampire)ois.readObject();
 				} catch (ClassNotFoundException e) {
-					System.err.println("Error: Could not deserialize from file: " + e);
+					System.err.println(
+						"Error: Could not deserialize from file: " + e);
 				}
 				ois.close();
 				//                System.out.println("Vampire instance: " + vamp);
 				Player player = Bukkit.getServer().getPlayer(pname);
 				SNLMetaData.setMetadata(player, vamp, plugin);
 			} catch (IOException e) {
-				System.err.println("Error: Could not deserialize from file: " + e);
+				System.err.println("Error: Could not deserialize from file: " +
+						   e);
 			}
 		}
 	}
 
-	public static int getSavedAge(UUID pname, Plugin plugin) {
+	public static int getSavedAge(UUID pname, Plugin plugin)
+	{
 		Vampire vamp = null;
 		//        pname = pname.toLowerCase();
 		File sFile = new File("plugins/FalseBlood/users/" + pname + ".dat");
@@ -74,11 +78,13 @@ public class Stats {
 				try {
 					vamp = (Vampire)ois.readObject();
 				} catch (ClassNotFoundException e) {
-					System.err.println("Error: Could not deserialize from file: " + e);
+					System.err.println(
+						"Error: Could not deserialize from file: " + e);
 				}
 				ois.close();
 			} catch (IOException e) {
-				System.err.println("Error: Could not deserialize from file: " + e);
+				System.err.println("Error: Could not deserialize from file: " +
+						   e);
 			}
 			return vamp.getAge();
 		} else {

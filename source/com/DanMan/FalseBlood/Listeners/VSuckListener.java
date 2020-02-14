@@ -25,13 +25,15 @@ import org.bukkit.potion.PotionEffectType;
  * @author DAY
  */
 public class VSuckListener implements Listener {
-
 	private static FalseBlood plugin;
 
-	public VSuckListener(FalseBlood plug) { plugin = plug; }
+	public VSuckListener(FalseBlood plug)
+	{
+		plugin = plug;
+	}
 
-	@EventHandler
-	public void onVampAttackPlayer(EntityDamageByEntityEvent evt) {
+	@EventHandler public void onVampAttackPlayer(EntityDamageByEntityEvent evt)
+	{
 		Entity damager = evt.getDamager();
 		Entity damaged = evt.getEntity();
 		if (damager instanceof Player && damaged instanceof Player) {
@@ -42,7 +44,7 @@ public class VSuckListener implements Listener {
 				if (vamp == null)
 					return;
 				if (!Vampire.isVampire(pdefend.getUniqueId()) &&
-					vamp.isBloodSucking()) {
+				    vamp.isBloodSucking()) {
 					pdefend.setFoodLevel(pdefend.getFoodLevel() - 2);
 					vamp.setBloodLevel(vamp.getBloodLevel() + 4);
 					patak.setSaturation(patak.getSaturation() + 6);
@@ -66,8 +68,8 @@ public class VSuckListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onVampAttackOther(EntityDamageByEntityEvent evt) {
+	@EventHandler public void onVampAttackOther(EntityDamageByEntityEvent evt)
+	{
 		Entity damager = evt.getDamager();
 		Entity damaged = evt.getEntity();
 		if (damager instanceof Player) {
@@ -81,36 +83,43 @@ public class VSuckListener implements Listener {
 						vamp.setBloodLevel(vamp.getBloodLevel() + 3);
 						patak.setSaturation(patak.getSaturation() + 5);
 						if (GeneralUtils.random(0.1)) {
-							patak.addPotionEffect(
-								new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+							patak.addPotionEffect(new PotionEffect(
+								PotionEffectType.HUNGER, 600,
+								0));
 						}
 					} else if (damaged instanceof Zombie) {
 						vamp.setBloodLevel(vamp.getBloodLevel() + 1);
-						patak.setSaturation(patak.getSaturation() + 0.5F);
+						patak.setSaturation(patak.getSaturation() +
+								    0.5F);
 						if (GeneralUtils.random(0.7)) {
-							patak.addPotionEffect(
-								new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+							patak.addPotionEffect(new PotionEffect(
+								PotionEffectType.HUNGER, 600,
+								0));
 						}
 					} else if (damaged instanceof Enderman) {
 						vamp.setBloodLevel(vamp.getBloodLevel() + 5);
 						patak.setSaturation(patak.getSaturation() + 7);
 						if (GeneralUtils.random(0.2)) {
-							patak.addPotionEffect(
-								new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+							patak.addPotionEffect(new PotionEffect(
+								PotionEffectType.HUNGER, 600,
+								0));
 						}
 					} else if (damaged instanceof PigZombie) {
 						vamp.setBloodLevel(vamp.getBloodLevel() + 1);
-						patak.setSaturation(patak.getSaturation() + 0.5F);
+						patak.setSaturation(patak.getSaturation() +
+								    0.5F);
 						if (GeneralUtils.random(0.7)) {
-							patak.addPotionEffect(
-								new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+							patak.addPotionEffect(new PotionEffect(
+								PotionEffectType.HUNGER, 600,
+								0));
 						}
 					} else if (damaged instanceof Witch) {
 						vamp.setBloodLevel(vamp.getBloodLevel() + 3);
 						patak.setSaturation(patak.getSaturation() + 5);
 						if (GeneralUtils.random(0.1)) {
-							patak.addPotionEffect(
-								new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+							patak.addPotionEffect(new PotionEffect(
+								PotionEffectType.HUNGER, 600,
+								0));
 						}
 					}
 				}
@@ -119,10 +128,10 @@ public class VSuckListener implements Listener {
 	}
 	// use clock to change vampire modes
 
-	@EventHandler
-	public void onVampRightClick(PlayerInteractEvent evt) {
+	@EventHandler public void onVampRightClick(PlayerInteractEvent evt)
+	{
 		if ((evt.getAction() == Action.RIGHT_CLICK_AIR ||
-			 evt.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+		     evt.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 			Player player = evt.getPlayer();
 			ItemStack itemS = null;
 			switch (evt.getHand()) {
@@ -142,12 +151,14 @@ public class VSuckListener implements Listener {
 						return;
 					if (!vamp.isBloodSucking()) {
 						vamp.setBloodSucking(true);
-						player.sendMessage(ChatColor.RED +
-										   "You release your fangs in lust for blood.");
+						player.sendMessage(
+							ChatColor.RED +
+							"You release your fangs in lust for blood.");
 					} else {
 						vamp.setBloodSucking(false);
-						player.sendMessage(ChatColor.RED +
-										   "You are ready to kick ass.");
+						player.sendMessage(
+							ChatColor.RED +
+							"You are ready to kick ass.");
 					}
 					evt.setCancelled(true);
 				}

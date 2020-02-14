@@ -15,15 +15,18 @@ import org.bukkit.command.CommandSender;
  * @author DAY
  */
 public class FB implements CommandExecutor {
-
 	FalseBlood plugin;
 	boolean bool;
 
-	public FB(FalseBlood plug) { plugin = plug; }
+	public FB(FalseBlood plug)
+	{
+		plugin = plug;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel,
-							 String[] args) {
+				 String[] args)
+	{
 		if (cmd.getName().equalsIgnoreCase("fb")) {
 			if (args.length == 0) {
 				return false;
@@ -35,7 +38,8 @@ public class FB implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("getage")) {
 				bool = new GetAge(sender, args, plugin).getage();
 			} else {
-				sender.sendMessage(ChatColor.YELLOW + "No such command /fb " + args[0]);
+				sender.sendMessage(ChatColor.YELLOW + "No such command /fb " +
+						   args[0]);
 				return false;
 			}
 		}

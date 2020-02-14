@@ -10,7 +10,8 @@ package com.DanMan.FalseBlood.utils;
  */
 public class GeneralUtils {
 	// percent chance
-	public static boolean random(double percent) {
+	public static boolean random(double percent)
+	{
 		double r = Math.random();
 		if (r < percent) {
 			return true;

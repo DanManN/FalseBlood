@@ -24,7 +24,6 @@ import org.bukkit.plugin.Plugin;
  * @author DAY
  */
 public final class Vampire implements Serializable {
-
 	private transient FalseBlood plugin;
 	// vampire variables
 	private UUID pId;
@@ -34,13 +33,15 @@ public final class Vampire implements Serializable {
 	private int tick = 0;
 	private int age;
 
-	public Vampire(Player player, FalseBlood plug) {
+	public Vampire(Player player, FalseBlood plug)
+	{
 		pId = player.getUniqueId();
 		plugin = plug;
 		setVampire(true);
 	}
 
-	public static boolean isVampire(UUID name) {
+	public static boolean isVampire(UUID name)
+	{
 		//        Stats stats = new Stats();
 		//        if (stats.getStats(player.getName(), 0).contains("true")) {
 		//            return true;
@@ -53,7 +54,8 @@ public final class Vampire implements Serializable {
 		}
 	}
 
-	public void setVampire(boolean bool) {
+	public void setVampire(boolean bool)
+	{
 		if (bool) {
 			//            Method[] ms = SNLMetaData.class.getMethods();
 			//            for (Method m:ms) {
@@ -73,19 +75,20 @@ public final class Vampire implements Serializable {
 			addClock(getPlayer());
 			getPlayer().sendMessage(ChatColor.RED + "You are now a vampire.");
 		} else {
-			getPlayer().updateInventory();
+			// getPlayer().updateInventory();
 			getPlayer().setAllowFlight(false);
 			VampTracker.stopVampTracker(this);
 			SNLMetaData.delMetaData(getPlayer(), plugin);
 			File sFile = new File("plugins/FalseBlood/users/" + pId + ".dat");
 			sFile.delete();
 			getPlayer().sendMessage(ChatColor.RED +
-									"You have fallen a victim to True-Death!");
+			                        "You have fallen a victim to True-Death!");
 		}
 	}
 	// add essential clock to vampire
 
-	public static void addClock(Player player) {
+	public static void addClock(Player player)
+	{
 		Inventory inv = player.getInventory();
 		// System.out.println(inv);
 		if (inv.contains(Material.CLOCK)) {
@@ -103,7 +106,8 @@ public final class Vampire implements Serializable {
 
 	// remove gold from vampire
 
-	public static void removeGold(Player player) {
+	public static void removeGold(Player player)
+	{
 		for (ItemStack item : player.getInventory().getContents()) {
 			if (item != null && item.getType().toString().startsWith("GOLD")) {
 				player.getInventory().remove(item);
@@ -112,27 +116,31 @@ public final class Vampire implements Serializable {
 		}
 		// System.out.println(player.getInventory().getBoots().toString());
 		if (player.getInventory().getBoots() != null &&
-			player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
+		    player.getInventory().getBoots().getType().toString().startsWith("GOLD"))
 			player.getInventory().setBoots(null);
 		if (player.getInventory().getChestplate() != null &&
-			player.getInventory().getChestplate().getType().toString().startsWith(
-				"GOLD"))
+		    player.getInventory().getChestplate().getType().toString().startsWith(
+		            "GOLD"))
 			player.getInventory().setChestplate(null);
 		if (player.getInventory().getLeggings() != null &&
-			player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
+		    player.getInventory().getLeggings().getType().toString().startsWith("GOLD"))
 			player.getInventory().setLeggings(null);
 		if (player.getInventory().getHelmet() != null &&
-			player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
+		    player.getInventory().getHelmet().getType().toString().startsWith("GOLD"))
 			player.getInventory().setHelmet(null);
 		if (player.getInventory().getItemInOffHand() != null &&
-			player.getInventory().getItemInOffHand().getType().toString().startsWith(
-				"GOLD"))
+		    player.getInventory().getItemInOffHand().getType().toString().startsWith(
+		            "GOLD"))
 			player.getInventory().setItemInOffHand(null);
 	}
 
-	public int getAge() { return age; }
+	public int getAge()
+	{
+		return age;
+	}
 
-	public void setAge(int inAge) {
+	public void setAge(int inAge)
+	{
 		// stat.logStats(name, true, inAge);
 		// chane age
 		age = inAge;
@@ -141,46 +149,85 @@ public final class Vampire implements Serializable {
 			VAgeEvent evt = new VAgeEvent(this);
 			Bukkit.getServer().getPluginManager().callEvent(evt);
 			getPlayer().sendMessage(ChatColor.RED + "You are now " + inAge +
-									" years old.");
+			                        " years old.");
 		}
 	}
 
-	public boolean isBloodSucking() { return isBloodSucking; }
+	public boolean isBloodSucking()
+	{
+		return isBloodSucking;
+	}
 
-	public void setBloodSucking(boolean isBloodSucking) {
+	public void setBloodSucking(boolean isBloodSucking)
+	{
 		this.isBloodSucking = isBloodSucking;
 	}
 
-	public boolean isAfk() { return afk; }
+	public boolean isAfk()
+	{
+		return afk;
+	}
 
-	public void setAfk(boolean afk) { this.afk = afk; }
+	public void setAfk(boolean afk)
+	{
+		this.afk = afk;
+	}
 
 	// convenience methods
-	public void setPlugin(FalseBlood plug) { plugin = plug; }
+	public void setPlugin(FalseBlood plug)
+	{
+		plugin = plug;
+	}
 
-	public FalseBlood getPlugin() { return plugin; }
+	public FalseBlood getPlugin()
+	{
+		return plugin;
+	}
 
-	public UUID getPId() { return pId; }
+	public UUID getPId()
+	{
+		return pId;
+	}
 
-	public void addAge(int i) { setAge(getAge() + i); }
+	public void addAge(int i)
+	{
+		setAge(getAge() + i);
+	}
 
-	public int getBloodLevel() { return getPlayer().getFoodLevel(); }
+	public int getBloodLevel()
+	{
+		return getPlayer().getFoodLevel();
+	}
 
-	public void setBloodLevel(int inBloodLevel) {
+	public void setBloodLevel(int inBloodLevel)
+	{
 		inBloodLevel = inBloodLevel > 20 ? 20 : inBloodLevel;
 		getPlayer().setFoodLevel(inBloodLevel);
 	}
 
-	public Player getPlayer() {
+	public Player getPlayer()
+	{
 		Player player = Bukkit.getServer().getPlayer(pId);
 		return player;
 	}
 
-	public int getsId() { return sId; }
+	public int getsId()
+	{
+		return sId;
+	}
 
-	public void setsId(int sId) { this.sId = sId; }
+	public void setsId(int sId)
+	{
+		this.sId = sId;
+	}
 
-	public int getTick() { return tick; }
+	public int getTick()
+	{
+		return tick;
+	}
 
-	public void setTick(int tick) { this.tick = tick; }
+	public void setTick(int tick)
+	{
+		this.tick = tick;
+	}
 }

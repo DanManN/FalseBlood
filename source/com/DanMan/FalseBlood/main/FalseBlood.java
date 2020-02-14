@@ -17,12 +17,11 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FalseBlood extends JavaPlugin {
-
 	private FB myEx;
 	private PluginManager evtBus;
 
-	@Override
-	public void onEnable() {
+	@Override public void onEnable()
+	{
 		createDirs();
 		myEx = new FB(this);
 		getCommand("fb").setExecutor(myEx);
@@ -30,14 +29,15 @@ public class FalseBlood extends JavaPlugin {
 		getLogger().info("FalseBlood: Enabled");
 	}
 
-	@Override
-	public void onDisable() {
+	@Override public void onDisable()
+	{
 		VampTracker.vampUnload(this);
 		HandlerList.unregisterAll(this);
 		getLogger().info("FalseBlood: Disabled");
 	}
 
-	public void registerListeners() {
+	public void registerListeners()
+	{
 		evtBus = getServer().getPluginManager();
 		evtBus.registerEvents(new VLoginListener(this), this);
 		evtBus.registerEvents(new VRestrictionsListener(this), this);
@@ -51,10 +51,12 @@ public class FalseBlood extends JavaPlugin {
 		evtBus.registerEvents(new VMobNeutralityListener(this), this);
 	}
 
-	public void createDirs() {
+	public void createDirs()
+	{
 		File dirs = new File("plugins/FalseBlood/users/");
 		if (!dirs.exists()) {
-			getLogger().warning("FalseBlood Directories not found! Creating them now.");
+			getLogger().warning(
+				"FalseBlood Directories not found! Creating them now.");
 			boolean mkdirs = dirs.mkdirs();
 			if (!mkdirs) {
 				getLogger().severe("Unable to create necessary directories!");

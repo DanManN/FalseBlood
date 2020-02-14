@@ -14,8 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.tags.ItemTagType;
-import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -58,7 +56,9 @@ public class VStakeListener implements Listener {
 				boolean rTorch = stake.getType() == Material.REDSTONE_TORCH;
 				boolean stick = stake.getType() == Material.STICK;
 				boolean fence = stake.getType().toString().contains("FENCE");
-				// boolean signPost = stake.getType() == Material.SIGN;
+				boolean signPost =
+				        stake.getType().getKey().getKey().toLowerCase().contains(
+				                "sign");
 				boolean fishRod = stake.getType() == Material.FISHING_ROD;
 				boolean carrotStick = stake.getType() ==
 				                      Material.CARROT_ON_A_STICK;
@@ -66,8 +66,7 @@ public class VStakeListener implements Listener {
 				boolean banner = stake.getType().toString().contains("BANNER");
 				// combine stake booleans
 				boolean hasWW = wSword || wAxe || wHoe || wPick || wshovel ||
-				                torch || rTorch || fence ||
-				                stick || //signPost ||
+				                torch || rTorch || fence || stick || signPost ||
 				                fishRod || carrotStick || armorStand || banner;
 
 				// vamp wears armor booleans
